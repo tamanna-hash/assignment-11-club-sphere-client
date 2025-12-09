@@ -1,9 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import { PuffLoader } from "react-spinners";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 const Navbar = () => {
   const { user, loading, logOut } = useAuth();
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const handleTheme = (checked) => {
+    setTheme(checked ? "dark" : "light");
+  };
+  const links = (
+    <>
+      <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li>
+        <NavLink to="/clubs">Clubs</NavLink>
+      </li>
+      <li>
+        <NavLink to="/events">Events</NavLink>
+      </li>
+      <li>
+        <div className="text-center">
+          <input
+            onChange={(e) => handleTheme(e.target.checked)}
+            type="checkbox"
+            defaultChecked={localStorage.getItem("theme") === "dark"}
+            className="toggle text-white"
+          />
+        </div>
+      </li>
+    </>
+  );
   const handleLogOut = async () => {
     try {
       await logOut();
@@ -37,29 +70,15 @@ const Navbar = () => {
               tabIndex="-1"
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li>
-                <a>Parent</a>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a>Item 3</a>
-              </li>
+             {links}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <a className="btn btn-ghost text-xl">ClubSphere</a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1"></ul>
+          <ul className="menu menu-horizontal px-1">
+            {links}
+          </ul>
         </div>
         <div className="navbar-end">
           <div className="flex gap-2">
@@ -74,10 +93,7 @@ const Navbar = () => {
                     className="btn btn-ghost btn-circle avatar"
                   >
                     <div className="w-10 rounded-full">
-                      <img
-                        alt="Tailwind CSS Navbar component"
-                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                      />
+                      <img alt="user photo" src={user?.photoURL} />
                     </div>
                   </div>
                   <ul
@@ -85,7 +101,7 @@ const Navbar = () => {
                     className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
                   >
                     <li>
-                      <a className="justify-between">Profile</a>
+                      <Link to='/dashboard/profile' className="justify-between">Profile</Link>
                     </li>
                     <li>
                       <a>Settings</a>

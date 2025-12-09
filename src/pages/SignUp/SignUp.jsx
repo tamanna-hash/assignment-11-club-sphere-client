@@ -3,9 +3,12 @@ import { FaEye } from "react-icons/fa";
 import { IoEyeOff } from "react-icons/io5";
 import { toast } from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
+
+import { signInWithPopup } from "firebase/auth";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { imageUpload, saveOrUpdateUser } from "../../utils";
+import axios from "axios";
+import { imageUpload } from "../../utils";
 const SignUp = () => {
   const [show, setShow] = useState(false);
   const {
@@ -13,36 +16,28 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { createUser, signInWithGoogle, updateUserProfile } = useAuth();
-
+  const { createUser, signInWithGoogle, setLoading, updateUserProfile } =
+    useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state || "/";
   const handleRegister = async (data) => {
-    const { name, image, email, password } = data;
-    const imageFile = image[0];
-
+    const { name, email, password, photo } = data;
+    const profileImg = photo[0];
     try {
-      const imageURL = await imageUpload(imageFile);
-
-      //1. User Registration
-      const result = await createUser(email, password);
-
-      await saveOrUpdateUser({ name, email, image: imageURL });
-
-      // 2. Generate image url from selected file
-
-      //3. Save username & profile photo
+      // create user
+      await createUser(email, password);
+      const imageURL = await imageUpload(profileImg);
+      // update user profile
       await updateUserProfile(name, imageURL);
-
-      navigate(from, { replace: true });
+      console.log("after user profile update", imageURL, name);
+      navigate(from);
       toast.success("Signup Successful");
-
-      console.log(result);
     } catch (err) {
       console.log(err);
       toast.error(err?.message);
     }
+    setLoading(false);
   };
   const handleGoogleSignup = async () => {
     try {

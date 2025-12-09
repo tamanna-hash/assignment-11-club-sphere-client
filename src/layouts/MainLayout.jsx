@@ -1,17 +1,21 @@
-import { Outlet } from 'react-router'
-import Navbar from '../components/Shared/Navbar/Navbar'
-import Footer from '../components/Shared/Footer/Footer'
+import { Outlet } from "react-router";
+import Navbar from "../components/Shared/Navbar/Navbar";
+import Footer from "../components/Shared/Footer/Footer";
 
 const MainLayout = () => {
   return (
-    <div>
-      <Navbar />
-      <div className='pt-24 min-h-[calc(100vh-68px)]'>
-        <Outlet />
+    <div className="flex flex-col min-h-screen">
+      <div className="sticky top-0 z-50">
+        <Navbar></Navbar>
       </div>
-      <Footer />
+      <div className="flex-1">
+        <Outlet></Outlet>
+      </div>
+      <div>
+        <Footer></Footer>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default MainLayout
+export default MainLayout;
