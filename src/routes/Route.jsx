@@ -8,6 +8,12 @@ import Events from "../pages/Home/events/Events";
 import PrivateRoute from "./PrivateRoute";
 import Profile from "../components/Shared/profile/Profile";
 import DashboardLayout from "../layouts/DashboardLayout";
+import { Component } from "react";
+import Statistics from "../pages/Dashboard/Common/Statistics";
+import ErrorPage from "../pages/ErrorPage";
+import ClubDetails from "../pages/Home/clubs/ClubDetails";
+import EventDetails from "../pages/Home/events/EventDetails";
+import AddClub from "../pages/Dashboard/manager/AddClub";
 
 export const router = createBrowserRouter([
   {
@@ -23,8 +29,16 @@ export const router = createBrowserRouter([
         Component: Clubs,
       },
       {
+        path: "/clubs/:id",
+        Component: ClubDetails,
+      },
+      {
         path: "/events",
         Component: Events,
+      },
+      {
+        path: "/events/:id",
+        Component: EventDetails,
       },
     ],
   },
@@ -35,6 +49,22 @@ export const router = createBrowserRouter([
     Component: DashboardLayout,
     children: [
       {
+        index: true,
+        element: (
+          <PrivateRoute>
+            <Statistics />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "add-club",
+        element: (
+          <PrivateRoute>
+            <AddClub />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "profile",
         element: (
           <PrivateRoute>
@@ -43,5 +73,9 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/*",
+    element: <ErrorPage />,
   },
 ]);

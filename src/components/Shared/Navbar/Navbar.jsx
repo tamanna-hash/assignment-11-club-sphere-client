@@ -46,7 +46,7 @@ const Navbar = () => {
   };
   return (
     <div>
-      <div className="navbar bg-base-100 shadow-sm">
+      <div className="navbar bg-base-100 shadow-sm z-10">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -104,7 +104,7 @@ const Navbar = () => {
                       <Link to='/dashboard/profile' className="justify-between">Profile</Link>
                     </li>
                     <li>
-                      <a>Settings</a>
+                      <Link to='/dashboard'>Dashboard</Link>
                     </li>
                     <li>
                       <Link onClick={handleLogOut}>Logout</Link>

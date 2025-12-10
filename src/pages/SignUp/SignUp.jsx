@@ -35,7 +35,29 @@ const SignUp = () => {
       toast.success("Signup Successful");
     } catch (err) {
       console.log(err);
-      toast.error(err?.message);
+      // Map Firebase error codes to your custom messages
+      const customErrors = {
+        "auth/credential-already-in-use":
+          "This Google account is already linked to another user.",
+        "auth/email-already-in-use":
+          "This email is already registered. Try logging in instead.",
+        "auth/popup-closed-by-user":
+          "The signup popup was closed. Please try again.",
+        "auth/popup-blocked":
+          "Popup was blocked by your browser. Allow popups and retry.",
+        "auth/user-disabled":
+          "Your account has been disabled. Contact support.",
+        "auth/invalid-credential":
+          "Your login session expired. Please try again.",
+        "auth/account-exists-with-different-credential":
+          "This email is already linked to another sign-in method. Try logging in instead.",
+      };
+
+      const friendly =
+        customErrors[err?.code] ||
+        "Something went wrong during signup. Please try again.";
+
+      toast.error(friendly);
     }
     setLoading(false);
   };
@@ -46,9 +68,32 @@ const SignUp = () => {
       toast.success("Signup Successful");
     } catch (err) {
       console.log(err);
-      toast.error(err?.message);
+
+      // Map Firebase error codes to your custom messages
+      const customErrors = {
+        "auth/credential-already-in-use":
+          "This Google account is already linked to another user.",
+        "auth/email-already-in-use":
+          "This email is already registered. Try logging in instead.",
+        "auth/popup-closed-by-user":
+          "The signup popup was closed. Please try again.",
+        "auth/popup-blocked":
+          "Popup was blocked by your browser. Allow popups and retry.",
+        "auth/user-disabled":
+          "Your account has been disabled. Contact support.",
+        "auth/invalid-credential":
+          "Your login session expired. Please try again.",
+        "auth/account-exists-with-different-credential":
+          "This email is already linked to another sign-in method. Try logging in instead.",
+      };
+
+      const friendly =
+        customErrors[err?.code] ||
+        "Something went wrong during signup. Please try again.";
+      toast.error(friendly);
     }
   };
+
   return (
     <>
       <title>ClubSphere-Register</title>

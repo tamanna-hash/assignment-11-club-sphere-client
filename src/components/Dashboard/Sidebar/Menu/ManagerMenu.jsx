@@ -1,7 +1,7 @@
 import { BsFillHouseAddFill } from 'react-icons/bs'
 import { MdHomeWork, MdOutlineManageHistory } from 'react-icons/md'
 import MenuItem from './MenuItem'
-const SellerMenu = () => {
+const ManagerMenu = () => {
   return (
     <>
       <MenuItem
@@ -19,4 +19,4 @@ const SellerMenu = () => {
   )
 }
 
-export default SellerMenu
+export default ManagerMenu

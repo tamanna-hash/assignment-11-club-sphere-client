@@ -8,22 +8,21 @@ import { BsGraphUp } from "react-icons/bs";
 // User Menu
 import MenuItem from "./Menu/MenuItem";
 import AdminMenu from "./Menu/AdminMenu";
-import SellerMenu from "./Menu/SellerMenu";
-import CustomerMenu from "./Menu/CustomerMenu";
+import ManagerMenu from "./Menu/ManagerMenu";
+import MemberMenu from "./Menu/MemberMenu";
 import useRole from "../../../hooks/useRole";
 import LoadingSpinner from "../../Shared/LoadingSpinner";
 
 const Sidebar = () => {
-  const { logOut } = useAuth();
   const [isActive, setActive] = useState(false);
-  const [role, isRoleLoading] = useRole();
+  // const [role, isRoleLoading] = useRole();
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
     setActive(!isActive);
   };
 
-  if (isRoleLoading) return <LoadingSpinner />;
+  // if (isRoleLoading) return <LoadingSpinner />;
 
   return (
     <>
@@ -47,7 +46,7 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-gray-100 w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${
+        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-gray-100 w-64 space-y-6 px-2 py-4  inset-y-0 left-0 transform ${
           isActive && "-translate-x-full"
         }  md:translate-x-0  transition duration-200 ease-in-out`}
       >
@@ -73,9 +72,9 @@ const Sidebar = () => {
                 address="/dashboard"
               />
               {/* Role-Based Menu */}
-              {role === "customer" && <CustomerMenu />}
-              {role === "seller" && <SellerMenu />}
-              {role === "admin" && <AdminMenu />}
+              {/* {role === "customer" && <MemberMenu />}
+              {role === "seller" && <ManagerMenu />}
+              {role === "admin" && <AdminMenu />} */}
             </nav>
           </div>
         </div>
