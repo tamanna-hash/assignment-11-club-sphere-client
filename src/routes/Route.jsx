@@ -14,6 +14,11 @@ import ErrorPage from "../pages/ErrorPage";
 import ClubDetails from "../pages/Home/clubs/ClubDetails";
 import EventDetails from "../pages/Home/events/EventDetails";
 import AddClub from "../pages/Dashboard/manager/AddClub";
+import PaymentSuccess from "../pages/Home/clubs/PaymentSuccess";
+import MyInventory from "../pages/Dashboard/manager/MyInventory";
+import ManageMemberships from "../pages/Dashboard/manager/ManageMemberships";
+import MyMemberships from "../pages/Dashboard/Member/MyMemberships";
+import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: "/clubs/:id",
         Component: ClubDetails,
+      },
+      {
+        path: "/payment-success",
+        Component: PaymentSuccess,
       },
       {
         path: "/events",
@@ -61,6 +70,39 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddClub />
+          </PrivateRoute>
+        ),
+      },
+
+      {
+        path: "manage-memberships",
+        element: (
+          <PrivateRoute>
+            <ManageMemberships />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-inventory",
+        element: (
+          <PrivateRoute>
+            <MyInventory />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-memberships",
+        element: (
+          <PrivateRoute>
+            <MyMemberships />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "user-management",
+        element: (
+          <PrivateRoute>
+            <ManageUsers />
           </PrivateRoute>
         ),
       },

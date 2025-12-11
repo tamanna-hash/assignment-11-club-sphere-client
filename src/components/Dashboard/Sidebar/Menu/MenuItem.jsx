@@ -1,9 +1,20 @@
 import React from "react";
 import { BsFileBarGraph } from "react-icons/bs";
-import { FaCcDinersClub, FaHome } from "react-icons/fa";
+import {
+  FaCcDinersClub,
+  FaCreditCard,
+  FaHome,
+  FaTree,
+  FaVrCardboard,
+} from "react-icons/fa";
 import { Link } from "react-router";
+import ManagerMenu from "./ManagerMenu";
+import useRole from "../../../../hooks/useRole";
+import MemberMenu from "./MemberMenu";
+import AdminMenu from "./AdminMenu";
 
 const MenuItem = () => {
+  const [role, isRoleLoading] = useRole();
   return (
     <div>
       <ul className="menu w-full grow">
@@ -15,21 +26,16 @@ const MenuItem = () => {
             data-tip="Statistics"
           >
             {/* statistics icon */}
-            <FaHome/>
+            <FaHome />
             <span className="is-drawer-close:hidden">Statistics</span>
           </Link>
         </li>
-        {/* Add club */}
-        <li>
-          <Link
-            to="add-club"
-            className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-            data-tip="Add Club"
-          >
-            <FaCcDinersClub />
-            <span className="is-drawer-close:hidden">Add Club</span>
-          </Link>
-        </li>
+        {/* member menu item */}
+        {role === "member" && <MemberMenu />}
+        {/* manager menu item */}
+        {role === "manager" && <ManagerMenu />}
+        {/* admin menu */}
+        {role === "admin" && <AdminMenu />}
       </ul>
     </div>
   );

@@ -4,16 +4,15 @@ import useAuth from "../../../hooks/useAuth";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import { useQuery } from "@tanstack/react-query";
 import ManagerMembershipTable from "../../../components/Dashboard/Tables/ManagerMembershipTable";
-import UserDataTable from "../../../components/Dashboard/Tables/UserDataTable";
 
-const ManageUsers = () => {
+const ManageMemberships = () => {
   const { user } = useAuth();
   // const axiosSecure = useAxiosSecure();
-  const { data: users = [], isLoading } = useQuery({
-    queryKey: ["users", user?.email],
+  const { data: memberships = [], isLoading } = useQuery({
+    queryKey: ["memberships", user?.email],
     queryFn: async () => {
       const result = await axios(
-        `${import.meta.env.VITE_API_URL}/users`
+        `${import.meta.env.VITE_API_URL}/manage-memberships/${user?.email}`
       );
       return result.data;
     },
@@ -28,19 +27,19 @@ const ManageUsers = () => {
           <thead>
             <tr>
               <th></th>
-              
+              <th>Category</th>
               <th>Name</th>
               <th>Email</th>
-              <th>Role</th>
-              <th>Joined at</th>
-              <th>Admin actions</th>
+              <th>PaymentID</th>
+              <th>Membership Status</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
-              <UserDataTable
-                key={user._id}
-                user={user}
+            {memberships.map((membership, index) => (
+              <ManagerMembershipTable
+                key={membership._id}
+                membership={membership}
                 index={index}
               />
             ))}
@@ -51,4 +50,4 @@ const ManageUsers = () => {
   );
 };
 
-export default ManageUsers;
+export default ManageMemberships;

@@ -1,22 +1,47 @@
-import { BsFillHouseAddFill } from 'react-icons/bs'
-import { MdHomeWork, MdOutlineManageHistory } from 'react-icons/md'
-import MenuItem from './MenuItem'
+import { BsFillHouseAddFill } from "react-icons/bs";
+import { MdHomeWork, MdOutlineManageHistory } from "react-icons/md";
+import MenuItem from "./MenuItem";
+import { FaCcDinersClub, FaTree, FaVrCardboard } from "react-icons/fa";
+import { Link } from "react-router";
 const ManagerMenu = () => {
   return (
     <>
-      <MenuItem
-        icon={BsFillHouseAddFill}
-        label='Add Plant'
-        address='add-plant'
-      />
-      <MenuItem icon={MdHomeWork} label='My Inventory' address='my-inventory' />
-      <MenuItem
-        icon={MdOutlineManageHistory}
-        label='Manage Orders'
-        address='manage-orders'
-      />
-    </>
-  )
-}
+      {/* Add club */}
+      <li>
+        <Link
+          to="add-club"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Add Club"
+        >
+          <FaCcDinersClub />
+          <span className="is-drawer-close:hidden">Add Club</span>
+        </Link>
+      </li>
 
-export default ManagerMenu
+      {/* manage-memberships */}
+      <li>
+        <Link
+          to="manage-memberships"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Manage Memberships"
+        >
+          <FaVrCardboard />
+          <span className="is-drawer-close:hidden">Manage Memberships</span>
+        </Link>
+      </li>
+      {/* my-inventory */}
+      <li>
+        <Link
+          to="my-inventory"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="My Inventory"
+        >
+          <FaTree />
+          <span className="is-drawer-close:hidden">My Inventory</span>
+        </Link>
+      </li>
+    </>
+  );
+};
+
+export default ManagerMenu;

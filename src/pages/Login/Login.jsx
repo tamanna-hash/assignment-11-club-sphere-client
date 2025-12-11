@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
+import { saveOrUpdateUser } from "../../utils";
 
 const Login = () => {
   const [show, setShow] = useState(false);
@@ -24,8 +25,13 @@ const Login = () => {
 
   const handleSignin = async (data) => {
     try {
-      await signIn(data.email, data.password);
-      console.log(data);
+      const { user } = await signIn(data.email, data.password);
+
+      await saveOrUpdateUser({
+        name: user?.displayName,
+        email: user?.email,
+        image: user?.photoURL,
+      });
       toast.success("Login Successful");
       navigate(from);
     } catch (err) {
@@ -36,7 +42,14 @@ const Login = () => {
   };
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithGoogle();
+      const { user } = await signInWithGoogle();
+
+      await saveOrUpdateUser({
+        name: user?.displayName,
+        email: user?.email,
+        image: user?.photoURL,
+      });
+
       toast.success("Login Successful");
       navigate(from);
     } catch (err) {

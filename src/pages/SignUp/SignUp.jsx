@@ -8,7 +8,7 @@ import { signInWithPopup } from "firebase/auth";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { imageUpload } from "../../utils";
+import { imageUpload, saveOrUpdateUser } from "../../utils";
 const SignUp = () => {
   const [show, setShow] = useState(false);
   const {
@@ -26,8 +26,11 @@ const SignUp = () => {
     const profileImg = photo[0];
     try {
       // create user
-      await createUser(email, password);
+
       const imageURL = await imageUpload(profileImg);
+      await createUser(email, password);
+
+      await saveOrUpdateUser({ name, email, image: imageURL });
       // update user profile
       await updateUserProfile(name, imageURL);
       console.log("after user profile update", imageURL, name);
@@ -63,7 +66,13 @@ const SignUp = () => {
   };
   const handleGoogleSignup = async () => {
     try {
-      await signInWithGoogle();
+      const { user } = await signInWithGoogle();
+
+      await saveOrUpdateUser({
+        name: user?.displayName,
+        email: user?.email,
+        image: user?.photoURL,
+      });
       navigate(from);
       toast.success("Signup Successful");
     } catch (err) {

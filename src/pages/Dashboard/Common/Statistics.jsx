@@ -8,10 +8,9 @@ const Statistics = () => {
   if (isRoleLoading) return <LoadingSpinner />;
   return (
     <div>
-      <AdminStatistics/>
-      {/* {role === "member" && <MemberStatistics />} */}
-      {/* {role === "manager" && <ManagerStatistics />} */}
-      {/* {role === "admin" && <AdminStatistics />} */}
+      {role === "member" && <MemberStatistics />}
+      {role === "manager" && <ManagerStatistics />}
+      {role === "admin" && <AdminStatistics />}
     </div>
   );
 };
