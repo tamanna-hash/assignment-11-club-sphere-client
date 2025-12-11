@@ -7,13 +7,11 @@ import MemberMembershipTable from "../../../components/Dashboard/Tables/MemberMe
 
 const MyMemberships = () => {
   const { user } = useAuth();
-  // const axiosSecure = useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
   const { data: memberships = [], isLoading } = useQuery({
     queryKey: ["memberships", user?.email],
     queryFn: async () => {
-      const result = await axios(
-        `${import.meta.env.VITE_API_URL}/my-memberships/${user?.email}`
-      );
+      const result = await axiosSecure(`/my-memberships`);
       return result.data;
     },
   });
@@ -40,8 +38,12 @@ const MyMemberships = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {memberships.map((membership,index)=>(
-                      <MemberMembershipTable membership={membership} key={membership._id} index={index}/>
+                    {memberships.map((membership, index) => (
+                      <MemberMembershipTable
+                        membership={membership}
+                        key={membership._id}
+                        index={index}
+                      />
                     ))}
                   </tbody>
                 </table>

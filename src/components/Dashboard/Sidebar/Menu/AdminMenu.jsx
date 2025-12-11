@@ -1,4 +1,4 @@
-import { FaCreditCard, FaUserCog, FaUserTag } from "react-icons/fa";
+import { FaCreditCard, FaUserCog, FaUsers, FaUserTag } from "react-icons/fa";
 import MenuItem from "./MenuItem";
 import { Link } from "react-router";
 
@@ -12,10 +12,21 @@ const AdminMenu = () => {
           className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
           data-tip="User Management"
         >
-          <FaCreditCard />
+          <FaUsers />
           <span className="is-drawer-close:hidden">User Management</span>
         </Link>
       </li>
+      <li>
+        <Link
+          to="manager-requests"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Manager Requests"
+        >
+          <FaCreditCard/>
+          <span className="is-drawer-close:hidden">Manager Requests</span>
+        </Link>
+      </li>
+
     </>
   );
 };

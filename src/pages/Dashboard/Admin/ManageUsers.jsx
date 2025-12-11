@@ -1,20 +1,17 @@
-import axios from "axios";
 import SellerOrderDataRow from "../../../components/Dashboard/Tables/ManagerMembershipTable";
 import useAuth from "../../../hooks/useAuth";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import { useQuery } from "@tanstack/react-query";
-import ManagerMembershipTable from "../../../components/Dashboard/Tables/ManagerMembershipTable";
 import UserDataTable from "../../../components/Dashboard/Tables/UserDataTable";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ManageUsers = () => {
   const { user } = useAuth();
-  // const axiosSecure = useAxiosSecure();
-  const { data: users = [], isLoading } = useQuery({
+  const axiosSecure = useAxiosSecure();
+  const { data: users = [], isLoading ,refetch} = useQuery({
     queryKey: ["users", user?.email],
     queryFn: async () => {
-      const result = await axios(
-        `${import.meta.env.VITE_API_URL}/users`
-      );
+      const result = await axiosSecure(`/users`);
       return result.data;
     },
   });
@@ -28,7 +25,7 @@ const ManageUsers = () => {
           <thead>
             <tr>
               <th></th>
-              
+
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
@@ -38,11 +35,7 @@ const ManageUsers = () => {
           </thead>
           <tbody>
             {users.map((user, index) => (
-              <UserDataTable
-                key={user._id}
-                user={user}
-                index={index}
-              />
+              <UserDataTable key={user._id} user={user} refetch={refetch} index={index} />
             ))}
           </tbody>
         </table>

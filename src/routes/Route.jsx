@@ -19,6 +19,10 @@ import MyInventory from "../pages/Dashboard/manager/MyInventory";
 import ManageMemberships from "../pages/Dashboard/manager/ManageMemberships";
 import MyMemberships from "../pages/Dashboard/Member/MyMemberships";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
+import BecomeManager from "../pages/Dashboard/Member/BecomeManager";
+import ManagerRequests from "../pages/Dashboard/Admin/ManagerRequests";
+import AdminRoute from "./AdminRoute";
+import ManagerRoute from "./ManagerRoute";
 
 export const router = createBrowserRouter([
   {
@@ -65,32 +69,8 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "add-club",
-        element: (
-          <PrivateRoute>
-            <AddClub />
-          </PrivateRoute>
-        ),
-      },
-
-      {
-        path: "manage-memberships",
-        element: (
-          <PrivateRoute>
-            <ManageMemberships />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "my-inventory",
-        element: (
-          <PrivateRoute>
-            <MyInventory />
-          </PrivateRoute>
-        ),
-      },
-      {
+      // member routes
+       {
         path: "my-memberships",
         element: (
           <PrivateRoute>
@@ -99,10 +79,63 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "become-manager",
+        element: (
+          <PrivateRoute>
+            <BecomeManager />
+          </PrivateRoute>
+        ),
+      },
+      // manager routes
+      {
+        path: "add-club",
+        element: (
+          <PrivateRoute>
+            <ManagerRoute>
+              <AddClub />
+            </ManagerRoute>
+          </PrivateRoute>
+        ),
+      },
+
+      {
+        path: "manage-memberships",
+        element: (
+          <PrivateRoute>
+            <ManagerRoute>
+              <ManageMemberships />
+            </ManagerRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-inventory",
+        element: (
+          <PrivateRoute>
+            <ManagerRoute>
+              <MyInventory />
+            </ManagerRoute>
+          </PrivateRoute>
+        ),
+      },
+    //  admin routes
+      {
         path: "user-management",
         element: (
           <PrivateRoute>
-            <ManageUsers />
+            <AdminRoute>
+              <ManageUsers />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manager-requests",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <ManagerRequests />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },

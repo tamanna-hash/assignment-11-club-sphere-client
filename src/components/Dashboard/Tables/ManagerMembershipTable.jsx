@@ -17,7 +17,7 @@ const ManagerMembershipTable = ({ membership, index }) => {
       <td>
         <p
           className={`${
-            membership.status === "approved" ? "text-green-600" : "text-red-600"
+            status === "approved" ? "text-green-600" : "text-red-600"
           }`}
         >
           {status}
