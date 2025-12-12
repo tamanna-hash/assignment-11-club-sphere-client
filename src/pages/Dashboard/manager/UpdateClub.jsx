@@ -5,13 +5,13 @@ import useAuth from "../../../hooks/useAuth";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { imageUpload } from "../../../utils";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 const UpdateClub = () => {
   const { user } = useAuth();
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
-
+const navigate = useNavigate()
   const { data: clubData, isLoading } = useQuery({
     queryKey: ["club", id],
     queryFn: async () => {
@@ -26,13 +26,14 @@ const UpdateClub = () => {
     mutateAsync,
     reset: mutationReset,
   } = useMutation({
-    mutationFn: async (payload) => await axiosSecure.patch(`/clubs`, payload),
+    mutationFn: async (payload) => await axiosSecure.patch(`/clubs/${id}`, payload),
     onSuccess: (data) => {
       console.log(data);
       // show toast
-      toast.success("Plant Added successfully");
+      toast.success("Club updated successfully");
       // navigate to my inventory page
       mutationReset();
+      navigate(-1)
       // Query key invalidate
     },
     onError: (error) => {
@@ -78,7 +79,14 @@ const UpdateClub = () => {
       console.log(err);
     }
   };
-
+  const {
+    clubName,
+    coverImage,
+    clubLocation,
+    membershipFee,
+    description,
+    category,
+  } = clubData || {};
   return (
     <>
       <title>ClubsSphere-UpdateClubs</title>
@@ -93,7 +101,7 @@ const UpdateClub = () => {
               <label className="label">Club Name</label>
               <input
                 className="input"
-                // defaultValue={vehicle.vehicleName}
+                defaultValue={clubName}
                 id="name"
                 type="text"
                 placeholder="club Name"
@@ -110,32 +118,11 @@ const UpdateClub = () => {
                   {errors.name.message}
                 </p>
               )}
-              {/*Location  */}
-              <label className="label">Location</label>
-              <input
-                className="input"
-                // defaultValue={location}
-                type="text"
-                placeholder="club Location"
-                {...register("clubLocation", {
-                  required: "Location is required",
-                  maxLength: {
-                    value: 30,
-                    message: "Location cannot be too long",
-                  },
-                })}
-              />
-
-              {errors.location && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.location.message}
-                </p>
-              )}
-
               {/* Category  */}
               <label className="label">Category</label>
               <select
                 required
+                value={category}
                 className="w-full px-4 py-3 border-lime-300 focus:outline-lime-500 rounded-md bg-white"
                 name="category"
                 {...register("category", { required: "Category is required" })}
@@ -153,11 +140,11 @@ const UpdateClub = () => {
                   {errors.category.message}
                 </p>
               )}
-              {/* Price per day*/}
+              {/* membership fee*/}
               <label className="label">Membership Fee</label>
               <input
                 className="input"
-                // defaultValue={vehicle.pricePerDay}
+                defaultValue={membershipFee}
                 id="price"
                 type="number"
                 placeholder="Price per unit"
@@ -171,12 +158,50 @@ const UpdateClub = () => {
                   {errors.price.message}
                 </p>
               )}
+              {/*Location  */}
+              <label className="label">Location</label>
+              <input
+                className="input"
+                defaultValue={clubLocation}
+                type="text"
+                placeholder="club Location"
+                {...register("clubLocation", {
+                  required: "Location is required",
+                  maxLength: {
+                    value: 30,
+                    message: "Location cannot be too long",
+                  },
+                })}
+              />
+
+              {errors.location && (
+                <p className="text-xs text-red-500 mt-1">
+                  {errors.location.message}
+                </p>
+              )}
+              {/* Photo URl  */}
+              <label className="label">Cover Image </label>
+              <input
+                // defaultValue={coverImage}
+                className="file-input"
+                type="file"
+                id="image"
+               
+                {...register("image", {
+                  required: "Image is required",
+                })}
+              />
+              {errors.image && (
+                <p className="text-xs text-red-500 mt-1">
+                  {errors.image.message}
+                </p>
+              )}
 
               {/* description */}
               <label className="label font-medium">Description</label>
               <textarea
                 className="textarea w-full rounded-2xl focus:border-0 focus:outline-gray-200"
-                // defaultValue={vehicle.description}
+                defaultValue={description}
                 rows="3"
                 placeholder="Write club description here..."
                 {...register("description", {
@@ -189,29 +214,11 @@ const UpdateClub = () => {
                 </p>
               )}
 
-              {/* Photo URl  */}
-              <label className="label">Cover Image </label>
-              <input
-                // defaultValue={vehicle.coverImage}
-                className="input"
-                type="file"
-                id="image"
-                accept="image/*"
-                hidden
-                {...register("image", {
-                  required: "Image is required",
-                })}
-              />
-              {errors.image && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.image.message}
-                </p>
-              )}
               <button
                 type="submit"
                 className="btn px-4 py-2 font-bold text-white hover:bg-linear-to-r bg-cyan-700  hover:from-cyan-800 hover:via-cyan-700 hover:to-cyan-500 transition-transform"
               >
-                Update Vehicle
+                Update Club
               </button>
             </fieldset>
           </form>

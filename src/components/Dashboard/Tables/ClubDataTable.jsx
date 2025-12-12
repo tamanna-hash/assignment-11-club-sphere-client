@@ -8,7 +8,7 @@ import { Link } from "react-router";
 import useRole from "../../../hooks/useRole";
 const ClubDataTable = ({ club, index }) => {
   const { _id, clubName, category, membershipFee, status } = club || {};
-  const[role]=useRole()
+  const [role] = useRole();
   return (
     <tr key={index}>
       <th>{index + 1}</th>
@@ -37,18 +37,19 @@ const ClubDataTable = ({ club, index }) => {
           >
             <BiDetail />
           </Link>
-          <button className="btn btn-square mx-2 hover:bg-primary">
+          <Link to={`/dashboard/update-club/${_id}`} className="btn btn-square mx-2 hover:bg-primary">
             <FiEdit />
-          </button>
-          <button className="btn flex">
-            Add Event
-            <BiSolidCalendarEvent />
-          </button>
+          </Link>
+
           <button
             // onClick={() => handleParcelDelete(parcel._id)}
             className="btn btn-square hover:bg-red-400"
           >
             <MdDeleteForever />
+          </button>
+          <button className="btn flex">
+            Add Event
+            <BiSolidCalendarEvent />
           </button>
         </div>
       </td>

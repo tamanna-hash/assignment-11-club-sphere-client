@@ -102,7 +102,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "update-club",
+        path: "update-club/:id",
         element: (
           <PrivateRoute>
             <ManagerRoute>
