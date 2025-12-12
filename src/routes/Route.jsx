@@ -23,6 +23,10 @@ import BecomeManager from "../pages/Dashboard/Member/BecomeManager";
 import ManagerRequests from "../pages/Dashboard/Admin/ManagerRequests";
 import AdminRoute from "./AdminRoute";
 import ManagerRoute from "./ManagerRoute";
+import ManageClubs from "../pages/Dashboard/Admin/ManageClubs";
+import PendingClubs from "../pages/Dashboard/manager/PendingClubs";
+import PendingClubDetails from "../pages/Home/clubs/PendingClubDetails";
+import UpdateClub from "../pages/Dashboard/manager/UpdateClub";
 
 export const router = createBrowserRouter([
   {
@@ -97,6 +101,16 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "update-club",
+        element: (
+          <PrivateRoute>
+            <ManagerRoute>
+              <UpdateClub />
+            </ManagerRoute>
+          </PrivateRoute>
+        ),
+      },
 
       {
         path: "manage-memberships",
@@ -104,6 +118,26 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <ManagerRoute>
               <ManageMemberships />
+            </ManagerRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "pending-clubs",
+        element: (
+          <PrivateRoute>
+            <ManagerRoute>
+              <PendingClubs />
+            </ManagerRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "pending-clubs/:id",
+        element: (
+          <PrivateRoute>
+            <ManagerRoute>
+              <PendingClubDetails/>
             </ManagerRoute>
           </PrivateRoute>
         ),
@@ -119,6 +153,16 @@ export const router = createBrowserRouter([
         ),
       },
     //  admin routes
+      {
+        path: "club-management",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <ManageClubs />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
       {
         path: "user-management",
         element: (

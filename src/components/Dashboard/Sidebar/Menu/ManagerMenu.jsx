@@ -1,7 +1,7 @@
 import { BsFillHouseAddFill } from "react-icons/bs";
 import { MdHomeWork, MdOutlineManageHistory } from "react-icons/md";
 import MenuItem from "./MenuItem";
-import { FaCcDinersClub, FaTree, FaVrCardboard } from "react-icons/fa";
+import { FaCcDinersClub, FaClock, FaTree, FaVrCardboard } from "react-icons/fa";
 import { Link } from "react-router";
 const ManagerMenu = () => {
   return (
@@ -27,6 +27,17 @@ const ManagerMenu = () => {
         >
           <FaVrCardboard />
           <span className="is-drawer-close:hidden">Manage Memberships</span>
+        </Link>
+      </li>
+      {/* my-clubs-pending */}
+      <li>
+        <Link
+          to="pending-clubs"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Pending Clubs"
+        >
+          <FaClock />
+          <span className="is-drawer-close:hidden">Pending Clubs</span>
         </Link>
       </li>
       {/* my-inventory */}

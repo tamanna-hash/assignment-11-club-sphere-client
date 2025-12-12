@@ -6,9 +6,8 @@ import { MdDeleteForever } from "react-icons/md";
 import { BiDetail, BiSolidCalendarEvent } from "react-icons/bi";
 import { Link } from "react-router";
 import useRole from "../../../hooks/useRole";
-const ClubDataTable = ({ club, index }) => {
+const PendingClubDataTable = ({ club, index }) => {
   const { _id, clubName, category, membershipFee, status } = club || {};
-  const[role]=useRole()
   return (
     <tr key={index}>
       <th>{index + 1}</th>
@@ -17,32 +16,26 @@ const ClubDataTable = ({ club, index }) => {
 
       <td>{membershipFee}</td>
       {/* status */}
-      {role === "admin" && (
-        <td>
-          <p
-            className={`${
-              status === "approved" ? "text-green-600" : "text-red-600"
-            }`}
-          >
-            {status}
-          </p>
-        </td>
-      )}
+      <td>
+        <p
+          className={`${
+            status === "approved" ? "text-green-600" : "text-red-600"
+          }`}
+        >
+          {status}
+        </p>
+      </td>
       {/* actions */}
       <td>
         <div className="flex gap-2">
           <Link
-            to={`/clubs/${_id}`}
+            to={`/dashboard/pending-clubs/${_id}`}
             className="btn btn-square hover:bg-primary"
           >
             <BiDetail />
           </Link>
           <button className="btn btn-square mx-2 hover:bg-primary">
             <FiEdit />
-          </button>
-          <button className="btn flex">
-            Add Event
-            <BiSolidCalendarEvent />
           </button>
           <button
             // onClick={() => handleParcelDelete(parcel._id)}
@@ -56,4 +49,4 @@ const ClubDataTable = ({ club, index }) => {
   );
 };
 
-export default ClubDataTable;
+export default PendingClubDataTable;

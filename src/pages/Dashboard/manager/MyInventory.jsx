@@ -3,15 +3,16 @@ import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import ClubDataTable from "../../../components/Dashboard/Tables/ClubDataTable";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const MyInventory = () => {
   const { user } = useAuth();
-  // const axiosSecure = useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
   const { data: clubs = [], isLoading } = useQuery({
     queryKey: ["clubs", user?.email],
     queryFn: async () => {
-      const result = await axios(
-        `${import.meta.env.VITE_API_URL}/my-inventory/${user?.email}`
+      const result = await axiosSecure(
+        `/my-inventory/${user?.email}`
       );
       return result.data;
     },
@@ -29,7 +30,6 @@ const MyInventory = () => {
               <th>Category</th>
               <th>Name</th>
               <th>Fee</th>
-              <th>Membership Status</th>
               <th>Actions</th>
             </tr>
           </thead>

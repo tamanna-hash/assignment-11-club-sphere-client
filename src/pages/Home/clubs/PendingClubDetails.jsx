@@ -5,15 +5,17 @@ import { Link, useNavigate, useParams } from "react-router";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import PurchaseModal from "../../../components/Modal/PurchaseModal";
 import useRole from "../../../hooks/useRole";
-const ClubDetails = () => {
-  let [isOpen, setIsOpen] = useState(false);
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+
+const PendingClubDetails = () => {
   const { id } = useParams();
+  const axiosSecure=useAxiosSecure()
   const navigate = useNavigate();
-  const { data: club, isLoading } = useQuery({
-    queryKey: ["club", id],
+  const { data: clubPending, isLoading } = useQuery({
+    queryKey: ["clubPending", id],
     queryFn: async () => {
-      const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/clubs/${id}`
+      const res = await axiosSecure.get(
+        `/clubs-pending/${id}`
       );
       return res.data;
     },
@@ -27,10 +29,7 @@ const ClubDetails = () => {
     _id,
     membershipFee,
     manager,
-  } = club || {};
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+  } = clubPending || {};
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
@@ -55,12 +54,12 @@ const ClubDetails = () => {
                 <span className="font-semibold">Membership Fee:</span>
                 {membershipFee} $
               </div>
-              <div>
+              {/* <div>
                 <span className=" font-semibold">Manager: </span> {manager.name}
-              </div>
+              </div> */}
               <div>
                 <span className="font-semibold">Manager email: </span>
-                {manager.email}
+                {manager?.email}
               </div>
               {/* <p className="gap-2 items-center">
                 <span className="font-semibold"></span>
@@ -77,18 +76,7 @@ const ClubDetails = () => {
               </p>
 
               <div className="flex gap-3 mt-6">
-                <button
-                  onClick={() => setIsOpen(true)}
-                  className="btn px-4 py-2  font-bold text-white hover:bg-linear-to-r bg-cyan-700  hover:from-cyan-800 hover:via-cyan-700 hover:to-cyan-500 transition-transform"
-                >
-                  Join Club
-                </button>
-                <button
-                  //   onClick={handleBack}
-                  className="btn px-4 py-2 font-bold text-white hover:bg-linear-to-r bg-cyan-700  hover:from-cyan-800 hover:via-cyan-700 hover:to-cyan-500 transition-transform"
-                >
-                  View Events
-                </button>
+               
                 <Link
                   // onClick={handleBack}
                   className="btn px-4 py-2 font-bold text-white hover:bg-linear-to-r bg-cyan-700  hover:from-cyan-800 hover:via-cyan-700 hover:to-cyan-500 transition-transform"
@@ -97,11 +85,7 @@ const ClubDetails = () => {
                 </Link>
                
               </div>
-              <PurchaseModal
-                club={club}
-                closeModal={closeModal}
-                isOpen={isOpen}
-              />
+            
             </div>
           </div>
         </div>
@@ -110,4 +94,4 @@ const ClubDetails = () => {
   );
 };
 
-export default ClubDetails;
+export default PendingClubDetails;

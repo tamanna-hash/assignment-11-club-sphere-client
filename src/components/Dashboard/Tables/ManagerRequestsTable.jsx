@@ -13,7 +13,7 @@ const ManagerRequestsTable = ({ request, index ,refetch}) => {
    try {
      await axiosSecure.patch('/update-role', {
        email:email,
-       role: 'seller',
+       role: 'manager',
      })
      toast.success('Role Updated!')
      refetch()

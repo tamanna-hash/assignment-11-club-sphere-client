@@ -9,18 +9,19 @@ import toast from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import axios from "axios";
+import { useParams } from "react-router";
 
 const AddClubForm = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-
   const {
     isPending,
     isError,
     mutateAsync,
     reset: mutationReset,
   } = useMutation({
-    mutationFn: async (payload) => await axiosSecure.post(`/clubs`, payload),
+    mutationFn: async (payload) =>
+      await axiosSecure.post(`/club-requests`, payload),
     onSuccess: (data) => {
       console.log(data);
       // show toast
@@ -74,7 +75,7 @@ const AddClubForm = () => {
     }
   };
 
-  if (isPending) return <LoadingSpinner />;
+  if (isPending || isLoading) return <LoadingSpinner />;
   if (isError) return <ErrorPage />;
   return (
     <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50">
@@ -185,7 +186,7 @@ const AddClubForm = () => {
               {/* Price */}
               <div className="space-y-1 text-sm">
                 <label htmlFor="price" className="block text-gray-600 ">
-                  Fee
+                  Membership Fee
                 </label>
                 <input
                   className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
@@ -238,11 +239,11 @@ const AddClubForm = () => {
               type="submit"
               className="w-full cursor-pointer p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-lime-500 "
             >
-              {/* {isPending ? (
-                <TbFidgetSpinner className='animate-spin m-auto' />
-              ) : ( */}
-              Save & Continue
-              {/* )} */}
+              {isPending ? (
+                <TbFidgetSpinner className="animate-spin m-auto" />
+              ) : (
+                "Save & Continue"
+              )}
             </button>
           </div>
         </div>

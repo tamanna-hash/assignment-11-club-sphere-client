@@ -1,20 +1,20 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import SellerOrderDataRow from "../../../components/Dashboard/Tables/ManagerMembershipTable";
 import useAuth from "../../../hooks/useAuth";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
-import { useQuery } from "@tanstack/react-query";
-import ManagerMembershipTable from "../../../components/Dashboard/Tables/ManagerMembershipTable";
+import ClubDataTable from "../../../components/Dashboard/Tables/ClubDataTable";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useRole from "../../../hooks/useRole";
+import PendingClubDataTable from "../../../components/Dashboard/Tables/PendingClubDataTable";
 
-const ManageMemberships = () => {
+const PendingClubs = () => {
+  const [role] = useRole();
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data: memberships = [], isLoading } = useQuery({
-    queryKey: ["memberships", user?.email],
+  const { data: clubPending = [], isLoading } = useQuery({
+    queryKey: ["clubPending", user?.email],
     queryFn: async () => {
-      const result = await axiosSecure(
-        `/manage-memberships/${user?.email}`
-      );
+      const result = await axiosSecure(`/clubs-pending`);
       return result.data;
     },
   });
@@ -30,19 +30,14 @@ const ManageMemberships = () => {
               <th></th>
               <th>Category</th>
               <th>Name</th>
-              <th>Email</th>
-              <th>PaymentID</th>
+              <th>Fee</th>
               <th>Membership Status</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {memberships.map((membership, index) => (
-              <ManagerMembershipTable
-                key={membership._id}
-                membership={membership}
-                index={index}
-              />
+            {clubPending.map((club, index) => (
+              <PendingClubDataTable key={club._id} club={club} index={index} />
             ))}
           </tbody>
         </table>
@@ -51,4 +46,4 @@ const ManageMemberships = () => {
   );
 };
 
-export default ManageMemberships;
+export default PendingClubs;
