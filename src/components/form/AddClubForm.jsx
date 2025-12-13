@@ -12,7 +12,7 @@ import axios from "axios";
 import { useParams } from "react-router";
 
 const AddClubForm = () => {
-  const { user } = useAuth();
+  const { user,isLoading } = useAuth();
   const axiosSecure = useAxiosSecure();
   const {
     isPending,

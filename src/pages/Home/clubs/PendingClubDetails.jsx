@@ -9,14 +9,12 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const PendingClubDetails = () => {
   const { id } = useParams();
-  const axiosSecure=useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const { data: clubPending, isLoading } = useQuery({
     queryKey: ["clubPending", id],
     queryFn: async () => {
-      const res = await axiosSecure.get(
-        `/clubs-pending/${id}`
-      );
+      const res = await axiosSecure.get(`/clubs-pending/${id}`);
       return res.data;
     },
   });
@@ -61,11 +59,7 @@ const PendingClubDetails = () => {
                 <span className="font-semibold">Manager email: </span>
                 {manager?.email}
               </div>
-              {/* <p className="gap-2 items-center">
-                <span className="font-semibold"></span>
-                <span className="font-semibold">Availability:</span>
-                {vehicle.availability}
-              </p> */}
+
               <p className="flex items-center">
                 <span className="font-semibold">Location: </span>
                 {clubLocation}
@@ -76,16 +70,14 @@ const PendingClubDetails = () => {
               </p>
 
               <div className="flex gap-3 mt-6">
-               
-                <Link
-                  // onClick={handleBack}
+                {/* onClick={handleBack} */}
+                <button
+                  onClick={() => navigate(-1)}
                   className="btn px-4 py-2 font-bold text-white hover:bg-linear-to-r bg-cyan-700  hover:from-cyan-800 hover:via-cyan-700 hover:to-cyan-500 transition-transform"
                 >
                   Back
-                </Link>
-               
+                </button>
               </div>
-            
             </div>
           </div>
         </div>

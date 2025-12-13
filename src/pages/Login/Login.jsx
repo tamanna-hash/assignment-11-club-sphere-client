@@ -18,22 +18,20 @@ const Login = () => {
   const { signIn, signInWithGoogle, setLoading } = useAuth();
 
   const location = useLocation();
-  const from = location.state || "/";
-
+  const from = location.state?.from || "/";
   const navigate = useNavigate();
-  const emailRef = useRef(null);
 
   const handleSignin = async (data) => {
     try {
       const { user } = await signIn(data.email, data.password);
-
+      const token = await user.getIdToken(true);
       await saveOrUpdateUser({
         name: user?.displayName,
         email: user?.email,
         image: user?.photoURL,
       });
-      toast.success("Login Successful");
       navigate(from);
+      toast.success("Login Successful");
     } catch (err) {
       console.log(err);
       toast.error(err?.message);
@@ -54,6 +52,8 @@ const Login = () => {
       navigate(from);
     } catch (err) {
       toast.error(err?.message);
+    } finally {
+      setLoading(false);
     }
   };
   return (

@@ -1,20 +1,22 @@
-import axios from "axios";
 import SellerOrderDataRow from "../../../components/Dashboard/Tables/ManagerMembershipTable";
 import useAuth from "../../../hooks/useAuth";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import { useQuery } from "@tanstack/react-query";
-import ManagerMembershipTable from "../../../components/Dashboard/Tables/ManagerMembershipTable";
+import UserDataTable from "../../../components/Dashboard/Tables/UserDataTable";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import PaymentTable from "../../../components/Dashboard/Tables/PaymentTable";
 
-const ManageMemberships = () => {
+const ManageUsers = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data: memberships = [], isLoading ,refetch} = useQuery({
-    queryKey: ["memberships", user?.email],
+  const {
+    data: payments = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["payments"],
     queryFn: async () => {
-      const result = await axiosSecure(
-        `/manage-memberships`
-      );
+      const result = await axiosSecure(`/all-payments`);
       return result.data;
     },
   });
@@ -23,26 +25,29 @@ const ManageMemberships = () => {
   return (
     <>
       <div className="overflow-x-auto">
-        <table className="table table-zebra">
+        <table className="table table-zebra ">
           {/* head */}
           <thead>
             <tr>
               <th></th>
+              <th>Club Name</th>
               <th>Category</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>PaymentID</th>
-              <th>Membership Status</th>
-              <th>Actions</th>
+              
+              <th>User Email</th>
+              
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Transaction ID</th>
+              <th>Created At</th>
             </tr>
           </thead>
           <tbody>
-            {memberships.map((membership, index) => (
-              <ManagerMembershipTable
-                key={membership._id}
-                membership={membership}
-                index={index}
+            {payments.map((payment, index) => (
+              <PaymentTable
+                key={payment._id}
+                payment={payment}
                 refetch={refetch}
+                index={index}
               />
             ))}
           </tbody>
@@ -52,4 +57,4 @@ const ManageMemberships = () => {
   );
 };
 
-export default ManageMemberships;
+export default ManageUsers;

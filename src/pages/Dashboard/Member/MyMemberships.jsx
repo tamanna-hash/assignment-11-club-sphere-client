@@ -19,6 +19,11 @@ const MyMemberships = () => {
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
+      {memberships.length === 0 && (
+        <h1 className="text-2xl font-bold">
+          Your Not A Member of Any Clubs Yet{" "}
+        </h1>
+      )}
       <div className="container mx-auto px-4 sm:px-8">
         <div className="py-8">
           <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
@@ -34,6 +39,7 @@ const MyMemberships = () => {
                       <th>Category</th>
                       <th>Fee</th>
                       <th>Status</th>
+                      <th>Joined at</th>
                       <th>Action</th>
                     </tr>
                   </thead>

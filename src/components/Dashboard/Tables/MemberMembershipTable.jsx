@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import DeleteModal from "../../Modal/DeleteModal";
+import { Link } from "react-router";
 
 const MemberMembershipTable = ({ membership, index }) => {
-  let [isOpen, setIsOpen] = useState(false);
-  const closeModal = () => setIsOpen(false);
-  const { name, category, fee, image, status } = membership || {};
+  const { name, category, fee, image, status, clubId, joined_at } =
+    membership || {};
   return (
     <tr>
       <th>{index + 1}</th>
@@ -16,14 +16,13 @@ const MemberMembershipTable = ({ membership, index }) => {
       <td>${fee}</td>
       <td>{status}</td>
       <td>
-        <button
-          onClick={() => setIsOpen(true)}
-          className="relative disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold text-lime-900 leading-tight"
-        >
-          <span className="absolute cursor-pointer inset-0 bg-red-200 opacity-50 rounded-full"></span>
-          <span className="relative cursor-pointer">Cancel</span>
-        </button>
-        <DeleteModal isOpen={isOpen} closeModal={closeModal} />
+        {(status === "joined" && new Date(joined_at).toLocaleString()) ||
+          "not joined yet"}
+      </td>
+      <td>
+        <Link to={`/clubs/${clubId}`} className="btn btn-xs bg-sky-200">
+          View Details
+        </Link>
       </td>
     </tr>
   );

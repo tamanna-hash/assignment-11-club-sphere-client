@@ -34,9 +34,9 @@ const PendingClubDataTable = ({ club, index }) => {
           >
             <BiDetail />
           </Link>
-          <button className="btn btn-square mx-2 hover:bg-primary">
+          <Link to={`/dashboard/update-club/${_id}`} className="btn btn-square mx-2 hover:bg-primary">
             <FiEdit />
-          </button>
+          </Link>
           <button
             // onClick={() => handleParcelDelete(parcel._id)}
             className="btn btn-square hover:bg-red-400"

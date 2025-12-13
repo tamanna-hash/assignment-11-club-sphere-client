@@ -1,5 +1,11 @@
-import { FaCcDinersClub, FaCreditCard, FaUserCog, FaUsers, FaUserTag } from "react-icons/fa";
-import MenuItem from "./MenuItem";
+import {
+  FaCcDinersClub,
+  FaCreditCard,
+  FaUserCog,
+  FaUsers,
+  FaUserTag,
+} from "react-icons/fa";
+import { RiPassPendingFill } from "react-icons/ri";
 import { Link } from "react-router";
 
 const AdminMenu = () => {
@@ -27,17 +33,28 @@ const AdminMenu = () => {
           <span className="is-drawer-close:hidden">User Management</span>
         </Link>
       </li>
+      {/* manage manager requests */}
       <li>
         <Link
           to="manager-requests"
           className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
           data-tip="Manager Requests"
         >
-          <FaCreditCard/>
+          <RiPassPendingFill />
           <span className="is-drawer-close:hidden">Manager Requests</span>
         </Link>
       </li>
-
+      {/* all payments */}
+      <li>
+        <Link
+          to="all-payments"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="All Payments"
+        >
+          <FaCreditCard />
+          <span className="is-drawer-close:hidden">All Payments</span>
+        </Link>
+      </li>
     </>
   );
 };

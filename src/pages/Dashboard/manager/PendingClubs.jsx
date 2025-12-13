@@ -11,7 +11,7 @@ const PendingClubs = () => {
   const [role] = useRole();
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data: clubPending = [], isLoading } = useQuery({
+  const { data: clubPending = [], isLoading,refetch } = useQuery({
     queryKey: ["clubPending", user?.email],
     queryFn: async () => {
       const result = await axiosSecure(`/clubs-pending`);
@@ -37,7 +37,7 @@ const PendingClubs = () => {
           </thead>
           <tbody>
             {clubPending.map((club, index) => (
-              <PendingClubDataTable key={club._id} club={club} index={index} />
+              <PendingClubDataTable key={club._id} club={club} index={index} refetch={refetch} />
             ))}
           </tbody>
         </table>

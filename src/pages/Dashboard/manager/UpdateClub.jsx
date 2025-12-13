@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
@@ -6,19 +6,36 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { imageUpload } from "../../../utils";
 import { useNavigate, useParams } from "react-router";
+import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 
 const UpdateClub = () => {
   const { user } = useAuth();
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
-const navigate = useNavigate()
-  const { data: clubData, isLoading } = useQuery({
+  const navigate = useNavigate();
+  const { data: pendingClub, isLoading: isPendingLoading } = useQuery({
+    queryKey: ["pendingClub", id],
+    queryFn: async () => {
+      const res = await axiosSecure(`/clubs-pending/${id}`);
+      return res.data;
+    },
+    retry: 0, // don't retry if 404
+  });
+
+  //  Fetch main club if pending not found
+  const { data: mainClub, isLoading: isMainLoading } = useQuery({
     queryKey: ["club", id],
     queryFn: async () => {
       const res = await axiosSecure(`/clubs/${id}`);
       return res.data;
     },
+    enabled: !pendingClub, // only fetch if pending not found
   });
+
+  //  Decide which data to use
+  const clubData = pendingClub || mainClub;
+  const isLoading = isPendingLoading || isMainLoading;
+
   // useMutation hook useCase (POST || PUT || PATCH || DELETE)
   const {
     isPending,
@@ -26,14 +43,15 @@ const navigate = useNavigate()
     mutateAsync,
     reset: mutationReset,
   } = useMutation({
-    mutationFn: async (payload) => await axiosSecure.patch(`/clubs/${id}`, payload),
+    mutationFn: async ({ endpoint, data }) =>
+      await axiosSecure.patch(endpoint, data),
     onSuccess: (data) => {
       console.log(data);
       // show toast
       toast.success("Club updated successfully");
       // navigate to my inventory page
       mutationReset();
-      navigate(-1)
+      navigate(-1);
       // Query key invalidate
     },
     onError: (error) => {
@@ -56,7 +74,6 @@ const navigate = useNavigate()
   const handleUpdate = async (data) => {
     const { name, description, fee, category, image, clubLocation } = data;
     const imageFile = image[0];
-
     try {
       const imageUrl = await imageUpload(imageFile);
       const clubData = {
@@ -65,28 +82,39 @@ const navigate = useNavigate()
         clubLocation,
         description,
         membershipFee: Number(fee),
-        category,
+        category: category,
         manager: {
           image: user?.photoURL,
           name: user?.displayName,
           email: user?.email,
         },
       };
-      // await axios.post(`${import.meta.env.VITE_API_URL}/plants`, plantData),
-      await mutateAsync(clubData);
+      const endpoint = pendingClub
+        ? `/clubs-pending/${id}` // pending collection
+        : `/clubs/${id}`; // main collection
+
+      await mutateAsync({ endpoint, data: clubData });
       reset();
     } catch (err) {
       console.log(err);
     }
   };
-  const {
-    clubName,
-    coverImage,
-    clubLocation,
-    membershipFee,
-    description,
-    category,
-  } = clubData || {};
+  console.log(clubData);
+  const { clubName, clubLocation, membershipFee, description, category } =
+    clubData || {};
+  useEffect(() => {
+    if (clubData) {
+      reset({
+        name: clubData.clubName,
+        location: clubData.clubLocation,
+        fee: clubData.membershipFee,
+        description: clubData.description,
+        category: clubData.category, // ✅ pre-fill select
+      });
+    }
+  }, [clubData, reset]);
+  if (isPending || isLoading) return <LoadingSpinner />;
+  if (isError) return <Error />;
   return (
     <>
       <title>ClubsSphere-UpdateClubs</title>
@@ -121,10 +149,9 @@ const navigate = useNavigate()
               {/* Category  */}
               <label className="label">Category</label>
               <select
+                defaultValue={category}
                 required
-                value={category}
-                className="w-full px-4 py-3 border-lime-300 focus:outline-lime-500 rounded-md bg-white"
-                name="category"
+                className="w-full px-4 py-3 rounded-md bg-white"
                 {...register("category", { required: "Category is required" })}
               >
                 <option value="Photography">Photography</option>
@@ -186,7 +213,6 @@ const navigate = useNavigate()
                 className="file-input"
                 type="file"
                 id="image"
-               
                 {...register("image", {
                   required: "Image is required",
                 })}

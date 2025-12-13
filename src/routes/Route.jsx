@@ -27,6 +27,7 @@ import ManageClubs from "../pages/Dashboard/Admin/ManageClubs";
 import PendingClubs from "../pages/Dashboard/manager/PendingClubs";
 import PendingClubDetails from "../pages/Home/clubs/PendingClubDetails";
 import UpdateClub from "../pages/Dashboard/manager/UpdateClub";
+import AllPayments from "../pages/Dashboard/commonAdminManager/AllPayments";
 
 export const router = createBrowserRouter([
   {
@@ -179,6 +180,16 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <AdminRoute>
               <ManagerRequests />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "all-payments",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AllPayments />
             </AdminRoute>
           </PrivateRoute>
         ),

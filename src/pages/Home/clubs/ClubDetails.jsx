@@ -1,14 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import PurchaseModal from "../../../components/Modal/PurchaseModal";
-import useRole from "../../../hooks/useRole";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
+
 const ClubDetails = () => {
   let [isOpen, setIsOpen] = useState(false);
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const { id } = useParams();
+
   const navigate = useNavigate();
+  // const { data: paymentStatus, isLoading: paymentLoading } = useQuery({
+  //   queryKey: ["paymentStatus", id, user?.email],
+  //   enabled: !!user, // only if logged in
+  //   queryFn: async () => {
+  //     const res = await axiosSecure.get(`/club-payment-status?clubId=${id}`);
+  //     return res.data;
+  //   },
+  // });
   const { data: club, isLoading } = useQuery({
     queryKey: ["club", id],
     queryFn: async () => {
@@ -18,6 +31,7 @@ const ClubDetails = () => {
       return res.data;
     },
   });
+
   const {
     clubName,
     clubLocation,
@@ -28,9 +42,11 @@ const ClubDetails = () => {
     membershipFee,
     manager,
   } = club || {};
+  console.log(club);
   const closeModal = () => {
     setIsOpen(false);
   };
+
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
@@ -56,17 +72,14 @@ const ClubDetails = () => {
                 {membershipFee} $
               </div>
               <div>
-                <span className=" font-semibold">Manager: </span> {manager.name}
+                <span className=" font-semibold">Manager: </span>{" "}
+                {manager?.name}
               </div>
               <div>
                 <span className="font-semibold">Manager email: </span>
-                {manager.email}
+                {manager?.email}
               </div>
-              {/* <p className="gap-2 items-center">
-                <span className="font-semibold"></span>
-                <span className="font-semibold">Availability:</span>
-                {vehicle.availability}
-              </p> */}
+
               <p className="flex items-center">
                 <span className="font-semibold">Location: </span>
                 {clubLocation}
@@ -77,25 +90,36 @@ const ClubDetails = () => {
               </p>
 
               <div className="flex gap-3 mt-6">
+                {/* <button
+                  disabled={paymentStatus?.hasPaid}
+                  onClick={() => setIsOpen(true)}
+                  className={`btn px-4 py-2 font-bold text-white transition ${
+                    paymentStatus?.hasPaid
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-cyan-700 hover:bg-cyan-800"
+                  }`}
+                >
+                  {paymentStatus?.hasPaid ? "Already Joined" : "Join Club"}
+                </button> */}
                 <button
                   onClick={() => setIsOpen(true)}
-                  className="btn px-4 py-2  font-bold text-white hover:bg-linear-to-r bg-cyan-700  hover:from-cyan-800 hover:via-cyan-700 hover:to-cyan-500 transition-transform"
+                  className={`btn px-4 py-2 font-bold text-white transition bg-cyan-700 hover:bg-cyan-800`}
                 >
                   Join Club
                 </button>
+
                 <button
                   //   onClick={handleBack}
                   className="btn px-4 py-2 font-bold text-white hover:bg-linear-to-r bg-cyan-700  hover:from-cyan-800 hover:via-cyan-700 hover:to-cyan-500 transition-transform"
                 >
                   View Events
                 </button>
-                <Link
-                  // onClick={handleBack}
+                <button
+                  onClick={() => navigate(-1)}
                   className="btn px-4 py-2 font-bold text-white hover:bg-linear-to-r bg-cyan-700  hover:from-cyan-800 hover:via-cyan-700 hover:to-cyan-500 transition-transform"
                 >
                   Back
-                </Link>
-               
+                </button>
               </div>
               <PurchaseModal
                 club={club}
