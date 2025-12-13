@@ -1,5 +1,5 @@
 import { BsFillHouseAddFill } from "react-icons/bs";
-import { MdHomeWork, MdOutlineManageHistory } from "react-icons/md";
+import { MdEvent, MdEventAvailable, MdHomeWork, MdOutlineManageHistory } from "react-icons/md";
 import MenuItem from "./MenuItem";
 import { FaCcDinersClub, FaClock, FaTree, FaVrCardboard } from "react-icons/fa";
 import { Link } from "react-router";
@@ -15,6 +15,28 @@ const ManagerMenu = () => {
         >
           <FaCcDinersClub />
           <span className="is-drawer-close:hidden">Add Club</span>
+        </Link>
+      </li>
+      {/* event management */}
+      <li>
+        <Link
+          to="event-management"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Event Management"
+        >
+         <MdEvent /> 
+          <span className="is-drawer-close:hidden">Event Management</span>
+        </Link>
+      </li>
+      {/* My events */}
+      <li>
+        <Link
+          to="my-events"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="My Events"
+        >
+        <MdEventAvailable /> 
+          <span className="is-drawer-close:hidden">My Events</span>
         </Link>
       </li>
 

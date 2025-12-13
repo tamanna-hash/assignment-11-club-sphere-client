@@ -28,6 +28,9 @@ import PendingClubs from "../pages/Dashboard/manager/PendingClubs";
 import PendingClubDetails from "../pages/Home/clubs/PendingClubDetails";
 import UpdateClub from "../pages/Dashboard/manager/UpdateClub";
 import AllPayments from "../pages/Dashboard/commonAdminManager/AllPayments";
+import AddEvent from "../pages/Dashboard/manager/AddEvent";
+import MyCreatedEvents from "../pages/Dashboard/manager/MyCreatedEvents";
+import UpdateEvent from "../pages/Dashboard/manager/UpdateEvent";
 
 export const router = createBrowserRouter([
   {
@@ -75,7 +78,7 @@ export const router = createBrowserRouter([
         ),
       },
       // member routes
-       {
+      {
         path: "my-memberships",
         element: (
           <PrivateRoute>
@@ -102,6 +105,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+
       {
         path: "update-club/:id",
         element: (
@@ -138,7 +142,7 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ManagerRoute>
-              <PendingClubDetails/>
+              <PendingClubDetails />
             </ManagerRoute>
           </PrivateRoute>
         ),
@@ -153,7 +157,37 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-    //  admin routes
+      {
+        path: "my-events",
+        element: (
+          <PrivateRoute>
+            <ManagerRoute>
+              <MyCreatedEvents />
+            </ManagerRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "add-event/:id",
+        element: (
+          <PrivateRoute>
+            <ManagerRoute>
+              <AddEvent />
+            </ManagerRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "update-event/:id",
+        element: (
+          <PrivateRoute>
+            <ManagerRoute>
+              <UpdateEvent/>
+            </ManagerRoute>
+          </PrivateRoute>
+        ),
+      },
+      //  admin routes
       {
         path: "club-management",
         element: (

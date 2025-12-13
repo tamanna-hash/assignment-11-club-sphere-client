@@ -3,7 +3,7 @@ import { GrUpdate } from "react-icons/gr";
 import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router";
 
-const Card = ({ club }) => {
+const ClubCard = ({ club }) => {
    const { clubName,clubLocation, category, description, coverImage, _id, membershipFee,} = club;
   return (
     <div className="p-2 animate__animated animate__fadeInUp md:p-2 flex md:flex-row flex-col justify-between items-center border-b border-slate-300">
@@ -21,9 +21,6 @@ const Card = ({ club }) => {
             <p className="text-sm flex items-center">
               Location: {clubLocation}$
             </p>
-            <p className="flex gap-2 items-center text-sm">
-              Description:{description}
-            </p>
           </div>
         </div>
       </div>
@@ -34,21 +31,10 @@ const Card = ({ club }) => {
         >
           View Details
         </Link>
-        <Link
-        //   to={`/update-vehicle/${vehicle._id}`}
-          className="btn btn-outline outline-cyan-800 font-bold  hover:bg-cyan-100 btn-sm text-xs transition-transform"
-        >
-          Update <GrUpdate className="text-green-600 h-3 w-3" />
-        </Link>
-        <button
-        //   onClick={handleDelete}
-          className="btn btn-outline outline-cyan-800 font-bold  hover:bg-cyan-100 btn-sm text-xs transition-transform"
-        >
-          Delete <MdDeleteForever className="text-red-600 h-4 w-4" />
-        </button>
+       
       </div>
     </div>
   );
 };
 
-export default Card;
+export default ClubCard;

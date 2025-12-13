@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
-import Card from "../../../components/Home/Card";
+import ClubCard from "../../../components/Home/ClubCard";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 
 const Clubs = () => {
@@ -19,7 +19,7 @@ const Clubs = () => {
     <>
       <div>
         {clubs.map((club) => (
-          <Card club={club} key={club._id} />
+          <ClubCard club={club} key={club._id} />
         ))}
       </div>
     </>

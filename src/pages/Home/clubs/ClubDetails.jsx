@@ -90,17 +90,6 @@ const ClubDetails = () => {
               </p>
 
               <div className="flex gap-3 mt-6">
-                {/* <button
-                  disabled={paymentStatus?.hasPaid}
-                  onClick={() => setIsOpen(true)}
-                  className={`btn px-4 py-2 font-bold text-white transition ${
-                    paymentStatus?.hasPaid
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-cyan-700 hover:bg-cyan-800"
-                  }`}
-                >
-                  {paymentStatus?.hasPaid ? "Already Joined" : "Join Club"}
-                </button> */}
                 <button
                   onClick={() => setIsOpen(true)}
                   className={`btn px-4 py-2 font-bold text-white transition bg-cyan-700 hover:bg-cyan-800`}
