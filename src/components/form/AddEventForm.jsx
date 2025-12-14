@@ -100,12 +100,12 @@ const AddEventForm = ({ id }) => {
                 className="input"
                 id="name"
                 type="text"
-                placeholder="club Name"
+                placeholder="Event Name"
                 {...register("name", {
-                  required: "Name is required",
+                  required: "Event Name is required",
                   maxLength: {
                     value: 40,
-                    message: "Name cannot be too long",
+                    message: "Event Name cannot be too long",
                   },
                 })}
               />

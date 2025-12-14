@@ -9,19 +9,10 @@ import useAuth from "../../../hooks/useAuth";
 
 const ClubDetails = () => {
   let [isOpen, setIsOpen] = useState(false);
-  const { user } = useAuth();
-  const axiosSecure = useAxiosSecure();
+
   const { id } = useParams();
 
   const navigate = useNavigate();
-  // const { data: paymentStatus, isLoading: paymentLoading } = useQuery({
-  //   queryKey: ["paymentStatus", id, user?.email],
-  //   enabled: !!user, // only if logged in
-  //   queryFn: async () => {
-  //     const res = await axiosSecure.get(`/club-payment-status?clubId=${id}`);
-  //     return res.data;
-  //   },
-  // });
   const { data: club, isLoading } = useQuery({
     queryKey: ["club", id],
     queryFn: async () => {

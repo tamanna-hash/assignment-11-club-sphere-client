@@ -5,15 +5,16 @@ import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import { useQuery } from "@tanstack/react-query";
 import ManagerMembershipTable from "../../../components/Dashboard/Tables/ManagerMembershipTable";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import EventRegistrationsTable from "../../../components/Dashboard/Tables/EventRegistrationsTable";
 
-const ManageEvents = () => {
+const EventRegistrations = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data: memberships = [], isLoading ,refetch} = useQuery({
-    queryKey: ["memberships", user?.email],
+  const { data: eventRegisters = [], isLoading ,refetch} = useQuery({
+    queryKey: ["eventRegisters"],
     queryFn: async () => {
       const result = await axiosSecure(
-        `/manage-memberships`
+        `/event-registrations`
       );
       return result.data;
     },
@@ -28,19 +29,17 @@ const ManageEvents = () => {
           <thead>
             <tr>
               <th></th>
-              <th>Category</th>
-              <th>Name</th>
               <th>Email</th>
-              <th>PaymentID</th>
-              <th>Membership Status</th>
+              <th>Register Status</th>
+              <th>Registered At</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {memberships.map((membership, index) => (
-              <ManagerMembershipTable
-                key={membership._id}
-                membership={membership}
+            {eventRegisters.map((register, index) => (
+              <EventRegistrationsTable
+                key={register._id}
+                register={register}
                 index={index}
                 refetch={refetch}
               />
@@ -52,4 +51,4 @@ const ManageEvents = () => {
   );
 };
 
-export default ManageEvents;
+export default EventRegistrations;

@@ -5,8 +5,11 @@ import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import PurchaseModal from "../../../components/Modal/PurchaseModal";
 import toast from "react-hot-toast";
 import useAuth from "../../../hooks/useAuth";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const EventDetails = () => {
+  const [isJoined, setIsJoined] = useState(false);
   const { id } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -26,16 +29,30 @@ const EventDetails = () => {
     reset: mutationReset,
   } = useMutation({
     mutationFn: async (payload) =>
-      await axios.get(`${import.meta.env.VITE_API_URL}/event-registration`),
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/event-registration`,
+        payload
+      ),
     onSuccess: (data) => {
       console.log(data);
+      setIsJoined(true);
       // show toast
+      toast.success("Joined successfully");
       // navigate to my inventory page
       mutationReset();
       // Query key invalidate
     },
     onError: (error) => {
-      console.log(error);
+      if (error.response?.status === 409) {
+        Swal.fire({
+          icon: "info",
+          title: "Already Joined",
+          text: "You have already joined this event.",
+        });
+        setIsJoined(true);
+      } else {
+        toast.error("Something went wrong");
+      }
     },
     onSettled: (data, error) => {
       if (error) console.log(error);
@@ -43,6 +60,7 @@ const EventDetails = () => {
     retry: 3,
   });
   const {
+    clubId,
     name,
     eventLocation,
     eventDate,
@@ -50,10 +68,46 @@ const EventDetails = () => {
     description,
     bannerImage,
     _id,
-
     manager,
   } = event || {};
-  const handleJoin = () => {};
+  const handleJoin = async () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Join in this event.........",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Join!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const eventRegisteredInfo = {
+            eventId: _id,
+            clubId: clubId,
+            userEmail: user?.email,
+            manager: {
+              name:manager?.name,
+              email:manager?.email
+            },
+            status: "registered",
+          };
+          await mutateAsync(eventRegisteredInfo);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    });
+  };
+  useEffect(() => {
+    if (_id && user?.email) {
+      axios
+        .get(`${import.meta.env.VITE_API_URL}/event-registration/status`, {
+          params: { eventId: _id, email: user.email },
+        })
+        .then((res) => setIsJoined(res.data.joined));
+    }
+  }, [_id, user]);
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
@@ -95,10 +149,19 @@ const EventDetails = () => {
 
               <div className="flex gap-3 mt-6">
                 <button
+                  disabled={isJoined}
                   onClick={handleJoin}
-                  className={`btn px-4 py-2 font-bold text-white transition bg-cyan-700 hover:bg-cyan-800`}
+                  className={`btn px-4 py-2 font-bold ${
+                    isJoined && "bg-gray-500 text-white"
+                  } text-white transition bg-cyan-700 hover:bg-cyan-800`}
                 >
-                  Join Event
+                  {isPending || isLoading ? (
+                    <span className="loading loading-spinner loading-xs"></span>
+                  ) : isJoined ? (
+                    "joined"
+                  ) : (
+                    "Join Event"
+                  )}
                 </button>
                 <button
                   onClick={() => navigate(-1)}

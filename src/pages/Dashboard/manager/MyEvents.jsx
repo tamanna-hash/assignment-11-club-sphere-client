@@ -4,7 +4,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import EventDataTable from "../../../components/Dashboard/Tables/EventDataTable";
 
-const MyCreatedEvents = () => {
+const MyEvents = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const {
@@ -48,4 +48,4 @@ const MyCreatedEvents = () => {
   );
 };
 
-export default MyCreatedEvents;
+export default MyEvents;

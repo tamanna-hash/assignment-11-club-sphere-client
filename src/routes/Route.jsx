@@ -29,8 +29,9 @@ import PendingClubDetails from "../pages/Home/clubs/PendingClubDetails";
 import UpdateClub from "../pages/Dashboard/manager/UpdateClub";
 import AllPayments from "../pages/Dashboard/commonAdminManager/AllPayments";
 import AddEvent from "../pages/Dashboard/manager/AddEvent";
-import MyCreatedEvents from "../pages/Dashboard/manager/MyCreatedEvents";
+import MyEvents from "../pages/Dashboard/manager/MyEvents";
 import UpdateEvent from "../pages/Dashboard/manager/UpdateEvent";
+import EventRegistrations from "../pages/Dashboard/manager/EventRegistrations";
 
 export const router = createBrowserRouter([
   {
@@ -128,6 +129,16 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "event-registrations",
+        element: (
+          <PrivateRoute>
+            <ManagerRoute>
+              <EventRegistrations/>
+            </ManagerRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "pending-clubs",
         element: (
           <PrivateRoute>
@@ -162,7 +173,7 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ManagerRoute>
-              <MyCreatedEvents />
+              <MyEvents />
             </ManagerRoute>
           </PrivateRoute>
         ),

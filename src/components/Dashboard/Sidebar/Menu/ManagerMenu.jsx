@@ -20,12 +20,12 @@ const ManagerMenu = () => {
       {/* event management */}
       <li>
         <Link
-          to="event-management"
+          to="event-registrations"
           className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="Event Management"
+          data-tip="Event Registrations"
         >
          <MdEvent /> 
-          <span className="is-drawer-close:hidden">Event Management</span>
+          <span className="is-drawer-close:hidden">Event Registrations</span>
         </Link>
       </li>
       {/* My events */}

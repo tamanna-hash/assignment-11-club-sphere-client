@@ -4,7 +4,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router";
 
 const EventCard = ({ event}) => {
-   const { name,eventLocation,eventDate, description, bannerImage, _id} = event||{};
+   const { title,eventLocation,eventDate, description, bannerImage, _id} = event||{};
   return (
     <div className="p-2 animate__animated animate__fadeInUp md:p-2 flex md:flex-row flex-col justify-between items-center border-b border-slate-300">
       <div className="flex items-center gap-4">
@@ -14,6 +14,9 @@ const EventCard = ({ event}) => {
         <div>
           <h1 className="text-lg font-bold mb-2">{name}</h1>
           <div className="md:flex gap-3">
+            <p className="text-sm items-center ">
+              {title}
+            </p>
             <p className="text-sm text-green-500 items-center ">
               Fee: Free
             </p>

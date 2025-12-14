@@ -17,7 +17,7 @@ const MemberMembershipTable = ({ membership, index }) => {
       <td>{status}</td>
       <td>
         {(status === "joined" && new Date(joined_at).toLocaleString()) ||
-          "not joined yet"}
+          "waiting for approval"}
       </td>
       <td>
         <Link to={`/clubs/${clubId}`} className="btn btn-xs bg-sky-200">
