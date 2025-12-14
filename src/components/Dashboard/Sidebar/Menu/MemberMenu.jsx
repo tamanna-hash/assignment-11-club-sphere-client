@@ -32,12 +32,12 @@ const MemberMenu = () => {
       {/* my joined clubs */}
       <li>
         <Link
-          to="my-memberships"
+          to="my-joined-clubs"
           className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="My Memberships"
+          data-tip="My joined Clubs"
         >
           <CgCardClubs />
-          <span className="is-drawer-close:hidden">My Memberships</span>
+          <span className="is-drawer-close:hidden">My joined Clubs</span>
         </Link>
       </li>
       {/* become a manager */}

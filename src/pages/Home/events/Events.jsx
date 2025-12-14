@@ -4,13 +4,18 @@ import React from "react";
 
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import EventCard from "../../../components/Home/EventCard";
+import { useSearchParams } from "react-router";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Events = () => {
+  const [searchParams] = useSearchParams();
+const clubId = searchParams.get("clubId");
+const axiosSecure=useAxiosSecure()
   const { data: events = [], isLoading } = useQuery({
-    queryKey: ["events"],
+    queryKey: ["events",clubId],
     queryFn: async () => {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/events`);
-      console.log(res.data);
+       const url = clubId ? `/events?clubId=${clubId}` : "/events";
+      const res = await axiosSecure.get(url);
       return res.data;
     },
   });

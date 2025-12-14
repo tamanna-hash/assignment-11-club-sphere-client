@@ -32,6 +32,7 @@ import AddEvent from "../pages/Dashboard/manager/AddEvent";
 import MyEvents from "../pages/Dashboard/manager/MyEvents";
 import UpdateEvent from "../pages/Dashboard/manager/UpdateEvent";
 import EventRegistrations from "../pages/Dashboard/manager/EventRegistrations";
+import MyJoinedEvents from "../pages/Dashboard/Member/MyJoinedEvents";
 
 export const router = createBrowserRouter([
   {
@@ -84,6 +85,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyMemberships />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-joined-events",
+        element: (
+          <PrivateRoute>
+            <MyJoinedEvents />
           </PrivateRoute>
         ),
       },

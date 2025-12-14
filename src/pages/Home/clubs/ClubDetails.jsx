@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import PurchaseModal from "../../../components/Modal/PurchaseModal";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import useAuth from "../../../hooks/useAuth";
+
 
 const ClubDetails = () => {
   let [isOpen, setIsOpen] = useState(false);
@@ -37,7 +36,6 @@ const ClubDetails = () => {
   const closeModal = () => {
     setIsOpen(false);
   };
-
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
@@ -88,12 +86,12 @@ const ClubDetails = () => {
                   Join Club
                 </button>
 
-                <button
-                  //   onClick={handleBack}
+                <Link
+                 to={`/events?clubId=${_id}`}
                   className="btn px-4 py-2 font-bold text-white hover:bg-linear-to-r bg-cyan-700  hover:from-cyan-800 hover:via-cyan-700 hover:to-cyan-500 transition-transform"
                 >
                   View Events
-                </button>
+                </Link>
                 <button
                   onClick={() => navigate(-1)}
                   className="btn px-4 py-2 font-bold text-white hover:bg-linear-to-r bg-cyan-700  hover:from-cyan-800 hover:via-cyan-700 hover:to-cyan-500 transition-transform"
