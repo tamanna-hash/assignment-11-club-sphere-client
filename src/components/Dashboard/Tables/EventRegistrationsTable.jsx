@@ -64,8 +64,11 @@ const EventRegistrationsTable = ({ register, index, refetch }) => {
       </td>
       {/* actions */}
       <td>
-        <button onClick={handleRemoveMember} className="btn bg-red-300">
-          <FaUserMinus />
+        <button
+          onClick={handleRemoveMember}
+          className="text-red-500 hover:text-red-400 font-medium transition"
+        >
+          Delete
         </button>
       </td>
     </tr>

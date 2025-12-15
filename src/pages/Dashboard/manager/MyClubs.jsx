@@ -5,7 +5,7 @@ import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import ClubDataTable from "../../../components/Dashboard/Tables/ClubDataTable";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
-const MyInventory = () => {
+const MyClubs = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { data: clubs = [], isLoading,refetch } = useQuery({
@@ -24,13 +24,13 @@ const MyInventory = () => {
       <div className="overflow-x-auto">
         <table className="table table-zebra">
           {/* head */}
-          <thead>
-            <tr>
+          <thead >
+            <tr className="">
               <th></th>
               <th>Category</th>
               <th>Name</th>
               <th>Fee</th>
-              <th>Actions</th>
+              <th className="text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -49,4 +49,4 @@ const MyInventory = () => {
   );
 };
 
-export default MyInventory;
+export default MyClubs;

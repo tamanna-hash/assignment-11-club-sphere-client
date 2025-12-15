@@ -4,11 +4,16 @@ import axios from "axios";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import ErrorPage from "../../../pages/ErrorPage";
-
+import {
+  FaUsers,
+  FaCalendarAlt,
+  FaCreditCard,
+  FaLayerGroup,
+} from "react-icons/fa";
 const ManagerStatistics = () => {
   // Fetch manager overview data
-  const{user}=useAuth()
-   const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const { data, isLoading, error } = useQuery({
     queryKey: ["managerSummary"],
     queryFn: async () => {
@@ -17,46 +22,63 @@ const ManagerStatistics = () => {
     },
   });
 
-  if (isLoading) return <div className="text-center mt-10 text-xl">Loading...</div>;
-  if (error) return <ErrorPage/>;
+  if (isLoading)
+    return <div className="text-center mt-10 text-xl">Loading...</div>;
+  if (error) return <ErrorPage />;
 
   const { numClubs, totalMembers, totalEvents, totalPayments } = data;
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-semibold mb-8 text-gray-800">Manager Dashboard</h1>
+      <h1 className="text-3xl font-semibold mb-8 text-gray-800">
+        Manager Dashboard
+      </h1>
 
-      {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="card bg-linear-to-r from-green-300 to-green-500 text-white shadow-lg">
-          <div className="card-body">
-            <h2 className="card-title text-lg">Clubs Managed</h2>
-            <p className="text-3xl font-bold">{numClubs}</p>
+        {/* Clubs Managed */}
+        <div className="card bg-gradient-to-r from-cyan-700 to-cyan-500 text-white shadow-lg rounded-2xl hover:scale-[1.03] transition-transform flex items-center gap-4 p-4">
+          <FaLayerGroup className="text-4xl md:text-5xl" />
+          <div className="card-body p-0">
+            <h2 className="card-title text-lg md:text-xl font-semibold">
+              Clubs Managed
+            </h2>
+            <p className="text-3xl md:text-4xl font-bold">{numClubs}</p>
           </div>
         </div>
 
-        <div className="card bg-linear-to-r from-blue-300 to-blue-500 text-white shadow-lg">
-          <div className="card-body">
-            <h2 className="card-title text-lg">Total Members</h2>
-            <p className="text-3xl font-bold">{totalMembers}</p>
+        {/* Total Members */}
+        <div className="card bg-gradient-to-r from-teal-700 to-teal-500 text-white shadow-lg rounded-2xl hover:scale-[1.03] transition-transform flex items-center gap-4 p-4">
+          <FaUsers className="text-4xl md:text-5xl" />
+          <div className="card-body p-0">
+            <h2 className="card-title text-lg md:text-xl font-semibold">
+              Total Members
+            </h2>
+            <p className="text-3xl md:text-4xl font-bold">{totalMembers}</p>
           </div>
         </div>
 
-        <div className="card bg-linear-to-r from-purple-300 to-purple-500 text-white shadow-lg">
-          <div className="card-body">
-            <h2 className="card-title text-lg">Total Events</h2>
-            <p className="text-3xl font-bold">{totalEvents}</p>
+        {/* Total Events */}
+        <div className="card bg-gradient-to-r from-purple-700 to-purple-500 text-white shadow-lg rounded-2xl hover:scale-[1.03] transition-transform flex items-center gap-4 p-4">
+          <FaCalendarAlt className="text-4xl md:text-5xl" />
+          <div className="card-body p-0">
+            <h2 className="card-title text-lg md:text-xl font-semibold">
+              Total Events
+            </h2>
+            <p className="text-3xl md:text-4xl font-bold">{totalEvents}</p>
           </div>
         </div>
 
-        <div className="card bg-linear-to-r from-pink-300 to-pink-500 text-white shadow-lg">
-          <div className="card-body">
-            <h2 className="card-title text-lg">Total Payments</h2>
-            <p className="text-3xl font-bold">${totalPayments}</p>
+        {/* Total Payments */}
+        <div className="card bg-gradient-to-r from-indigo-700 to-indigo-500 text-white shadow-lg rounded-2xl hover:scale-[1.03] transition-transform flex items-center gap-4 p-4">
+          <FaCreditCard className="text-4xl md:text-5xl" />
+          <div className="card-body p-0">
+            <h2 className="card-title text-lg md:text-xl font-semibold">
+              Total Payments
+            </h2>
+            <p className="text-3xl md:text-4xl font-bold">${totalPayments}</p>
           </div>
         </div>
       </div>
-
       {/* Optional: Add calm footer or note */}
       <div className="mt-10 text-center text-gray-500">
         <p>Keep up the great work managing your clubs and members!</p>

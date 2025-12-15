@@ -1,44 +1,62 @@
-import React from "react";
-import ErrorPage from "../../pages/ErrorPage";
-import LoadingSpinner from "../Shared/LoadingSpinner";
-import { imageUpload } from "../../utils";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
-import useAuth from "../../hooks/useAuth";
-import axios from "axios";
-import { useNavigate } from "react-router";
+import React from 'react';
 
-const UpdateEventForm = ({ id }) => {
-    const navigate = useNavigate()
-  const eventId = id;
-  const { user, isLoading } = useAuth();
+import  { useEffect } from "react";
+import { useForm } from "react-hook-form";
+
+
+import { useMutation, useQuery } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+;
+import { useNavigate, useParams } from "react-router";
+
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import useAuth from '../../hooks/useAuth';
+import { imageUpload } from '../../utils';
+import LoadingSpinner from '../Shared/LoadingSpinner';
+
+const UpdateClubForm = ({id}) => {
+  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data: event, isLoading: isPendingLoading } = useQuery({
-    queryKey: ["event", id],
+  const navigate = useNavigate();
+  const { data: pendingClub, isLoading: isPendingLoading } = useQuery({
+    queryKey: ["pendingClub", id],
     queryFn: async () => {
-      const res = await axios(`${import.meta.env.VITE_API_URL}/events/${id}`);
+      const res = await axiosSecure(`/clubs-pending/${id}`);
       return res.data;
     },
     retry: 0, // don't retry if 404
   });
 
+  //  Fetch main club if pending not found
+  const { data: mainClub, isLoading: isMainLoading } = useQuery({
+    queryKey: ["club", id],
+    queryFn: async () => {
+      const res = await axiosSecure(`/clubs/${id}`);
+      return res.data;
+    },
+    enabled: !pendingClub, // only fetch if pending not found
+  });
+
+  //  Decide which data to use
+  const clubData = pendingClub || mainClub;
+  const isLoading = isPendingLoading || isMainLoading;
+
+  // useMutation hook useCase (POST || PUT || PATCH || DELETE)
   const {
     isPending,
     isError,
     mutateAsync,
     reset: mutationReset,
   } = useMutation({
-    mutationFn: async (payload) =>
-      await axiosSecure.patch(`/events/${eventId}`, payload),
+    mutationFn: async ({ endpoint, data }) =>
+      await axiosSecure.patch(endpoint, data),
     onSuccess: (data) => {
       console.log(data);
-      navigate("/dashboard/my-events")
       // show toast
-      toast.success("Event Updated successfully");
+      toast.success("Club updated successfully");
       // navigate to my inventory page
       mutationReset();
+      navigate(-1);
       // Query key invalidate
     },
     onError: (error) => {
@@ -51,66 +69,79 @@ const UpdateEventForm = ({ id }) => {
     retry: 3,
   });
 
-  // React Hook Form
+  // React hook form
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm();
-  const onSubmit = async (data) => {
-    const { name, description, image, date, eventLocation, attendees } = data;
+  const handleUpdate = async (data) => {
+    const { name, description, fee, category, image, clubLocation } = data;
     const imageFile = image[0];
     try {
       const imageUrl = await imageUpload(imageFile);
-      const eventData = {
-        title: name,
-        eventDate: new Date(date).toLocaleDateString(),
-        eventLocation,
-        isPaid: false,
-        maxAttendees: attendees,
+      const clubData = {
+        coverImage: imageUrl,
+        clubName: name,
+        clubLocation,
         description,
-        bannerImage: imageUrl,
+        membershipFee: Number(fee),
+        category: category,
         manager: {
           image: user?.photoURL,
           name: user?.displayName,
           email: user?.email,
         },
       };
-    
-      console.log(date);
-      await mutateAsync(eventData);
+      const endpoint = pendingClub
+        ? `/clubs-pending/${id}` // pending collection
+        : `/clubs/${id}`; // main collection
+
+      await mutateAsync({ endpoint, data: clubData });
       reset();
     } catch (err) {
       console.log(err);
     }
   };
-  const { title, eventLocation, eventDate, description, maxAttendees } =
-    event || {};
-  if (isPending || isLoading || isPendingLoading) return <LoadingSpinner />;
-  if (isError) return <ErrorPage />;
+  console.log(clubData);
+  const { clubName, clubLocation, membershipFee, description, category } =
+    clubData || {};
+  useEffect(() => {
+    if (clubData) {
+      reset({
+        name: clubData.clubName,
+        location: clubData.clubLocation,
+        fee: clubData.membershipFee,
+        description: clubData.description,
+        category: clubData.category, // ✅ pre-fill select
+      });
+    }
+  }, [clubData, reset]);
+  if (isPending || isLoading) return <LoadingSpinner />;
+  if (isError) return <Error />;
   return (
     <>
-      <title>ClubsSphere-addEvent</title>
-      <div className="bg-[#fbf4fd] py-4 flex justify-center min-h-screen items-center">
+      <title>ClubsSphere-UpdateClubs</title>
+      <div className="bg-[#f4f7fd] py-4 flex justify-center min-h-screen items-center">
         <div className="card bg-purple-900/10 border border-purple-900/20 p-4 w-full max-w-sm shrink-0 shadow-2xl py-5">
           <h2 className="font-semibold md:text-2xl text-center">
-            Update Your Event
+            Update Your Club
           </h2>
-          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+          <form onSubmit={handleSubmit(handleUpdate)} className="card-body">
             <fieldset className="fieldset">
               {/* Name  */}
-              <label className="label">Event Name</label>
+              <label className="label">Club Name</label>
               <input
-                defaultValue={title}
                 className="input"
+                defaultValue={clubName}
                 id="name"
                 type="text"
                 placeholder="club Name"
                 {...register("name", {
                   required: "Name is required",
                   maxLength: {
-                    value: 40,
+                    value: 20,
                     message: "Name cannot be too long",
                   },
                 })}
@@ -120,48 +151,53 @@ const UpdateEventForm = ({ id }) => {
                   {errors.name.message}
                 </p>
               )}
-              {/* date  */}
-              <label className="label">Event Date</label>
-              <input
-                defaultValue={eventDate}
-                className="input"
-                id="date"
-                type="date"
-                placeholder="Event Date"
-                {...register("date", {
-                  required: "Event Date is required",
-                })}
-              />
-              {errors.date && (
+              {/* Category  */}
+              <label className="label">Category</label>
+              <select
+                defaultValue={category}
+                required
+                className="w-full px-4 py-3 rounded-md bg-white"
+                {...register("category", { required: "Category is required" })}
+              >
+                <option value="Photography">Photography</option>
+                <option value="Hiking">Hiking</option>
+                <option value="Book">Book</option>
+                <option value="Tech">Tech</option>
+                <option value="Skating">Skating</option>
+                <option value="Traveling">Traveling</option>
+                <option value="Culinary">Culinary / Cooking</option>
+              </select>
+              {errors.category && (
                 <p className="text-xs text-red-500 mt-1">
-                  {errors.date.message}
+                  {errors.category.message}
                 </p>
               )}
-              {/* max attendees  */}
-              <label className="label">Max Attendees </label>
+              {/* membership fee*/}
+              <label className="label">Membership Fee</label>
               <input
-                defaultValue={maxAttendees}
                 className="input"
-                id="name"
+                defaultValue={membershipFee}
+                id="price"
                 type="number"
-                {...register("attendees", {
-                  required: "Max attendees is required",
+                placeholder="Price per unit"
+                {...register("fee", {
+                  required: "Price is required",
+                  min: { value: 0, message: "Price must be positive" },
                 })}
               />
-              {errors.attendees && (
+              {errors.price && (
                 <p className="text-xs text-red-500 mt-1">
-                  {errors.attendees.message}
+                  {errors.price.message}
                 </p>
               )}
-
               {/*Location  */}
               <label className="label">Location</label>
               <input
-                defaultValue={eventLocation}
                 className="input"
+                defaultValue={clubLocation}
                 type="text"
-                placeholder="Event Location"
-                {...register("eventLocation", {
+                placeholder="club Location"
+                {...register("clubLocation", {
                   required: "Location is required",
                   maxLength: {
                     value: 30,
@@ -178,6 +214,7 @@ const UpdateEventForm = ({ id }) => {
               {/* Photo URl  */}
               <label className="label">Cover Image </label>
               <input
+                // defaultValue={coverImage}
                 className="file-input"
                 type="file"
                 id="image"
@@ -194,10 +231,10 @@ const UpdateEventForm = ({ id }) => {
               {/* description */}
               <label className="label font-medium">Description</label>
               <textarea
-                defaultValue={description}
                 className="textarea w-full rounded-2xl focus:border-0 focus:outline-gray-200"
+                defaultValue={description}
                 rows="3"
-                placeholder="Write event description here..."
+                placeholder="Write club description here..."
                 {...register("description", {
                   required: "Description is required",
                 })}
@@ -212,7 +249,7 @@ const UpdateEventForm = ({ id }) => {
                 type="submit"
                 className="btn px-4 py-2 font-bold text-white hover:bg-linear-to-r bg-purple-700  hover:from-purple-800 hover:via-purple-700 hover:to-purple-500 transition-transform"
               >
-                Update Event
+                Update Club
               </button>
             </fieldset>
           </form>
@@ -222,4 +259,4 @@ const UpdateEventForm = ({ id }) => {
   );
 };
 
-export default UpdateEventForm;
+export default UpdateClubForm;

@@ -47,28 +47,27 @@ const EventDataTable = ({ event, index, refetch }) => {
       <td>{eventLocation}</td>
       <td>{maxAttendees}</td>
 
-
       {/* actions */}
       <td>
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center justify-center">
           <Link
             to={`/events/${_id}`}
-            className="btn btn-square hover:bg-primary"
+            className="px-3 py-1 bg-purple-500 hover:bg-purple-400 text-white font-semibold rounded transition"
           >
-            <BiDetail />
+            View
           </Link>
           <Link
             to={`/dashboard/update-event/${_id}`}
-            className="btn btn-square mx-2 hover:bg-primary"
+            className="text-purple-500 hover:text-purple-400 font-medium transition"
           >
-            <FiEdit />
+            Edit
           </Link>
 
           <button
             onClick={handleEventDelete}
-            className="btn btn-square hover:bg-red-400"
+            className="text-red-500 hover:text-red-400 font-medium transition"
           >
-            <MdDeleteForever />
+            Delete
           </button>
         </div>
       </td>

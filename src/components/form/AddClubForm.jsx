@@ -12,7 +12,7 @@ import axios from "axios";
 import { useParams } from "react-router";
 
 const AddClubForm = () => {
-  const { user,isLoading } = useAuth();
+  const { user, isLoading } = useAuth();
   const axiosSecure = useAxiosSecure();
   const {
     isPending,
@@ -78,46 +78,44 @@ const AddClubForm = () => {
   if (isPending || isLoading) return <LoadingSpinner />;
   if (isError) return <ErrorPage />;
   return (
-    <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+    <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center bg-gray-50 rounded-xl p-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-6">
             {/* Name */}
-
             <div className="space-y-1 text-sm">
-              <label htmlFor="name" className="block text-gray-600">
+              <label htmlFor="name" className="block text-gray-700 font-medium">
                 Name
               </label>
               <input
-                className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
                 id="name"
                 type="text"
-                placeholder="club Name"
+                placeholder="Club Name"
                 {...register("name", {
                   required: "Name is required",
-                  maxLength: {
-                    value: 20,
-                    message: "Name cannot be too long",
-                  },
+                  maxLength: { value: 20, message: "Name cannot be too long" },
                 })}
+                className="w-full px-4 py-3 rounded-md border border-purple-400 focus:outline-purple-500 focus:ring-1 focus:ring-purple-500 text-gray-800"
               />
-
               {errors.name && (
                 <p className="text-xs text-red-500 mt-1">
                   {errors.name.message}
                 </p>
               )}
             </div>
-            {/* location */}
+
+            {/* Location */}
             <div className="space-y-1 text-sm">
-              <label htmlFor="location" className="block text-gray-600">
+              <label
+                htmlFor="location"
+                className="block text-gray-700 font-medium"
+              >
                 Location
               </label>
               <input
-                className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
                 id="location"
                 type="text"
-                placeholder="club Location"
+                placeholder="Club Location"
                 {...register("clubLocation", {
                   required: "Location is required",
                   maxLength: {
@@ -125,25 +123,28 @@ const AddClubForm = () => {
                     message: "Location cannot be too long",
                   },
                 })}
+                className="w-full px-4 py-3 rounded-md border border-purple-400 focus:outline-purple-500 focus:ring-1 focus:ring-purple-500 text-gray-800"
               />
-
               {errors.location && (
                 <p className="text-xs text-red-500 mt-1">
                   {errors.location.message}
                 </p>
               )}
             </div>
+
             {/* Category */}
             <div className="space-y-1 text-sm">
-              <label htmlFor="category" className="block text-gray-600 ">
+              <label
+                htmlFor="category"
+                className="block text-gray-700 font-medium"
+              >
                 Category
               </label>
               <select
-                required
-                className="w-full px-4 py-3 border-lime-300 focus:outline-lime-500 rounded-md bg-white"
-                name="category"
                 {...register("category", { required: "Category is required" })}
+                className="w-full px-4 py-3 rounded-md border border-purple-400 focus:outline-purple-500 focus:ring-1 focus:ring-purple-500 text-gray-800"
               >
+                <option value="">Select category</option>
                 <option value="Photography">Photography</option>
                 <option value="Hiking">Hiking</option>
                 <option value="Book">Book</option>
@@ -158,20 +159,22 @@ const AddClubForm = () => {
                 </p>
               )}
             </div>
+
             {/* Description */}
             <div className="space-y-1 text-sm">
-              <label htmlFor="description" className="block text-gray-600">
+              <label
+                htmlFor="description"
+                className="block text-gray-700 font-medium"
+              >
                 Description
               </label>
-
               <textarea
                 id="description"
                 placeholder="Write club description here..."
-                className="block rounded-md focus:lime-300 w-full h-32 px-4 py-3 text-gray-800  border border-lime-300 bg-white focus:outline-lime-500 "
-                name="description"
                 {...register("description", {
                   required: "Description is required",
                 })}
+                className="w-full h-32 px-4 py-3 rounded-md border border-purple-400 focus:outline-purple-500 focus:ring-1 focus:ring-purple-500 text-gray-800"
               ></textarea>
               {errors.description && (
                 <p className="text-xs text-red-500 mt-1">
@@ -180,67 +183,59 @@ const AddClubForm = () => {
               )}
             </div>
           </div>
-          <div className="space-y-6 flex flex-col">
-            {/* Price & Quantity */}
-            <div className="flex justify-between gap-2">
-              {/* Price */}
-              <div className="space-y-1 text-sm">
-                <label htmlFor="price" className="block text-gray-600 ">
-                  Membership Fee
-                </label>
-                <input
-                  className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
-                  id="price"
-                  type="number"
-                  placeholder="Price per unit"
-                  {...register("fee", {
-                    required: "Price is required",
-                    min: { value: 0, message: "Price must be positive" },
-                  })}
-                />
-                {errors.price && (
-                  <p className="text-xs text-red-500 mt-1">
-                    {errors.price.message}
-                  </p>
-                )}
-              </div>
+
+          <div className="space-y-6">
+            {/* Membership Fee */}
+            <div className="space-y-1 text-sm">
+              <label htmlFor="fee" className="block text-gray-700 font-medium">
+                Membership Fee
+              </label>
+              <input
+                id="fee"
+                type="number"
+                placeholder="Fee in $"
+                {...register("fee", {
+                  required: "Price is required",
+                  min: { value: 0, message: "Price must be positive" },
+                })}
+                className="w-full px-4 py-3 rounded-md border border-purple-400 focus:outline-purple-500 focus:ring-1 focus:ring-purple-500 text-gray-800"
+              />
+              {errors.fee && (
+                <p className="text-xs text-red-500 mt-1">
+                  {errors.fee.message}
+                </p>
+              )}
             </div>
+
             {/* Image */}
-            <div className=" p-4  w-full  m-auto rounded-lg grow">
-              <div className="file_upload px-5 py-3 relative border-4 border-dotted border-gray-300 rounded-lg">
-                <div className="flex flex-col w-max mx-auto text-center">
-                  <label>
-                    <input
-                      className="text-sm cursor-pointer w-36 hidden"
-                      type="file"
-                      name="image"
-                      id="image"
-                      accept="image/*"
-                      hidden
-                      {...register("image", {
-                        required: "Image is required",
-                      })}
-                    />
-                    {errors.image && (
-                      <p className="text-xs text-red-500 mt-1">
-                        {errors.image.message}
-                      </p>
-                    )}
-                    <div className="bg-lime-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-lime-500">
-                      Upload
-                    </div>
-                  </label>
-                </div>
-              </div>
+            <div className="space-y-1 text-sm">
+              <label
+                htmlFor="image"
+                className="block text-gray-700 font-medium"
+              >
+                Club Image
+              </label>
+              <input
+                id="image"
+                type="file"
+                accept="image/*"
+                {...register("image", { required: "Image is required" })}
+                className="w-full file-input border-purple-400 text-gray-700"
+              />
+              {errors.image && (
+                <p className="text-xs text-red-500 mt-1">
+                  {errors.image.message}
+                </p>
+              )}
             </div>
 
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full cursor-pointer p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-lime-500 "
+              className="w-full px-4 py-3 mt-6 font-bold rounded-lg text-white bg-purple-500 hover:bg-purple-400 transition-shadow shadow-md"
             >
               {isPending ? (
-                <TbFidgetSpinner className="animate-spin m-auto" />
+                <TbFidgetSpinner className="animate-spin mx-auto" />
               ) : (
                 "Save & Continue"
               )}

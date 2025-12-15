@@ -36,7 +36,6 @@ const MemberStatistics = () => {
     );
   if (error) return <ErrorPage />;
 
-
   const { totalClubsJoined, totalEventsRegistered, upcomingEvents } = data;
 
   return (
@@ -51,14 +50,12 @@ const MemberStatistics = () => {
           {
             title: "Clubs Joined",
             value: totalClubsJoined,
-            from: "purple-300",
-            to: "purple-500",
+            className: "bg-gradient-to-r from-purple-500 to-purple-900",
           },
           {
             title: "Events Registered",
             value: totalEventsRegistered,
-            from: "blue-300",
-            to: "blue-500",
+            className: "bg-gradient-to-r from-cyan-500 to-cyan-900",
           },
         ].map((stat, i) => (
           <motion.div
@@ -67,7 +64,7 @@ const MemberStatistics = () => {
             initial="hidden"
             animate="visible"
             variants={cardVariants}
-            className={`card shadow-xl bg-linear-to-r from-${stat.from} to-${stat.to} text-white`}
+            className={`card shadow-xl text-white ${stat.className}`}
           >
             <div className="card-body">
               <h2 className="card-title text-lg">{stat.title}</h2>
@@ -91,18 +88,20 @@ const MemberStatistics = () => {
               transition={{ delay: i * 0.1, type: "spring", stiffness: 120 }}
               className="card bg-white shadow-xl rounded-lg overflow-hidden cursor-pointer hover:scale-105 transform transition-transform duration-300"
             >
-             <Link to={`/events/${event._id}`}>
-              <img
-                src={event.bannerImage}
-                alt={event.title}
-                className="h-40 w-full object-cover"
-              />
-              <div className="p-4">
-                <h3 className="text-lg font-semibold mb-1">{event.title}</h3>
-                <p className="text-gray-500 text-sm">{event.eventLocation}</p>
-                <p className="text-gray-400 text-sm mt-1">{event.eventDate}</p>
-              </div>
-             </Link>
+              <Link to={`/events/${event._id}`}>
+                <img
+                  src={event.bannerImage}
+                  alt={event.title}
+                  className="h-40 w-full object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold mb-1">{event.title}</h3>
+                  <p className="text-gray-500 text-sm">{event.eventLocation}</p>
+                  <p className="text-gray-400 text-sm mt-1">
+                    {event.eventDate}
+                  </p>
+                </div>
+              </Link>
             </motion.div>
           ))}
         </div>

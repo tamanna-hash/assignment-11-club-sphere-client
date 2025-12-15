@@ -1,21 +1,25 @@
-import {
-  MdEvent,
-  MdEventAvailable,
-} from "react-icons/md";
-import {
-  FaCcDinersClub,
-  FaClock,
-  FaTree,
-  FaVrCardboard,
-} from "react-icons/fa";
+import { MdEvent, MdEventAvailable, MdPendingActions } from "react-icons/md";
+import { FaPlusCircle, FaBoxOpen, FaUsersCog, FaHome } from "react-icons/fa";
 import { Link } from "react-router";
 
 const ManagerMenu = () => {
   return (
-    <ul className="menu gap-2 text-base-content">
+    <ul className="menu p-4 w-64 bg-gray-800 text-white gap-2 menu-item">
+      <li>
+        <Link
+          to="/dashboard"
+          className=" flex items-center gap-3 tooltip tooltip-right "
+          data-tip="Manager Overview"
+        >
+          {/* statistics icon */}
+          <FaHome />
+          <span className="truncate">Manager Overview
+</span>
+        </Link>
+      </li>
       <li>
         <Link to="add-club">
-          <FaCcDinersClub className="text-lg" />
+          <FaPlusCircle className="text-lg" />
           <span>Add Club</span>
         </Link>
       </li>
@@ -36,22 +40,22 @@ const ManagerMenu = () => {
 
       <li>
         <Link to="manage-memberships">
-          <FaVrCardboard className="text-lg" />
+          <FaUsersCog className="text-lg" />
           <span>Manage Memberships</span>
         </Link>
       </li>
 
       <li>
         <Link to="pending-clubs">
-          <FaClock className="text-lg" />
+          <MdPendingActions className="text-lg" />
           <span>Pending Clubs</span>
         </Link>
       </li>
 
       <li>
         <Link to="my-inventory">
-          <FaTree className="text-lg" />
-          <span>My Inventory</span>
+          <FaBoxOpen className="text-lg" />
+          <span>My Clubs</span>
         </Link>
       </li>
     </ul>

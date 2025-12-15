@@ -21,7 +21,7 @@ const EventCard = ({ event, index }) => {
                 hidden: { opacity: 0, y: 50 },
                 visible: { opacity: 1, y: 0 },
             }}
-            className=" hover:scale-[1.02] ease-in-out overflow-hidden shadow-lg bg-white hover:shadow-2xl transition"
+            className="rounded-xl hover:scale-[1.02] ease-in-out overflow-hidden shadow-lg bg-white hover:shadow-2xl transition"
         >
       <img
         src={bannerImage}

@@ -20,7 +20,7 @@ const MemberMembershipTable = ({ membership, index }) => {
           "waiting for approval"}
       </td>
       <td>
-        <Link to={`/clubs/${clubId}`} className="btn btn-xs bg-sky-200">
+        <Link to={`/clubs/${clubId}`} className="btn btn-xs text-white bg-purple-500 hover:bg-purple-400">
           View Details
         </Link>
       </td>

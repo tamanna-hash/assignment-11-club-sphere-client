@@ -2,14 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router";
 
 const MyJoinedClubCard = ({ club }) => {
-     const {
-    name,
-    category,
-    clubId,
-   image,
-    fee,
-    status
-  } = club || {};
+  const { name, category, clubId, image, fee, status } = club || {};
   console.log(club);
   return (
     <motion.div
@@ -29,29 +22,28 @@ const MyJoinedClubCard = ({ club }) => {
       <figure className="h-40">
         <img
           src={image}
-          alt={'coverImage'}
+          alt={"coverImage"}
           className="w-full h-full object-cover"
         />
       </figure>
 
       <div className="card-body p-4">
-        <h2 className="card-title text-lg font-semibold ">
-          {name}
-        </h2>
+        <h2 className="card-title text-lg font-semibold ">{name}</h2>
 
-        <p className="text-sm ">
-          Category: {category}
-        </p>
+        <p className="text-sm ">Category: {category}</p>
 
         <div className="flex justify-between items-center mt-2">
           <span className=" font-medium">Fee: ${fee}</span>
-          <span className="badge badge-success badge-outline">
-            {status}
-          </span>
+          <span className="badge badge-success badge-outline">{status}</span>
         </div>
-           <Link to={`/clubs/${clubId}`} className="btn bg-sky-300">
+        <div className="  text-sm ">
+          <Link
+          to={`/clubs/${clubId}`}
+          className="btn  text-white bg-purple-500 hover:bg-purple-400"
+        >
           View Details
         </Link>
+        </div>
       </div>
     </motion.div>
   );

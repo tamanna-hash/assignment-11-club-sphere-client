@@ -82,21 +82,32 @@ const ManagerMembershipTable = ({ membership, index, refetch }) => {
         </p>
       </td>
       {/* actions */}
-      <td>
-        {isApproving ? (
-          <button onClick={handleRejectClub} className="btn bg-red-300">
-            Reject
-          </button>
-        ) : (
-          <>
-            <button onClick={handleApproveClub} className="btn bg-green-300">
-              Approve
-            </button>
-            <button onClick={handleRejectClub} className="btn bg-red-300">
+      <td className="w-40">
+        <div className="flex gap-2 justify-end">
+          {isApproving ? (
+            <button
+              onClick={handleRejectClub}
+              className="px-3 py-1 bg-purple-500 hover:bg-purple-400 text-white font-bold rounded transition"
+            >
               Reject
             </button>
-          </>
-        )}
+          ) : (
+            <>
+              <button
+                onClick={handleApproveClub}
+                className="px-3 py-1 bg-purple-500 hover:bg-purple-400 text-white font-bold rounded transition"
+              >
+                Approve
+              </button>
+              <button
+                onClick={handleRejectClub}
+                className="px-3 py-1 bg-purple-500 hover:bg-purple-400 text-white font-bold rounded transition"
+              >
+                Reject
+              </button>
+            </>
+          )}
+        </div>
       </td>
     </tr>
   );

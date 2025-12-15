@@ -23,7 +23,7 @@ const ManageMemberships = () => {
   return (
     <>
       <div className="overflow-x-auto">
-        <table className="table table-zebra">
+        <table className="table table-zebra table-sm">
           {/* head */}
           <thead>
             <tr>

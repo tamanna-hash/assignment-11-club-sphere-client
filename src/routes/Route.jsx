@@ -15,7 +15,7 @@ import ClubDetails from "../pages/Home/clubs/ClubDetails";
 import EventDetails from "../pages/Home/events/EventDetails";
 import AddClub from "../pages/Dashboard/manager/AddClub";
 import PaymentSuccess from "../pages/Home/clubs/PaymentSuccess";
-import MyInventory from "../pages/Dashboard/manager/MyInventory";
+import MyClubs from "../pages/Dashboard/manager/MyClubs";
 import ManageMemberships from "../pages/Dashboard/manager/ManageMemberships";
 import MyMemberships from "../pages/Dashboard/Member/MyMemberships";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
@@ -182,7 +182,7 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ManagerRoute>
-              <MyInventory />
+              <MyClubs />
             </ManagerRoute>
           </PrivateRoute>
         ),
