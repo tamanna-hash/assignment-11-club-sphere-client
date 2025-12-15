@@ -21,7 +21,7 @@ const MyJoinedEventCard = ({ event }) => {
         duration: 0.75,
         ease: "easeInOut",
       }}
-      className="card shadow-xl bg-base-100 overflow-hidden border border-white"
+      className="card shadow-xl bg-base-100 overflow-hidden"
       variants={{
         hidden: { opacity: 0, y: 50 },
         visible: { opacity: 1, y: 0 },
@@ -52,7 +52,7 @@ const MyJoinedEventCard = ({ event }) => {
             Cancelled At: {new Date(cancelledAt).toLocaleString()}
           </p>
         )}
-        <Link to={`/events/${_id}`} className="btn bg-sky-300">
+        <Link to={`/events/${_id}`} className="btn bg-purple-400 text-white animate hover:animate-pulse">
           View Details
         </Link>
       </div>

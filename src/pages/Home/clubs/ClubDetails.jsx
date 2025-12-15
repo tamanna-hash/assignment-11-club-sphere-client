@@ -37,73 +37,84 @@ const ClubDetails = () => {
   return (
     <>
       <title>ClubSphere-Club Details</title>
-      <div className="max-w-5xl mx-auto p-4 md:p-6 lg:p-8">
-        <div className="card bg-base-100 shadow-xl border border-gray-200 rounded-2xl overflow-hidden">
-          <div className="flex flex-col md:flex-row gap-8 p-6 md:p-8">
-            <div className="shrink-0 w-full md:w-1/2">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 py-10">
+        <div className="bg-base-100 rounded-3xl shadow-xl overflow-hidden border border-base-300">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 md:p-10">
+            {/* Image */}
+            <div className="w-full h-[380px] rounded-2xl overflow-hidden shadow-lg">
               <img
                 src={coverImage}
-                alt=""
-                className="w-full object-cover rounded-xl shadow-md"
+                alt={clubName}
+                className="w-full h-full object-cover"
               />
             </div>
 
-            <div className="flex flex-col justify-center space-y-4 w-full md:w-1/2">
-              <h2 className="card-title md:text-2xl">{clubName}</h2>
-              <div className="badge badge-outline badge-accent font-semibold ">
-                Category: {category}
-              </div>
-              <div>
-                <span className="font-semibold">Membership Fee:</span>
-                {membershipFee} $
-              </div>
-              <div>
-                <span className=" font-semibold">Manager: </span>{" "}
-                {manager?.name}
-              </div>
-              <div>
-                <span className="font-semibold">Manager email: </span>
-                {manager?.email}
+            {/* Content */}
+            <div className="flex flex-col justify-between">
+              <div className="space-y-4">
+                <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
+                  {clubName}
+                </h1>
+
+                <div className="flex flex-wrap gap-2">
+                  <span className="badge badge-outline badge-primary">
+                    {category}
+                  </span>
+                  <span className="badge badge-outline">{clubLocation}</span>
+                </div>
+
+                <p className="text-base-content/80 leading-relaxed">
+                  {description}
+                </p>
+
+                <div className="grid grid-cols-2 gap-4 pt-4 text-sm">
+                  <div>
+                    <p className="text-base-content/60">Membership Fee</p>
+                    <p className="font-semibold text-lg">${membershipFee}</p>
+                  </div>
+                  <div>
+                    <p className="text-base-content/60">Manager</p>
+                    <p className="font-medium">{manager?.name}</p>
+                    <p className="text-xs text-base-content/60">
+                      {manager?.email}
+                    </p>
+                  </div>
+                </div>
               </div>
 
-              <p className="flex items-center">
-                <span className="font-semibold">Location: </span>
-                {clubLocation}
-              </p>
-              <p className=" ">
-                <span className="font-semibold">Description: </span>
-                {description}
-              </p>
-
-              <div className="flex gap-3 mt-6">
+              {/* Actions */}
+              <div className="flex flex-wrap gap-3 pt-8">
                 <button
                   onClick={() => setIsOpen(true)}
-                  className={`btn px-4 py-2 font-bold text-white transition bg-cyan-700 hover:bg-cyan-800`}
+                  className="btn rounded-xl text-white font-semibold
+            bg-purple-500 hover:bg-purple-600
+            transition shadow-lg shadow-purple-500/30"
                 >
                   Join Club
                 </button>
 
                 <Link
                   to={`/events?clubId=${_id}`}
-                  className="btn px-4 py-2 font-bold text-white hover:bg-linear-to-r bg-cyan-700  hover:from-cyan-800 hover:via-cyan-700 hover:to-cyan-500 transition-transform"
+                  className="btn rounded-xl font-semibold
+            border border-purple-400/40 text-purple-500
+            hover:bg-purple-500/10 transition"
                 >
                   View Events
                 </Link>
+
                 <button
                   onClick={() => navigate(-1)}
-                  className="btn px-4 py-2 font-bold text-white hover:bg-linear-to-r bg-cyan-700  hover:from-cyan-800 hover:via-cyan-700 hover:to-cyan-500 transition-transform"
+                  className="btn rounded-xl font-semibold
+            border border-base-300 hover:bg-purple-400/20 transition"
                 >
                   Back
                 </button>
               </div>
-              <PurchaseModal
-                club={club}
-                closeModal={closeModal}
-                isOpen={isOpen}
-              />
             </div>
           </div>
         </div>
+
+        <PurchaseModal club={club} closeModal={closeModal} isOpen={isOpen} />
       </div>
     </>
   );

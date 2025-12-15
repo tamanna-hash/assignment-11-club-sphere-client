@@ -1,57 +1,60 @@
 import React from "react";
 import { CgCardClubs } from "react-icons/cg";
-import { FaCreditCard, FaUser } from "react-icons/fa";
+import { FaCreditCard, FaUser, FaUserTag } from "react-icons/fa";
 import { MdOutlineEventAvailable } from "react-icons/md";
 import { Link } from "react-router";
 
 const MemberMenu = () => {
   return (
-    <>
-      {/* my memberships */}
+    <ul className="menu p-4 w-64 bg-gray-800 text-white gap-2 menu-item">
+      {/* My Memberships */}
       <li>
         <Link
           to="my-memberships"
-          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          className="flex items-center gap-2 tooltip tooltip-right"
           data-tip="My Memberships"
         >
           <FaCreditCard />
-          <span className="is-drawer-close:hidden">My Memberships</span>
+          <span className="truncate">My Memberships</span>
         </Link>
       </li>
-      {/* my joined events */}
+
+      {/* My Joined Events */}
       <li>
         <Link
           to="my-joined-events"
-          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="My joined Events"
+          className="flex items-center gap-2 tooltip tooltip-right"
+          data-tip="My Joined Events"
         >
-         <MdOutlineEventAvailable />
-          <span className="is-drawer-close:hidden">My joined Events</span>
+          <MdOutlineEventAvailable />
+          <span className="truncate">My Joined Events</span>
         </Link>
       </li>
-      {/* my joined clubs */}
+
+      {/* My Joined Clubs */}
       <li>
         <Link
           to="my-joined-clubs"
-          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="My joined Clubs"
+          className="flex items-center gap-2 tooltip tooltip-right"
+          data-tip="My Joined Clubs"
         >
           <CgCardClubs />
-          <span className="is-drawer-close:hidden">My joined Clubs</span>
+          <span className="truncate">My Joined Clubs</span>
         </Link>
       </li>
-      {/* become a manager */}
+
+      {/* Become a Manager */}
       <li>
         <Link
           to="become-manager"
-          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          className="flex items-center gap-2 tooltip tooltip-right"
           data-tip="Become a Manager"
         >
-          <FaUser />
-          <span className="is-drawer-close:hidden">Become a Manager</span>
+          <FaUserTag />
+          <span className="truncate">Become a Manager</span>
         </Link>
       </li>
-    </>
+    </ul>
   );
 };
 

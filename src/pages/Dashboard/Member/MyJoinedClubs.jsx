@@ -17,17 +17,17 @@ const MyJoinedClubs = () => {
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <section className="p-6 min-h-screen bg-gray-50">
+    <section className="p-6 min-h-screen">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-3xl font-bold text-gray-800 mb-6"
+        className="text-3xl font-bold text-slate-800 mb-6"
       >
         My Joined Clubs
       </motion.h1>
 
       {joinedClubs.length === 0 ? (
-        <p className="text-gray-500 text-center mt-20">
+        <p className="text-center text-slate-800 mt-20">
           You haven’t joined any clubs yet.
         </p>
       ) : (

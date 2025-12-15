@@ -6,6 +6,7 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../Shared/LoadingSpinner";
 import ErrorPage from "../../../pages/ErrorPage";
+import { Link } from "react-router";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -39,8 +40,8 @@ const MemberStatistics = () => {
   const { totalClubsJoined, totalEventsRegistered, upcomingEvents } = data;
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">
+    <div className="p-6 min-h-screen">
+      <h1 className="text-3xl font-bold mb-6 text-slate-800">
         Welcome back, {user?.email.split("@")[0]}!
       </h1>
 
@@ -50,8 +51,8 @@ const MemberStatistics = () => {
           {
             title: "Clubs Joined",
             value: totalClubsJoined,
-            from: "green-300",
-            to: "green-500",
+            from: "purple-300",
+            to: "purple-500",
           },
           {
             title: "Events Registered",
@@ -90,6 +91,7 @@ const MemberStatistics = () => {
               transition={{ delay: i * 0.1, type: "spring", stiffness: 120 }}
               className="card bg-white shadow-xl rounded-lg overflow-hidden cursor-pointer hover:scale-105 transform transition-transform duration-300"
             >
+             <Link to={`/events/${event._id}`}>
               <img
                 src={event.bannerImage}
                 alt={event.title}
@@ -100,6 +102,7 @@ const MemberStatistics = () => {
                 <p className="text-gray-500 text-sm">{event.eventLocation}</p>
                 <p className="text-gray-400 text-sm mt-1">{event.eventDate}</p>
               </div>
+             </Link>
             </motion.div>
           ))}
         </div>

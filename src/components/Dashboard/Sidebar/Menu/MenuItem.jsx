@@ -17,17 +17,17 @@ const MenuItem = () => {
   const [role, isRoleLoading] = useRole();
   return (
     <div>
-      <ul className="menu w-full grow">
+      <ul className="menu w-full grow menu">
         {/* List item */}
         <li>
           <Link
             to="/dashboard"
-            className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+            className=" flex items-center gap-2 tooltip tooltip-right ml-4"
             data-tip="Statistics"
           >
             {/* statistics icon */}
             <FaHome />
-            <span className="is-drawer-close:hidden">Statistics</span>
+            <span className="truncate">Statistics</span>
           </Link>
         </li>
         {/* member menu item */}

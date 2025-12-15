@@ -8,7 +8,7 @@ const MainLayout = () => {
       <div className="sticky top-0 z-50">
         <Navbar></Navbar>
       </div>
-      <div className="flex-1">
+      <div className="flex-1 mt-14">
         <Outlet></Outlet>
       </div>
       <div>

@@ -22,13 +22,13 @@ console.log(joinedEvents);
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-3xl font-bold mb-6"
+        className="text-3xl text-slate-800 font-bold mb-6"
       >
         My JoinedEvents
       </motion.h1>
 
       {joinedEvents.length === 0 ? (
-        <p className="text-gray-500 text-center mt-20">
+        <p className="text-center text-slate-800 mt-20">
           You haven't joined any Events yet.
         </p>
       ) : (

@@ -32,7 +32,7 @@ initial="hidden"
 whileInView="visible"
 viewport={{ once: true }}
 variants={fadeUp}
-className="bg-[#0c0016] rounded-2xl p-6 shadow-lg"
+className="bg-[#11001f] rounded-2xl p-6 shadow-lg"
 >
 <h3 className="text-xl font-semibold mb-3">{title}</h3>
 <p className="text-gray-400 text-sm">

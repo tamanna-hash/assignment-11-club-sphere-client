@@ -21,6 +21,7 @@ const EventCard = ({ event, index }) => {
                 hidden: { opacity: 0, y: 50 },
                 visible: { opacity: 1, y: 0 },
             }}
+            className=" hover:scale-[1.02] ease-in-out overflow-hidden shadow-lg bg-white hover:shadow-2xl transition"
         >
       <img
         src={bannerImage}
@@ -36,12 +37,12 @@ const EventCard = ({ event, index }) => {
           <span className={`font-semibold text-gray-800`}>
             {isPaid ? `$${maxAttendees}` : "Free"}
           </span>
-          <span className="text-sm text-gray-500">{manager.name}</span>
+          <span className="text-sm text-gray-500">Event Host: {manager.name}</span>
         </div>
 
         <Link
           to={`/events/${_id}`}
-          className="btn bg-cyan-600 outline-cyan-800 font-bold  hover:bg-cyan-700 btn-sm text-xs transition-transform"
+         className="btn mt-2 text-white bg-purple-600/90 hover:bg-purple-600/70"
         >
           View Details
         </Link>

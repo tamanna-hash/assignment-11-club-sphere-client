@@ -1,10 +1,12 @@
 import useAuth from '../../../hooks/useAuth'
-import coverImg from '../../../assets/coverImg.jpg'
+import coverImg from '../../../assets/bg1.jpeg'
 import useRole from '../../../hooks/useRole'
+import LoadingSpinner from '../LoadingSpinner'
 
 const Profile = () => {
   const { user } = useAuth()
   const [role, isRoleLoading] = useRole()
+  if(isRoleLoading)return <LoadingSpinner/>
   return (
     <div className='flex justify-center items-center h-screen'>
       <div className='bg-white shadow-lg rounded-2xl md:w-4/5 lg:w-3/5'>
@@ -22,11 +24,11 @@ const Profile = () => {
             />
           </a>
 
-          <p className='p-2 px-4 text-xs text-white bg-lime-500 rounded-full'>
+          <p className='p-2 px-4 text-sm text-white bg-purple-400 hover:bg-purple-500 rounded-full'>
             {role}
           </p>
-          <p className='mt-2 text-xl font-medium text-gray-800 '>
-            User Id: {user?.uid}
+          <p className='mt-2 text-xl font-bold text-gray-800 '>
+            We are proud to have you with us
           </p>
           <div className='w-full p-2 mt-4 rounded-lg'>
             <div className='flex flex-wrap items-center justify-between text-sm text-gray-600 '>
@@ -42,10 +44,10 @@ const Profile = () => {
               </p>
 
               <div>
-                <button className='bg-lime-500  px-10 py-1 rounded-lg text-white cursor-pointer hover:bg-lime-800 block mb-1'>
+                <button className='bg-purple-400 hover:bg-purple-500  px-10 py-1 rounded-lg text-white cursor-pointer block mb-1'>
                   Update Profile
                 </button>
-                <button className='bg-lime-500 px-7 py-1 rounded-lg text-white cursor-pointer hover:bg-lime-800'>
+                <button className='bg-purple-400 hover:bg-purple-500 px-7 py-1 rounded-lg text-white cursor-pointer'>
                   Change Password
                 </button>
               </div>

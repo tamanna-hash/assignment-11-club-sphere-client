@@ -1,72 +1,45 @@
-import {
-  FaCcDinersClub,
-  FaCreditCard,
-  FaUserCog,
-  FaUsers,
-  FaUserTag,
-} from "react-icons/fa";
+import { FaCcDinersClub, FaCreditCard, FaUsers } from "react-icons/fa";
 import { RiPassPendingFill } from "react-icons/ri";
 import { Link } from "react-router";
 
 const AdminMenu = () => {
   return (
-    <>
-      {/* Manage Clubs */}
+    <ul className="menu gap-2 text-base-content">
       <li>
-        <Link
-          to="club-management"
-          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="Club Management"
-        >
-          <FaCcDinersClub />
-          <span className="is-drawer-close:hidden">Club Management</span>
+        <Link to="club-management">
+          <FaCcDinersClub className="text-lg" />
+          <span>Club Management</span>
         </Link>
       </li>
-      {/* Manage Users */}
+
       <li>
-        <Link
-          to="user-management"
-          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="User Management"
-        >
-          <FaUsers />
-          <span className="is-drawer-close:hidden">User Management</span>
+        <Link to="user-management">
+          <FaUsers className="text-lg" />
+          <span>User Management</span>
         </Link>
       </li>
-      {/* manage manager requests */}
+
       <li>
-        <Link
-          to="manager-requests"
-          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="Manager Requests"
-        >
-          <RiPassPendingFill />
-          <span className="is-drawer-close:hidden">Manager Requests</span>
+        <Link to="manager-requests">
+          <RiPassPendingFill className="text-lg" />
+          <span>Manager Requests</span>
         </Link>
       </li>
-      {/* all payments */}
+
       <li>
-        <Link
-          to="admin-all-clubs"
-          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="All clubs"
-        >
-          <FaCreditCard />
-          <span className="is-drawer-close:hidden">All Clubs</span>
+        <Link to="admin-all-clubs">
+          <FaCreditCard className="text-lg" />
+          <span>All Clubs</span>
         </Link>
       </li>
-      {/* all payments */}
+
       <li>
-        <Link
-          to="all-payments"
-          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="All Payments"
-        >
-          <FaCreditCard />
-          <span className="is-drawer-close:hidden">All Payments</span>
+        <Link to="all-payments">
+          <FaCreditCard className="text-lg" />
+          <span>All Payments</span>
         </Link>
       </li>
-    </>
+    </ul>
   );
 };
 

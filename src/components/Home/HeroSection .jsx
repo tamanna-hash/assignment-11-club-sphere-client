@@ -1,9 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router";
 
-/* =====================
-Animation Variants
-===================== */
+
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (i = 1) => ({
@@ -15,7 +13,7 @@ const fadeUp = {
 
 
 const HeroSection = () => (
-  <section className="relative min-h-[90vh] flex items-center justify-center bg-gradient-to-br from-[#12001f] via-[#1b0033] to-black text-white overflow-hidden">
+  <section className="relative min-h-[90vh] flex items-center justify-center bg-linear-to-br from-[#12001f] via-[#1b0033] to-black text-white overflow-hidden">
     <motion.div
       initial="hidden"
       animate="visible"
