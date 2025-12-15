@@ -5,12 +5,10 @@ import { Link, useNavigate, useParams } from "react-router";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import PurchaseModal from "../../../components/Modal/PurchaseModal";
 
-
 const ClubDetails = () => {
   let [isOpen, setIsOpen] = useState(false);
-
   const { id } = useParams();
-
+  console.log(id);
   const navigate = useNavigate();
   const { data: club, isLoading } = useQuery({
     queryKey: ["club", id],
@@ -21,7 +19,6 @@ const ClubDetails = () => {
       return res.data;
     },
   });
-
   const {
     clubName,
     clubLocation,
@@ -87,7 +84,7 @@ const ClubDetails = () => {
                 </button>
 
                 <Link
-                 to={`/events?clubId=${_id}`}
+                  to={`/events?clubId=${_id}`}
                   className="btn px-4 py-2 font-bold text-white hover:bg-linear-to-r bg-cyan-700  hover:from-cyan-800 hover:via-cyan-700 hover:to-cyan-500 transition-transform"
                 >
                   View Events

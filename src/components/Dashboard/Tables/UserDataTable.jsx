@@ -9,6 +9,7 @@ import { FaUserShield } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import { RiAdminFill, RiAdminLine } from "react-icons/ri";
 const UserDataTable = ({ user, index, refetch }) => {
   const axiosSecure = useAxiosSecure();
   const { _id, name, email, role, status, created_at } = user || {};
@@ -58,24 +59,47 @@ const UserDataTable = ({ user, index, refetch }) => {
       <td>{role}</td>
       <td>{created_at}</td>
       {/* actions */}
-      <td>
-        {user.role === "manager" ? (
+      <td className="flex gap-2">
+        {/* Manager ↔ Member */}
+        {user.role === "manager" && (
           <button
             onClick={() => handleRoleUpdate("member")}
             className="btn bg-red-300"
+            title="Remove Manager"
           >
             <FiShieldOff />
           </button>
-        ) : (
+        )}
+
+        {user.role === "member" && (
           <button
             onClick={() => handleRoleUpdate("manager")}
             className="btn bg-green-300"
+            title="Make Manager"
           >
             <FaUserShield />
           </button>
         )}
+
+        {/* Admin ↔ Member */}
+        {user.role !== "admin" ? (
+          <button
+            onClick={() => handleRoleUpdate("admin")}
+            className="btn bg-blue-300"
+            title="Make Admin"
+          >
+            <RiAdminFill />
+          </button>
+        ) : (
+          <button
+            onClick={() => handleRoleUpdate("member")}
+            className="btn bg-yellow-300"
+            title="Remove Admin"
+          >
+            <RiAdminLine />
+          </button>
+        )}
       </td>
-      <td>details</td>
     </tr>
   );
 };

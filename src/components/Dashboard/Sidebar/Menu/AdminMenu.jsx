@@ -47,6 +47,17 @@ const AdminMenu = () => {
       {/* all payments */}
       <li>
         <Link
+          to="admin-all-clubs"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="All clubs"
+        >
+          <FaCreditCard />
+          <span className="is-drawer-close:hidden">All Clubs</span>
+        </Link>
+      </li>
+      {/* all payments */}
+      <li>
+        <Link
           to="all-payments"
           className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
           data-tip="All Payments"

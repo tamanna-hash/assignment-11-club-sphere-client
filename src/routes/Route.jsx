@@ -33,6 +33,8 @@ import MyEvents from "../pages/Dashboard/manager/MyEvents";
 import UpdateEvent from "../pages/Dashboard/manager/UpdateEvent";
 import EventRegistrations from "../pages/Dashboard/manager/EventRegistrations";
 import MyJoinedEvents from "../pages/Dashboard/Member/MyJoinedEvents";
+import AdminAllClubs from "../pages/Dashboard/Admin/AdminAllClubs";
+import MyJoinedClubs from "../pages/Dashboard/Member/MyJoinedClubs";
 
 export const router = createBrowserRouter([
   {
@@ -93,6 +95,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyJoinedEvents />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-joined-clubs",
+        element: (
+          <PrivateRoute>
+            <MyJoinedClubs />
           </PrivateRoute>
         ),
       },
@@ -214,6 +224,16 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <AdminRoute>
               <ManageClubs />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "admin-all-clubs",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AdminAllClubs/>
             </AdminRoute>
           </PrivateRoute>
         ),

@@ -22,7 +22,7 @@ const PaymentSuccess = () => {
             Payment Successful!
           </h1>
           <p className="text-gray-600 mb-6">
-            Thank you for your purchase. Your order is being processed.
+            Thank you for your payment. Your registration is being processed.
           </p>
           <Link
             to="/dashboard/my-memberships"

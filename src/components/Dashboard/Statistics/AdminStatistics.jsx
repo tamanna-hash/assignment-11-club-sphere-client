@@ -1,91 +1,115 @@
-import { FaUserAlt, FaDollarSign } from 'react-icons/fa'
-import { BsFillCartPlusFill, BsFillHouseDoorFill } from 'react-icons/bs'
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import ErrorPage from "../../../pages/ErrorPage";
+import LoadingSpinner from "../../Shared/LoadingSpinner";
 
 const AdminStatistics = () => {
+  // Fetch admin summary using TanStack Query
+  const axiosSecure = useAxiosSecure();
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["adminSummary"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/admin-summary");
+      return res.data;
+    },
+  });
+
+  if (isLoading)
+    return <div className="text-center mt-10 text-xl"><LoadingSpinner/></div>;
+  if (error)
+    return <ErrorPage/>
+
+  const {
+    totalUsers,
+    clubsSummary,
+    totalMemberships,
+    totalEvents,
+    totalPayments,
+    membershipsPerClub,
+  } = data;
+
   return (
-    <div>
-      <div className='mt-12'>
-        {/* small cards */}
-        <div className='mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 lg:grid-cols-4 grow'>
-          {/* Sales Card */}
-          <div className='relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md'>
-            <div
-              className={`bg-clip-border mx-4 rounded-xl overflow-hidden bg-linear-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-orange-600 to-orange-400 text-white shadow-orange-500/40`}
-            >
-              <FaDollarSign className='w-6 h-6 text-white' />
-            </div>
-            <div className='p-4 text-right'>
-              <p className='block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600'>
-                Total Revenue
-              </p>
-              <h4 className='block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900'>
-                $120
-              </h4>
-            </div>
-          </div>
-          {/* Total Orders */}
-          <div className='relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md'>
-            <div
-              className={`bg-clip-border mx-4 rounded-xl overflow-hidden bg-linear-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-blue-600 to-blue-400 text-white shadow-blue-500/40`}
-            >
-              <BsFillCartPlusFill className='w-6 h-6 text-white' />
-            </div>
-            <div className='p-4 text-right'>
-              <p className='block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600'>
-                Total Orders
-              </p>
-              <h4 className='block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900'>
-                120
-              </h4>
-            </div>
-          </div>
-          {/* Total Plants */}
-          <div className='relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md'>
-            <div
-              className={`bg-clip-border mx-4 rounded-xl overflow-hidden bg-linear-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-pink-600 to-pink-400 text-white shadow-pink-500/40`}
-            >
-              <BsFillHouseDoorFill className='w-6 h-6 text-white' />
-            </div>
-            <div className='p-4 text-right'>
-              <p className='block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600'>
-                Total Plants
-              </p>
-              <h4 className='block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900'>
-                120
-              </h4>
-            </div>
-          </div>
-          {/* Users Card */}
-          <div className='relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md'>
-            <div
-              className={`bg-clip-border mx-4 rounded-xl overflow-hidden bg-linear-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-green-600 to-green-400 text-white shadow-green-500/40`}
-            >
-              <FaUserAlt className='w-6 h-6 text-white' />
-            </div>
-            <div className='p-4 text-right'>
-              <p className='block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600'>
-                Total User
-              </p>
-              <h4 className='block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900'>
-                10
-              </h4>
-            </div>
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <h1 className="text-3xl font-bold mb-6 text-gray-800">Admin Dashboard</h1>
+
+      {/* Summary Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-10">
+        <div className="card bg-linear-to-r from-indigo-500 to-purple-500 text-white shadow-lg">
+          <div className="card-body">
+            <h2 className="card-title text-lg">Total Users</h2>
+            <p className="text-2xl font-bold">{totalUsers}</p>
           </div>
         </div>
 
-        <div className='mb-4 grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3'>
-          {/*Sales Bar Chart */}
-          <div className='relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md overflow-hidden xl:col-span-2'>
-            {/* Chart goes here.. */}
+        <div className="card bg-linear-to-r from-green-400 to-teal-500 text-white shadow-lg">
+          <div className="card-body">
+            <h2 className="card-title text-lg">Clubs</h2>
+            <p className="text-lg">
+              Pending: {clubsSummary.pending} <br />
+              Approved: {clubsSummary.approved} <br />
+            </p>
           </div>
-          {/* Calender */}
-          <div className=' relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md overflow-hidden'>
-            {/* Calender */}
+        </div>
+
+        <div className="card bg-linear-to-r from-yellow-400 to-orange-500 text-white shadow-lg">
+          <div className="card-body">
+            <h2 className="card-title text-lg">Total Memberships</h2>
+            <p className="text-2xl font-bold">{totalMemberships}</p>
+          </div>
+        </div>
+
+        <div className="card bg-linear-to-r from-red-400 to-pink-500 text-white shadow-lg">
+          <div className="card-body">
+            <h2 className="card-title text-lg">Total Events</h2>
+            <p className="text-2xl font-bold">{totalEvents}</p>
+          </div>
+        </div>
+
+        <div className="card bg-linear-to-r from-blue-400 to-cyan-500 text-white shadow-lg">
+          <div className="card-body">
+            <h2 className="card-title text-lg">Total Payments</h2>
+            <p className="text-2xl font-bold">${totalPayments}</p>
           </div>
         </div>
       </div>
-    </div>
-  )
-}
 
-export default AdminStatistics
+      {/* Memberships per Club Chart */}
+      <div className="bg-white p-6 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-bold mb-4 text-gray-700">
+          Memberships per Club
+        </h2>
+        {membershipsPerClub && membershipsPerClub.length > 0 ? (
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart
+              data={membershipsPerClub}
+              margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
+            >
+              <XAxis dataKey="clubName" />
+              <YAxis />
+              <Tooltip />
+              <Bar
+                dataKey="totalMembers"
+                fill="#4f46e5"
+                radius={[5, 5, 0, 0]}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        ) : (
+          <p className="text-gray-500">No membership data available.</p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default AdminStatistics;

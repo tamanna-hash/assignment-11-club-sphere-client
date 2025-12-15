@@ -1,34 +1,90 @@
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import React from "react";
-
+import { useSearchParams } from "react-router";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import EventCard from "../../../components/Home/EventCard";
-import { useSearchParams } from "react-router";
+import { useDebounce } from "../../../hooks/useDebounce";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Events = () => {
   const [searchParams] = useSearchParams();
-const clubId = searchParams.get("clubId");
-const axiosSecure=useAxiosSecure()
+  const clubId = searchParams.get("clubId");
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isPaid, setIsPaid] = useState("all");
+  const [sort, setSort] = useState("newest");
+
+  const debouncedSearch = useDebounce(searchTerm, 600);
+  const axiosSecure = useAxiosSecure();
+
   const { data: events = [], isLoading } = useQuery({
-    queryKey: ["events",clubId],
+    queryKey: ["events", clubId, debouncedSearch, isPaid, sort],
     queryFn: async () => {
-       const url = clubId ? `/events?clubId=${clubId}` : "/events";
-      const res = await axiosSecure.get(url);
+      const res = await axiosSecure.get("/events", {
+        params: {
+          clubId,
+          search: debouncedSearch,
+          isPaid,
+          sort,
+        },
+      });
       return res.data;
     },
+    keepPreviousData: true,
   });
 
   if (isLoading) return <LoadingSpinner />;
+
   return (
-    <>
-      <div>
-        {events.map((event) => (
-          <EventCard event={event} key={event._id} />
-        ))}
+    <section className="p-6 min-h-screen">
+      <h1 className="text-3xl font-bold mb-6 text-gray-800">Events</h1>
+
+      {/* 🔍 Controls */}
+      <div className="flex flex-col md:flex-row gap-3 mb-6">
+        {/* Search */}
+        <input
+          type="text"
+          placeholder="Search events..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="input input-bordered w-full md:max-w-sm shadow-md"
+        />
+
+        {/* Paid / Free filter */}
+        <select
+          className="select select-bordered shadow-md"
+          value={isPaid}
+          onChange={(e) => setIsPaid(e.target.value)}
+        >
+          <option value="all">All Events</option>
+          <option value="true">Paid Events</option>
+          <option value="false">Free Events</option>
+        </select>
+
+        {/* Sort */}
+        <select
+          className="select select-bordered shadow-md"
+          value={sort}
+          onChange={(e) => setSort(e.target.value)}
+        >
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+          <option value="event-soon">Upcoming Soon</option>
+          <option value="event-late">Upcoming Later</option>
+        </select>
       </div>
-    </>
+
+      
+      {events.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+          {events.map((event, index) => (
+            <EventCard key={event._id} event={event} index={index} />
+          ))}
+        </div>
+      ) : (
+        <p className="text-center text-gray-500 mt-16">No events found.</p>
+      )}
+    </section>
   );
 };
 

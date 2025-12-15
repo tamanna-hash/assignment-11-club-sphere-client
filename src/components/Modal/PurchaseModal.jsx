@@ -1,10 +1,14 @@
-import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
-import useAuth from '../../hooks/useAuth'
-import axios from 'axios'
+import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
+import useAuth from "../../hooks/useAuth";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const PurchaseModal = ({ closeModal, isOpen, club }) => {
-  const { user } = useAuth()
- const {
+  // console.log(club);
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const {
     clubName,
     clubLocation,
     category,
@@ -16,8 +20,34 @@ const PurchaseModal = ({ closeModal, isOpen, club }) => {
   } = club || {};
 
   const handlePayment = async () => {
+    if (membershipFee === 0) {
+      const membershipInfo = {
+        clubId: _id,
+        member: user?.email,
+        status: "pending",
+        manager: club.manager,
+        name: club.clubName,
+        category: club.category,
+        fee: membershipFee,
+        image: coverImage,
+      };
+
+      // Free club, join directly
+      try {
+        await axios.post(
+          `${import.meta.env.VITE_API_URL}/membership-free`,
+          membershipInfo
+        );
+        Swal.fire("Success!", "You joined the club successfully.", "success");
+        navigate("/my-clubs"); 
+      } catch (err) {
+        console.log(err);
+        Swal.fire("Error!", "Something went wrong.", "error");
+      }
+      return; // Stop the function here so Stripe is not called
+    }
     const paymentInfo = {
-      clubId: _id,
+      clubId: Number(_id),
       clubName,
       category,
       membershipFee,
@@ -31,61 +61,67 @@ const PurchaseModal = ({ closeModal, isOpen, club }) => {
         email: user?.email,
         image: user?.photoURL,
       },
+    };
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/create-checkout-session`,
+        paymentInfo
+      );
+      if (!data?.url){
+         return Swal.fire("already paid");
+      }
+      window.location.href = data.url;
+    } catch (err) {
+      Swal.fire(err.response?.data?.message);
     }
-    const { data } = await axios.post(
-      `${import.meta.env.VITE_API_URL}/create-checkout-session`,
-      paymentInfo
-    )
-    console.log(data.url);
-    window.location.href = data.url
-  }
+  };
 
   return (
     <Dialog
       open={isOpen}
-      as='div'
-      className='relative z-10 focus:outline-none '
+      as="div"
+      className="relative z-10 focus:outline-none "
       onClose={closeModal}
     >
-      <div className='fixed inset-0 z-10 w-screen overflow-y-auto'>
-        <div className='flex min-h-full items-center justify-center p-4'>
+      <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div className="flex min-h-full items-center justify-center p-4">
           <DialogPanel
             transition
-            className='w-full max-w-md bg-white p-6 backdrop-blur-2xl duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0 shadow-xl rounded-2xl'
+            className="w-full max-w-md bg-white p-6 backdrop-blur-2xl duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0 shadow-xl rounded-2xl"
           >
             <DialogTitle
-              as='h3'
-              className='text-lg font-medium text-center leading-6 text-gray-900'
+              as="h3"
+              className="text-lg font-medium text-center leading-6 text-gray-900"
             >
               Review Info Before Join
             </DialogTitle>
-            <div className='mt-2'>
-              <p className='text-sm text-gray-500'>Club: {clubName}</p>
+            <div className="mt-2">
+              <p className="text-sm text-gray-500">Club: {clubName}</p>
             </div>
-            <div className='mt-2'>
-              <p className='text-sm text-gray-500'>Category: {category}</p>
+            <div className="mt-2">
+              <p className="text-sm text-gray-500">Category: {category}</p>
             </div>
-            <div className='mt-2'>
-              <p className='text-sm text-gray-500'>
+            <div className="mt-2">
+              <p className="text-sm text-gray-500">
                 Member: {user?.displayName}
               </p>
             </div>
 
-            <div className='mt-2'>
-              <p className='text-sm text-gray-500'>Fee: $ {membershipFee}</p>
+            <div className="mt-2">
+              <p className="text-sm text-gray-500">Fee: $ {membershipFee}</p>
             </div>
 
-            <div className='flex mt-2 justify-around'>
+            <div className="flex mt-2 justify-around">
               <button
                 onClick={handlePayment}
-                type='button'
-                className='cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2'
+                type="button"
+                className="cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
               >
                 Pay
               </button>
               <button
-                type='button'
-                className='cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2'
+                type="button"
+                className="cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
                 onClick={closeModal}
               >
                 Cancel
@@ -95,7 +131,7 @@ const PurchaseModal = ({ closeModal, isOpen, club }) => {
         </div>
       </div>
     </Dialog>
-  )
-}
+  );
+};
 
-export default PurchaseModal
+export default PurchaseModal;
