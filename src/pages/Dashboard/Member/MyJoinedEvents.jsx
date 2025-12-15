@@ -2,7 +2,7 @@ import React from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
-import MyJoinedEventCard from "../../../components/Home/MyJoinedEventCard";
+import MyJoinedEventCard from "../../../components/Home/cards/MyJoinedEventCard";
 import { motion } from "framer-motion";
 const MyJoinedEvents = () => {
     const axiosSecure=useAxiosSecure()

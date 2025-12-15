@@ -1,0 +1,4 @@
+<HeroSection />
+<FeaturedSection />
+<HowItWorks />
+<WhyJoin />

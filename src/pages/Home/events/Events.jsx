@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
-import EventCard from "../../../components/Home/EventCard";
+import EventCard from "../../../components/Home/cards/EventCard";
 import { useDebounce } from "../../../hooks/useDebounce";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
-import ClubCard from "../../../components/Home/ClubCard";
+import ClubCard from "../../../components/Home/cards/ClubCard";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import { useDebounce } from "../../../hooks/useDebounce";
 

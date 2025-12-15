@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import MyJoinedClubCard from "../../../components/Home/MyJoinedClubCard";
+import MyJoinedClubCard from "../../../components/Home/cards/MyJoinedClubCard";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { motion } from "framer-motion";
