@@ -81,10 +81,10 @@ const AdminClubTable = ({ club, index, refetch }) => {
       </td>
       {/* actions */}
       <td>
-        <button onClick={handleApproveClub} className="btn bg-green-300">
+        <button onClick={handleApproveClub} className="btn text-white bg-purple-400 hover:bg-purple-300 ">
           Approve
         </button>
-        <button onClick={handleRejectClub} className="btn bg-red-300">
+        <button onClick={handleRejectClub} className="btn text-white bg-purple-400 hover:bg-purple-300 ">
           Reject
         </button>
       </td>

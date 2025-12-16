@@ -21,7 +21,7 @@ const ManageClubs = () => {
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
-    <h2 className="text-2xl text-center font-bold my-5">Manage All CLubs</h2>
+    <h2 className="text-2xl text-center font-bold my-5">Manage Pending Clubs</h2>
       <div className="overflow-x-auto">
         <table className="table table-zebra">
           {/* head */}

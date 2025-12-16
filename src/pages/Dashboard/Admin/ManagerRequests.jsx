@@ -29,7 +29,7 @@ console.log(requests);
           {/* head */}
           <thead>
             <tr>
-              <th></th>
+              <th>#</th>
               <th>Email</th>
               <th>Actions</th>
             </tr>

@@ -1,12 +1,15 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-.menu-item li{
-    @apply hover:bg-slate-400 
+.menu-item li {
+  @apply hover:bg-slate-400;
 }
-.nav-li li{
-    @apply hover:underline  underline-offset-2
+.nav-li li {
+  @apply hover:underline  underline-offset-2;
 }
 ul li a.active {
-    @apply  underline underline-offset-2 text-purple-400
+  @apply underline underline-offset-2 text-purple-400;
+}
+.sidebar-dashboard li a.active {
+  @apply bg-slate-400 text-white no-underline ;
 }

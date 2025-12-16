@@ -2,6 +2,7 @@ import useAuth from '../../../hooks/useAuth'
 import coverImg from '../../../assets/bg1.jpeg'
 import useRole from '../../../hooks/useRole'
 import LoadingSpinner from '../LoadingSpinner'
+import Logo from '../Logo'
 
 const Profile = () => {
   const { user } = useAuth()
@@ -43,7 +44,7 @@ const Profile = () => {
                 <span className='font-bold text-gray-600 '>{user?.email}</span>
               </p>
 
-              <div>
+              <div className='my-4'>
                 <button className='bg-purple-400 hover:bg-purple-500  px-10 py-1 rounded-lg text-white cursor-pointer block mb-1'>
                   Update Profile
                 </button>

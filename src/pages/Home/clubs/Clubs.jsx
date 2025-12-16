@@ -31,7 +31,14 @@ const Clubs = () => {
 
   return (
     <section className="p-6 min-h-screen ">
-      <h1 className="text-3xl font-semibold mb-6 text-gray-800">All Clubs</h1>
+      <div className="my-6 ">
+        <h1 className="text-3xl text-center font-bold mb-6 text-gray-800">
+          All Clubs Are Here
+        </h1>
+        <p className="text-lg text-center text-gray-500 font-semibold">
+          Discover clubs that match your interests
+        </p>
+      </div>
 
       {/* 🔍 Controls */}
       <div className="flex flex-col md:flex-row gap-3 mb-6">
@@ -41,12 +48,12 @@ const Clubs = () => {
           placeholder="Search by club name..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="input input-bordered w-full md:max-w-sm shadow-md"
+          className="input input-bordered border-purple-400 w-full md:max-w-sm shadow-md"
         />
 
         {/* Filter */}
         <select
-          className="select select-bordered shadow-md"
+          className="select select-bordered border-purple-400 shadow-md"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
@@ -60,7 +67,7 @@ const Clubs = () => {
 
         {/* Sort */}
         <select
-          className="select select-bordered shadow-md"
+          className="select select-bordered border-purple-400 shadow-md"
           value={sort}
           onChange={(e) => setSort(e.target.value)}
         >

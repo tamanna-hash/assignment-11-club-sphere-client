@@ -37,7 +37,14 @@ const Events = () => {
 
   return (
     <section className="p-6 min-h-screen">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Events</h1>
+      <div className="my-6 ">
+        <h1 className="text-3xl text-center font-bold mb-6 text-gray-800">
+          All Events Are Here
+        </h1>
+        <p className="text-lg text-center text-gray-500 font-semibold">
+          Discover events happening around you
+        </p>
+      </div>
 
       {/* 🔍 Controls */}
       <div className="flex flex-col md:flex-row gap-3 mb-6">
@@ -74,7 +81,6 @@ const Events = () => {
         </select>
       </div>
 
-      
       {events.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {events.map((event, index) => (
