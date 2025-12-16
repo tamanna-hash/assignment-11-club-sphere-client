@@ -1,68 +1,68 @@
-import { Link } from "react-router";
+import { NavLink } from "react-router";
 import { FaHome, FaIdCard, FaUserTie } from "react-icons/fa";
 import { MdEventNote } from "react-icons/md";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 
 const MemberMenu = () => {
   return (
-    <ul className="menu p-4 w-64 bg-gray-800 text-white gap-2 menu-item">
+    <ul className="menu sidebar-dashboard p-4 w-64 bg-gray-800 text-white gap-2">
       <li>
-        <Link
+        <NavLink
           to="/dashboard"
           className=" flex items-center gap-3 tooltip tooltip-right"
-          data-tip="Manager Overview"
+          data-tip="Member Overview"
         >
           {/* statistics icon */}
           <FaHome />
-          <span className="truncate">Member Overview</span>
-        </Link>
+          <span className="truncate">Member Dashboard</span>
+        </NavLink>
       </li>
       {/* My Memberships */}
       <li>
-        <Link
+        <NavLink
           to="my-memberships"
           className="flex items-center gap-3 tooltip tooltip-right"
           data-tip="My Memberships"
         >
           <FaIdCard className="text-lg" />
           <span className="truncate">My Memberships</span>
-        </Link>
+        </NavLink>
       </li>
 
       {/* My Joined Events */}
       <li>
-        <Link
+        <NavLink
           to="my-joined-events"
           className="flex items-center gap-3 tooltip tooltip-right"
           data-tip="My Joined Events"
         >
           <MdEventNote className="text-lg" />
           <span className="truncate">My Joined Events</span>
-        </Link>
+        </NavLink>
       </li>
 
       {/* My Joined Clubs */}
       <li>
-        <Link
+        <NavLink
           to="my-joined-clubs"
           className="flex items-center gap-3 tooltip tooltip-right"
           data-tip="My Joined Clubs"
         >
           <HiOutlineOfficeBuilding className="text-lg" />
           <span className="truncate">My Joined Clubs</span>
-        </Link>
+        </NavLink>
       </li>
 
       {/* Become a Manager */}
       <li>
-        <Link
+        <NavLink
           to="become-manager"
           className="flex items-center gap-3 tooltip tooltip-right"
           data-tip="Become a Manager"
         >
           <FaUserTie className="text-lg" />
           <span className="truncate">Become a Manager</span>
-        </Link>
+        </NavLink>
       </li>
     </ul>
   );

@@ -24,7 +24,10 @@ console.log(requests);
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
-      <div className="overflow-x-auto">
+     <title>ClubSphere- Manager Requests</title>
+      <h1 className="main-title">Manager Requests</h1>
+      <p className="subtitle">View and manage all manager requests</p>
+      <div className="overflow-x-auto bg-base-300">
         <table className="table table-zebra">
           {/* head */}
           <thead>

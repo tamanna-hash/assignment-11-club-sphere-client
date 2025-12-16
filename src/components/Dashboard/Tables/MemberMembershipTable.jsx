@@ -14,13 +14,24 @@ const MemberMembershipTable = ({ membership, index }) => {
       <td>{name}</td>
       <td>{category}</td>
       <td>${fee}</td>
-      <td>{status}</td>
+      <td>
+        <p
+          className={`${
+            status === "pending" ? "text-red-600" : "text-green-600"
+          } text-center`}
+        >
+          {status}
+        </p>
+      </td>
       <td>
         {(status === "joined" && new Date(joined_at).toLocaleString()) ||
           "waiting for approval"}
       </td>
       <td>
-        <Link to={`/clubs/${clubId}`} className="btn btn-xs text-white bg-purple-500 hover:bg-purple-400">
+        <Link
+          to={`/clubs/${clubId}`}
+          className="btn btn-xs text-white bg-purple-500 hover:bg-purple-400"
+        >
           View Details
         </Link>
       </td>

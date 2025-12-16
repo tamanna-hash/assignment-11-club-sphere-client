@@ -178,7 +178,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "my-inventory",
+        path: "my-clubs",
         element: (
           <PrivateRoute>
             <ManagerRoute>

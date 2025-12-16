@@ -64,7 +64,7 @@ const Login = () => {
         style={{ backgroundImage: `url(${loginImage})` }}
       >
         {/* Optional overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="absolute inset-0 bg-black/70"></div>
 
         {/* Logo in top-left */}
         <div className="absolute top-4 left-4 md:top-8 md:left-8">
@@ -74,7 +74,7 @@ const Login = () => {
         {/* Main content container */}
         <div className="relative z-10 flex flex-col md:flex-row items-center justify-center w-full max-w-6xl gap-10 px-4">
           {/* Left Text Section */}
-          <div className="text-white space-y-4 flex-1 flex flex-col justify-center gap-4 max-w-md">
+          <div className="text-white hidden space-y-4 flex-1 md:flex flex-col justify-center gap-4 max-w-md">
             <h1 className="text-4xl md:text-5xl font-bold">
               Discover. Connect. Participate.
             </h1>
@@ -85,7 +85,7 @@ const Login = () => {
           </div>
 
           {/* Right Login Card */}
-          <div className="card bg-white/10  border border-purple-900/20 p-6 w-full max-w-sm shrink-0 shadow-xl">
+          <div className="card bg-white/10 hover:shadow-sm transition-shadow duration-300 border border-white/20 p-6 w-full max-w-sm shrink-0 shadow-white">
             <h2 className="font-semibold md:text-2xl text-center mb-4 text-white">
               Log in to your account
             </h2>

@@ -35,7 +35,7 @@ const ClubCard = ({ club, index }) => {
         <img
           src={coverImage}
           alt={clubName}
-          className="h-40 w-full object-cover "
+          className="h-40 w-full object-cover"
         />
          </div>
         <div className="p-4 bg-white">

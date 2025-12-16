@@ -4,10 +4,13 @@ import { MdEvent } from "react-icons/md";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
-
 const AdminAllClubs = () => {
-  const axiosSecure=useAxiosSecure()
-  const { data: clubs = [], isLoading, refetch } = useQuery({
+  const axiosSecure = useAxiosSecure();
+  const {
+    data: clubs = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["clubs"],
     queryFn: async () => {
       const res = await axiosSecure.get("/admin/clubs");
@@ -50,56 +53,55 @@ const AdminAllClubs = () => {
   }
 
   return (
-    <div className="overflow-x-auto">
-      <table className="table table-zebra w-full">
-        <thead className="bg-base-200">
-          <tr>
-            <th>#</th>
-            <th>Club Name</th>
-            <th>Manager Email</th>
-            <th>Status</th>
-            <th>Membership Fee</th>
-            <th>Stats</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {clubs.map((club, index) => (
-            <tr key={club._id}>
-              <th>{index + 1}</th>
-
-              <td className="font-semibold">{club.clubName}</td>
-
-              <td>{club.manager?.email}</td>
-
-              <td>
-                <span
-                  className={`badge badge-success`}
-                >
-                  {club.status}
-                </span>
-              </td>
-
-              <td>${club.membershipFee}</td>
-
-              {/* Stats */}
-              <td className="flex gap-3">
-                <span className="flex items-center gap-1">
-                  <FaUsers />
-                  {club.membersCount ?? 0}
-                </span>
-                <span className="flex items-center gap-1">
-                  <MdEvent />
-                  {club.eventsCount ?? 0}
-                </span>
-              </td>
-
-             
+    <>
+      <title>ClubSphere- All Clubs</title>
+      <h1 className="main-title">All Clubs</h1>
+      <p className="subtitle">View and manage all Clubs</p>
+      <div className="overflow-x-auto bg-base-300">
+        <table className="table table-zebra w-full">
+          <thead className="bg-base-200">
+            <tr>
+              <th>#</th>
+              <th>Club Name</th>
+              <th>Manager Email</th>
+              <th>Status</th>
+              <th>Membership Fee</th>
+              <th>Stats</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+
+          <tbody>
+            {clubs.map((club, index) => (
+              <tr key={club._id}>
+                <th>{index + 1}</th>
+
+                <td className="font-semibold">{club.clubName}</td>
+
+                <td>{club.manager?.email}</td>
+
+                <td>
+                  <span className={`badge badge-success`}>{club.status}</span>
+                </td>
+
+                <td>${club.membershipFee}</td>
+
+                {/* Stats */}
+                <td className="flex gap-3">
+                  <span className="flex items-center gap-1">
+                    <FaUsers />
+                    {club.membersCount ?? 0}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <MdEvent />
+                    {club.eventsCount ?? 0}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 

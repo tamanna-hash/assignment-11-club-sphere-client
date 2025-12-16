@@ -11,11 +11,11 @@ const AdminMenu = () => {
         <NavLink
           to="/dashboard"
           className=" flex items-center gap-3 tooltip tooltip-right "
-          data-tip="Manager Overview"
+          data-tip="Admin Overview"
         >
           {/* statistics icon */}
           <FaHome />
-          <span className="truncate">Manager Overview</span>
+          <span className="truncate">Admin Overview</span>
         </NavLink>
       </li>
        <li>

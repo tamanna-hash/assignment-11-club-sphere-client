@@ -1,20 +1,18 @@
-import React from 'react';
+import React from "react";
 
-import  { useEffect } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-;
 import { useNavigate, useParams } from "react-router";
 
-import useAxiosSecure from '../../hooks/useAxiosSecure';
-import useAuth from '../../hooks/useAuth';
-import { imageUpload } from '../../utils';
-import LoadingSpinner from '../Shared/LoadingSpinner';
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
+import { imageUpload } from "../../utils";
+import LoadingSpinner from "../Shared/LoadingSpinner";
 
-const UpdateClubForm = ({id}) => {
+const UpdateClubForm = ({ id }) => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
@@ -122,7 +120,9 @@ const UpdateClubForm = ({id}) => {
   if (isError) return <Error />;
   return (
     <>
-      <title>ClubsSphere-UpdateClubs</title>
+      <title>ClubSphere- Update Club</title>
+      <h1 className="main-title">Update Club</h1>
+      <p className="subtitle">Edit details of your existing club</p>
       <div className="bg-[#f4f7fd] py-4 flex justify-center min-h-screen items-center">
         <div className="card bg-purple-900/10 border border-purple-900/20 p-4 w-full max-w-sm shrink-0 shadow-2xl py-5">
           <h2 className="font-semibold md:text-2xl text-center">

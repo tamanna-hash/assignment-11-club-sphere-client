@@ -32,8 +32,8 @@ const Clubs = () => {
   return (
     <section className="p-6 min-h-screen ">
       <div className="my-6 ">
-        <h1 className="text-3xl text-center font-bold mb-6 text-gray-800">
-          All Clubs Are Here
+        <h1 className="text-3xl text-center font-bold mb-6">
+          Your Desired Clubs Are Here
         </h1>
         <p className="text-lg text-center text-gray-500 font-semibold">
           Discover clubs that match your interests
@@ -62,7 +62,7 @@ const Clubs = () => {
           <option value="Book">Book</option>
           <option value="Photography">Photography</option>
           <option value="Hiking">Hiking</option>
-          <option value="Skating">Skating</option>
+          <option value="Skating">Sport</option>
         </select>
 
         {/* Sort */}

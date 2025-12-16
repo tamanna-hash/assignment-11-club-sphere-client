@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 
 const ManagerMembershipTable = ({ membership, index, refetch }) => {
   const axiosSecure = useAxiosSecure();
-  const [isApproving, setIsApproving] = useState(false);
+  const [isApproved, setIsApproved] = useState(false);
   const { _id, name, member, category, fee, image, paymentId, status } =
     membership || {};
   const handleApproveClub = async () => {
@@ -22,7 +22,7 @@ const ManagerMembershipTable = ({ membership, index, refetch }) => {
       confirmButtonText: "Yes, approve it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        setIsApproving(true);
+        setIsApproved(true);
         try {
           await axiosSecure.patch(`/manage-membership/${_id}`, _id);
           refetch();
@@ -84,7 +84,7 @@ const ManagerMembershipTable = ({ membership, index, refetch }) => {
       {/* actions */}
       <td className="w-40">
         <div className="flex gap-2 justify-end">
-          {isApproving ? (
+          {status==="joined" ? (
             <button
               onClick={handleRejectClub}
               className="px-3 py-1 bg-purple-500 hover:bg-purple-400 text-white font-bold rounded transition"

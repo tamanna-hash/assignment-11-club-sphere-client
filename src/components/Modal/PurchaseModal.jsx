@@ -38,8 +38,8 @@ const PurchaseModal = ({ closeModal, isOpen, club }) => {
           `${import.meta.env.VITE_API_URL}/membership-free`,
           membershipInfo
         );
-        Swal.fire("Success!", "You joined the club successfully.", "success");
-        navigate("/my-clubs"); 
+        await navigate("/dashboard/my-memberships"); 
+        Swal.fire("Success!", "You joined the club successfully. Await for admin approval", "success");
       } catch (err) {
         console.log(err);
         Swal.fire("Error!", "Something went wrong.", "error");
@@ -47,7 +47,7 @@ const PurchaseModal = ({ closeModal, isOpen, club }) => {
       return; // Stop the function here so Stripe is not called
     }
     const paymentInfo = {
-      clubId: Number(_id),
+      clubId: _id,
       clubName,
       category,
       membershipFee,
@@ -115,7 +115,7 @@ const PurchaseModal = ({ closeModal, isOpen, club }) => {
               <button
                 onClick={handlePayment}
                 type="button"
-                className="cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
+                className="cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-purple-100 px-4 py-2 text-sm font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2"
               >
                 Pay
               </button>

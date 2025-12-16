@@ -25,9 +25,12 @@ const AdminStatistics = () => {
   });
 
   if (isLoading)
-    return <div className="text-center mt-10 text-xl"><LoadingSpinner/></div>;
-  if (error)
-    return <ErrorPage/>
+    return (
+      <div className="text-center mt-10 text-xl">
+        <LoadingSpinner />
+      </div>
+    );
+  if (error) return <ErrorPage />;
 
   const {
     totalUsers,
@@ -40,8 +43,11 @@ const AdminStatistics = () => {
 
   return (
     <div className="p-6 min-h-screen">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Admin Dashboard</h1>
-
+      <title>ClubSphere- Admin Dashboard</title>
+      <h1 className="main-title">Admin Dashboard</h1>
+      <p className="subtitle">
+        Get a quick overview of users, clubs, events, and payments
+      </p>
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-10">
         <div className="card bg-linear-to-r from-indigo-500 to-purple-500 text-white shadow-lg">
@@ -78,16 +84,14 @@ const AdminStatistics = () => {
         <div className="card bg-linear-to-r from-blue-400 to-cyan-500 text-white shadow-lg">
           <div className="card-body">
             <h2 className="card-title text-lg">Total Payments</h2>
-            <p className="text-2xl font-bold">${totalPayments}</p>
+            <p className="text-2xl font-bold">${data?.totalPayments}</p>
           </div>
         </div>
       </div>
 
       {/* Memberships per Club Chart */}
-      <div className="bg-white p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold mb-4 text-gray-700">
-          Memberships per Club
-        </h2>
+      <div className="bg-base-100 p-6 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-bold mb-4">Memberships per Club</h2>
         {membershipsPerClub && membershipsPerClub.length > 0 ? (
           <ResponsiveContainer width="100%" height={300}>
             <BarChart

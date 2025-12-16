@@ -17,31 +17,24 @@ const MyJoinedClubs = () => {
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <section className="p-6 min-h-screen">
-      <motion.h1
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-3xl font-bold text-slate-800 mb-6"
-      >
-        My Joined Clubs
-      </motion.h1>
-
-      {joinedClubs.length === 0 ? (
-        <p className="text-center text-slate-800 mt-20">
-          You haven’t joined any clubs yet.
-        </p>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-          {joinedClubs.map((club, index) => (
-            <MyJoinedClubCard
-              key={club._id}
-              club={club}
-              index={index}
-            />
-          ))}
-        </div>
-      )}
-    </section>
+    <>
+      <title>ClubSphere-My Joined Clubs</title>
+      <h1 className="main-title">My Joined Clubs</h1>
+      <p className="subtitle">Browse and manage the clubs you are part of</p>
+      <section className="p-6 min-h-screen">
+        {joinedClubs.length === 0 ? (
+          <p className="text-center text-slate-800 mt-20">
+            You haven't joined any clubs yet or waiting for admin approval.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+            {joinedClubs.map((club, index) => (
+              <MyJoinedClubCard key={club._id} club={club} index={index} />
+            ))}
+          </div>
+        )}
+      </section>
+    </>
   );
 };
 

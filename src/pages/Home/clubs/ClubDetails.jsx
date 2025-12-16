@@ -4,12 +4,16 @@ import React, { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import PurchaseModal from "../../../components/Modal/PurchaseModal";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ClubDetails = () => {
   let [isOpen, setIsOpen] = useState(false);
   const { id } = useParams();
-  console.log(id);
+
+  const { user } = useAuth();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
   const { data: club, isLoading } = useQuery({
     queryKey: ["club", id],
     queryFn: async () => {
@@ -29,11 +33,27 @@ const ClubDetails = () => {
     membershipFee,
     manager,
   } = club || {};
+  const { data: myMemberships, isLoading: membershipLoading } = useQuery({
+    queryKey: ["my-memberships", _id, user?.email],
+    enabled: !!_id && !!user?.email,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/my-memberships`, {
+        params: {
+          clubId: _id,
+          email: user.email,
+        },
+      });
+      return res.data;
+    },
+  });
+ const isJoined = myMemberships?.some(
+  (membership) => membership.clubId === _id
+) || false;
   console.log(club);
   const closeModal = () => {
     setIsOpen(false);
   };
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading || membershipLoading) return <LoadingSpinner />;
   return (
     <>
       <title>ClubSphere-Club Details</title>
@@ -85,12 +105,17 @@ const ClubDetails = () => {
               {/* Actions */}
               <div className="flex flex-wrap gap-3 pt-8">
                 <button
+                  disabled={isJoined}
                   onClick={() => setIsOpen(true)}
-                  className="btn rounded-xl text-white font-semibold
-            bg-purple-500 hover:bg-purple-600
-            transition shadow-lg shadow-purple-500/30"
+                  className={`btn rounded-xl font-semibold transition
+                    ${
+                      isJoined
+                        ? "bg-gray-400 cursor-not-allowed text-white"
+                        : "bg-purple-500 hover:bg-purple-600 text-white shadow-lg shadow-purple-500/30"
+                    }
+                  `}
                 >
-                  Join Club
+                  {isJoined ? "Already Joined" : "Join Club"}
                 </button>
 
                 <Link

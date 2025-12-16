@@ -16,9 +16,9 @@ const PaymentSuccess = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-center">
-        <div className="bg-white p-10 rounded-lg shadow-lg text-center">
-          <IoBagCheckOutline className="w-16 h-16 text-green-500 mx-auto mb-4" />
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">
+        <div className=" p-10 rounded-lg shadow-lg text-center">
+          <IoBagCheckOutline className="w-16 h-16 text-purple-500 mx-auto mb-4" />
+          <h1 className="text-3xl font-bold mb-2">
             Payment Successful!
           </h1>
           <p className="text-gray-600 mb-6">
@@ -26,7 +26,7 @@ const PaymentSuccess = () => {
           </p>
           <Link
             to="/dashboard/my-memberships"
-            className="inline-block bg-lime-500 text-white font-semibold py-2 px-4 rounded hover:bg-lime-600 transition duration-300"
+            className="inline-block bg-purple-500 text-white font-semibold py-2 px-4 rounded hover:bg-purple-600 transition duration-300"
           >
             Go to My memberships
           </Link>

@@ -56,7 +56,7 @@ const ClubDataTable = ({ club, index, refetch }) => {
         </td>
       )}
       {/* actions */}
-      <td className="w-full">
+      <td className="">
         <div className="flex justify-end items-center gap-3">
           {/* View Club */}
           <Link

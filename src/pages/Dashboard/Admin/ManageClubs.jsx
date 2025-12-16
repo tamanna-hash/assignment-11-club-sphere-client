@@ -10,7 +10,11 @@ import AdminClubTable from "../../../components/Dashboard/Tables/AdminClubTable"
 const ManageClubs = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data: clubRequests = [], isLoading ,refetch} = useQuery({
+  const {
+    data: clubRequests = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["club-requests"],
     queryFn: async () => {
       const result = await axiosSecure(`/club-requests`);
@@ -21,13 +25,15 @@ const ManageClubs = () => {
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
-    <h2 className="text-2xl text-center font-bold my-5">Manage Pending Clubs</h2>
-      <div className="overflow-x-auto">
+      <title>ClubSphere- Manage Clubs</title>
+      <h1 className="main-title">Manage Clubs</h1>
+      <p className="subtitle">Approve, update, or review all clubs on the platform</p>
+      <div className="overflow-x-auto bg-base-300">
         <table className="table table-zebra">
           {/* head */}
           <thead>
             <tr>
-              <th></th>
+              <th>#</th>
               <th>Category</th>
               <th>Club Name</th>
               <th>Manager Email</th>
@@ -39,7 +45,12 @@ const ManageClubs = () => {
           </thead>
           <tbody>
             {clubRequests.map((club, index) => (
-              <AdminClubTable key={club._id} club={club} refetch={refetch} index={index} />
+              <AdminClubTable
+                key={club._id}
+                club={club}
+                refetch={refetch}
+                index={index}
+              />
             ))}
           </tbody>
         </table>

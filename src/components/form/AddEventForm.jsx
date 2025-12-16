@@ -48,16 +48,6 @@ const AddEventForm = ({ id }) => {
   const onSubmit = async (data) => {
     const { name, description, image, date, eventLocation, attendees } = data;
     const imageFile = image[0];
-
-    // title
-    //   bannerImage
-    // description
-    // eventDate
-    // location
-    // isPaid (boolean)
-    // eventFee (if paid)
-    // maxAttendees (optional)
-    // createdAt
     try {
       const imageUrl = await imageUpload(imageFile);
       const eventData = {
@@ -88,9 +78,11 @@ const AddEventForm = ({ id }) => {
   if (isError) return <ErrorPage />;
   return (
     <>
-      <title>ClubsSphere-addEvent</title>
+      <title>ClubSphere- Add Event</title>
+      <h1 className="main-title">Add Event</h1>
+      <p className="subtitle">Create a new event for your club</p>
       <div className="bg-[#f4f7fd] py-4 flex justify-center min-h-screen items-center">
-        <div className="card bg-cyan-900/15 border border-cyan-900/30 p-4 w-full max-w-sm shrink-0 shadow-2xl py-5">
+        <div className="card bg-purple-900/10 border border-purple-900/20 p-4 w-full max-w-sm shrink-0 shadow-2xl py-5">
           <h2 className="font-semibold md:text-2xl text-center">Add Event</h2>
           <form onSubmit={handleSubmit(onSubmit)} className="card-body">
             <fieldset className="fieldset">
@@ -200,7 +192,7 @@ const AddEventForm = ({ id }) => {
 
               <button
                 type="submit"
-                className="btn px-4 py-2 font-bold text-white hover:bg-linear-to-r bg-cyan-700  hover:from-cyan-800 hover:via-cyan-700 hover:to-cyan-500 transition-transform"
+                className="btn px-4 py-2 font-bold text-white hover:bg-linear-to-r bg-purple-700  hover:from-purple-800 hover:via-purple-700 hover:to-purple-500 transition-transform"
               >
                 Add Event
               </button>

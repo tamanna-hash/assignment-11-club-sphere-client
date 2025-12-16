@@ -10,12 +10,14 @@ import EventRegistrationsTable from "../../../components/Dashboard/Tables/EventR
 const EventRegistrations = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data: eventRegisters = [], isLoading ,refetch} = useQuery({
+  const {
+    data: eventRegisters = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["eventRegisters"],
     queryFn: async () => {
-      const result = await axiosSecure(
-        `/event-registrations`
-      );
+      const result = await axiosSecure(`/event-registrations`);
       return result.data;
     },
   });
@@ -23,7 +25,12 @@ const EventRegistrations = () => {
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
-      <div className="overflow-x-auto">
+      <title>ClubSphere- Event Registrations</title>
+      <h1 className="main-title">
+        Event Registrations
+      </h1>
+      <p className="subtitle">View and manage registrations for your events</p>
+      <div className="overflow-x-auto bg-base-300">
         <table className="table table-zebra">
           {/* head */}
           <thead>

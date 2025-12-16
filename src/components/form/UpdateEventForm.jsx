@@ -11,7 +11,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 
 const UpdateEventForm = ({ id }) => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
   const eventId = id;
   const { user, isLoading } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -34,7 +34,7 @@ const UpdateEventForm = ({ id }) => {
       await axiosSecure.patch(`/events/${eventId}`, payload),
     onSuccess: (data) => {
       console.log(data);
-      navigate("/dashboard/my-events")
+      navigate("/dashboard/my-events");
       // show toast
       toast.success("Event Updated successfully");
       // navigate to my inventory page
@@ -77,7 +77,7 @@ const UpdateEventForm = ({ id }) => {
           email: user?.email,
         },
       };
-    
+
       console.log(date);
       await mutateAsync(eventData);
       reset();
@@ -91,7 +91,9 @@ const UpdateEventForm = ({ id }) => {
   if (isError) return <ErrorPage />;
   return (
     <>
-      <title>ClubsSphere-addEvent</title>
+      <title>ClubSphere- Update Event</title>
+      <h1 className="main-title">Update Event</h1>
+      <p className="subtitle">Edit details of an existing event</p>
       <div className="bg-[#fbf4fd] py-4 flex justify-center min-h-screen items-center">
         <div className="card bg-purple-900/10 border border-purple-900/20 p-4 w-full max-w-sm shrink-0 shadow-2xl py-5">
           <h2 className="font-semibold md:text-2xl text-center">

@@ -19,12 +19,15 @@ const MyMemberships = () => {
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
+      <title>ClubSphere-My Memberships</title>
+      <h1 className="main-title">My Memberships</h1>
+      <p className="subtitle">View your membership status and renewal info</p>
       {memberships.length === 0 && (
         <h1 className="text-2xl font-bold">
           Your Not A Member of Any Clubs Yet{" "}
         </h1>
       )}
-      <div className="container mx-auto px-4 sm:px-8">
+      <div className="container mx-auto px-4 sm:px-8 bg-base-100">
         <div className="py-8">
           <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">

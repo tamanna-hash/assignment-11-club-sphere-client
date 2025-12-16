@@ -22,7 +22,10 @@ const PendingClubs = () => {
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
-      <div className="overflow-x-auto">
+    <title>ClubSphere- My Pending Clubs</title>
+      <h1 className="main-title">My Pending Clubs</h1>
+      <p className="subtitle">Track, edit, and organize the clubs in pending</p>
+      <div className="overflow-x-auto bg-base-300">
         <table className="table table-zebra">
           {/* head */}
           <thead>

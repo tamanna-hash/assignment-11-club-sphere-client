@@ -39,7 +39,7 @@ const MyJoinedClubCard = ({ club }) => {
         <div className="  text-sm ">
           <Link
           to={`/clubs/${clubId}`}
-          className="btn  text-white bg-purple-500 hover:bg-purple-400"
+          className="btn w-full text-white bg-purple-500 hover:bg-purple-400"
         >
           View Details
         </Link>

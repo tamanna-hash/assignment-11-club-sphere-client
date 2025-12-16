@@ -19,13 +19,15 @@ const ManageUsers = () => {
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
-      <div className="overflow-x-auto">
+     <title>ClubSphere- Users Management</title>
+      <h1 className="main-title">Manage Users</h1>
+      <p className="subtitle">View, edit, and manage all registered users</p>
+      <div className="overflow-x-auto bg-base-300">
         <table className="table table-zebra">
           {/* head */}
           <thead>
             <tr>
-              <th></th>
-
+              <th>#</th>
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>

@@ -22,7 +22,10 @@ const ManageMemberships = () => {
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
-      <div className="overflow-x-auto">
+     <title>ClubSphere- Manage Memberships</title>
+      <h1 className="main-title">Manage Memberships</h1>
+      <p className="subtitle">View and monitor the memberships under your supervision</p>
+      <div className="overflow-x-auto bg-base-300">
         <table className="table table-zebra table-sm">
           {/* head */}
           <thead>

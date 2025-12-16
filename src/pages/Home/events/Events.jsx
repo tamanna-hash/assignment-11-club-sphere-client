@@ -38,8 +38,8 @@ const Events = () => {
   return (
     <section className="p-6 min-h-screen">
       <div className="my-6 ">
-        <h1 className="text-3xl text-center font-bold mb-6 text-gray-800">
-          All Events Are Here
+        <h1 className="text-3xl text-center font-bold mb-6">
+          Your Desired Events Are Here
         </h1>
         <p className="text-lg text-center text-gray-500 font-semibold">
           Discover events happening around you
@@ -54,12 +54,12 @@ const Events = () => {
           placeholder="Search events..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="input input-bordered w-full md:max-w-sm shadow-md"
+          className="input input-bordered border-purple-400 w-full md:max-w-sm shadow-md"
         />
 
         {/* Paid / Free filter */}
         <select
-          className="select select-bordered shadow-md"
+          className="select select-bordered border-purple-400 shadow-md"
           value={isPaid}
           onChange={(e) => setIsPaid(e.target.value)}
         >
@@ -70,7 +70,7 @@ const Events = () => {
 
         {/* Sort */}
         <select
-          className="select select-bordered shadow-md"
+          className="select select-bordered border-purple-400 shadow-md"
           value={sort}
           onChange={(e) => setSort(e.target.value)}
         >

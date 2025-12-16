@@ -64,7 +64,7 @@ const UserDataTable = ({ user, index, refetch }) => {
         {user.role === "manager" && (
           <button
             onClick={() => handleRoleUpdate("member")}
-            className="btn bg-red-300"
+            className="btn bg-red-200 hover:bg-red-300"
             title="Remove Manager"
           >
             <FiShieldOff />
@@ -74,7 +74,7 @@ const UserDataTable = ({ user, index, refetch }) => {
         {user.role === "member" && (
           <button
             onClick={() => handleRoleUpdate("manager")}
-            className="btn bg-green-300"
+            className="btn bg-green-300 hover:bg-green-400"
             title="Make Manager"
           >
             <FaUserShield />
@@ -85,7 +85,7 @@ const UserDataTable = ({ user, index, refetch }) => {
         {user.role !== "admin" ? (
           <button
             onClick={() => handleRoleUpdate("admin")}
-            className="btn bg-blue-300"
+            className="btn bg-sky-200 text-gray-800 hover:bg-sky-400"
             title="Make Admin"
           >
             <RiAdminFill />
@@ -93,7 +93,7 @@ const UserDataTable = ({ user, index, refetch }) => {
         ) : (
           <button
             onClick={() => handleRoleUpdate("member")}
-            className="btn bg-yellow-300"
+            className="btn bg-red-400 hover:bg-red-600 text-white"
             title="Remove Admin"
           >
             <RiAdminLine />

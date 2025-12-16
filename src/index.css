@@ -1,6 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Jost:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Satisfy&display=swap");
 @import "tailwindcss";
 @plugin "daisyui";
 
+/* body {
+  font-family: "Poppins", sans-serif;
+  font-weight: normal;
+}
+
+h1 {
+  font-family: "jost", cursive;
+} */
 .menu-item li {
   @apply hover:bg-slate-400;
 }
@@ -11,5 +20,11 @@ ul li a.active {
   @apply underline underline-offset-2 text-purple-400;
 }
 .sidebar-dashboard li a.active {
-  @apply bg-slate-400 text-white no-underline ;
+  @apply bg-slate-400 text-white no-underline;
+}
+.main-title {
+  @apply text-3xl font-bold mb-6 text-gray-800;
+}
+.subtitle {
+  @apply text-slate-600 pb-8;
 }
