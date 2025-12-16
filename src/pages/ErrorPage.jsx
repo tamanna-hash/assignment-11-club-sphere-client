@@ -18,7 +18,7 @@ const ErrorPage = () => {
           The page you are looking for is not available.
         </p>
         <Link to="/" className="px-4 py-2 bg-blue-600 text-white rounded">
-          Go Back !
+          Back to home!
         </Link>
       </div>
       <Footer />

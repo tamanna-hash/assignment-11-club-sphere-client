@@ -7,7 +7,15 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 const ClubDataTable = ({ club, index, refetch }) => {
-  const { _id, clubName, category, membershipFee, status } = club || {};
+  const {
+    _id,
+    clubName,
+    category,
+    membershipFee,
+    status,
+    created_at,
+    updated_at,
+  } = club || {};
   const [role] = useRole();
   const axiosSecure = useAxiosSecure();
   const handleClubDelete = async () => {
@@ -43,6 +51,8 @@ const ClubDataTable = ({ club, index, refetch }) => {
       <td>{clubName}</td>
 
       <td>{membershipFee}</td>
+      <td>{new Date(created_at).toLocaleString()}</td>
+      <td>{updated_at && new Date(updated_at).toLocaleString()}</td>
       {/* status */}
       {role === "admin" && (
         <td>
@@ -85,7 +95,7 @@ const ClubDataTable = ({ club, index, refetch }) => {
           {/* Add Event */}
           <Link
             to={`/dashboard/add-event/${_id}`}
-            className="px-3 py-1 bg-purple-500 hover:bg-purple-400 text-white font-semibold rounded transition"
+            className="btn btn-sm bg-purple-500 hover:bg-purple-400 text-white font-semibold rounded transition"
           >
             Add Event
           </Link>

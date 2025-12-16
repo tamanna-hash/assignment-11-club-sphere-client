@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router";
 
 const MyJoinedClubCard = ({ club }) => {
-  const { name, category, clubId, image, fee, status } = club || {};
+  const { name, category,joined_at, clubId, image, fee, status } = club || {};
   console.log(club);
   return (
     <motion.div
@@ -31,6 +31,7 @@ const MyJoinedClubCard = ({ club }) => {
         <h2 className="card-title text-lg font-semibold ">{name}</h2>
 
         <p className="text-sm ">Category: {category}</p>
+        <p className="text-sm">Joined at{new Date(joined_at).toLocaleString()}</p>
 
         <div className="flex justify-between items-center mt-2">
           <span className=" font-medium">Fee: ${fee}</span>

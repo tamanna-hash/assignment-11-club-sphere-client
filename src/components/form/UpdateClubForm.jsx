@@ -91,6 +91,7 @@ const UpdateClubForm = ({ id }) => {
           name: user?.displayName,
           email: user?.email,
         },
+        updated_at:new Date()
       };
       const endpoint = pendingClub
         ? `/clubs-pending/${id}` // pending collection

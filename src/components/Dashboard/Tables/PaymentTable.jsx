@@ -26,7 +26,7 @@ const PaymentTable = ({ payment, index }) => {
       <td>$ {amount}</td>
       <td>{status}</td>
       <td>{transactionId}</td>
-      <td>{createdAt}</td>
+      <td>{new Date(createdAt).toLocaleString()}</td>
     </tr>
   );
 };

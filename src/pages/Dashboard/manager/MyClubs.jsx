@@ -25,7 +25,9 @@ const MyClubs = () => {
     <>
       <title>ClubSphere- My Clubs</title>
       <h1 className="main-title">My Clubs</h1>
-      <p className="subtitle">Access and manage the clubs you are responsible for</p>
+      <p className="subtitle">
+        Access and manage the clubs you are responsible for
+      </p>
       <div className="overflow-x-auto bg-base-300">
         <table className="table table-zebra">
           {/* head */}
@@ -35,6 +37,8 @@ const MyClubs = () => {
               <th>Category</th>
               <th>Name</th>
               <th>Fee</th>
+              <th>Created at</th>
+              <th>Updated at</th>
               <th className="text-center">Actions</th>
             </tr>
           </thead>
