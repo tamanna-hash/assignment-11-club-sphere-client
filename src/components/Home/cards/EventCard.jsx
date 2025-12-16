@@ -42,7 +42,7 @@ const EventCard = ({ event, index }) => {
 
         <Link
           to={`/events/${_id}`}
-         className="btn mt-2 text-white bg-purple-600/90 hover:bg-purple-600/70"
+         className="btn w-full mt-2 text-white bg-purple-600/90 hover:bg-purple-600/70"
         >
           View Details
         </Link>

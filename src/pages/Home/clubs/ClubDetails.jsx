@@ -17,9 +17,7 @@ const ClubDetails = () => {
   const { data: club, isLoading } = useQuery({
     queryKey: ["club", id],
     queryFn: async () => {
-      const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/clubs/${id}`
-      );
+      const res = await axiosSecure.get(`/clubs/${id}`);
       return res.data;
     },
   });
@@ -46,9 +44,8 @@ const ClubDetails = () => {
       return res.data;
     },
   });
- const isJoined = myMemberships?.some(
-  (membership) => membership.clubId === _id
-) || false;
+  const isJoined =
+    myMemberships?.some((membership) => membership.clubId === _id) || false;
   console.log(club);
   const closeModal = () => {
     setIsOpen(false);
@@ -104,19 +101,21 @@ const ClubDetails = () => {
 
               {/* Actions */}
               <div className="flex flex-wrap gap-3 pt-8">
-                <button
-                  disabled={isJoined}
-                  onClick={() => setIsOpen(true)}
-                  className={`btn rounded-xl font-semibold transition
+                {user && (
+                  <button
+                    disabled={isJoined}
+                    onClick={() => setIsOpen(true)}
+                    className={`btn rounded-xl font-semibold transition
                     ${
                       isJoined
                         ? "bg-gray-400 cursor-not-allowed text-white"
                         : "bg-purple-500 hover:bg-purple-600 text-white shadow-lg shadow-purple-500/30"
                     }
                   `}
-                >
-                  {isJoined ? "Already Joined" : "Join Club"}
-                </button>
+                  >
+                    {isJoined ? "Already Joined" : "Join Club"}
+                  </button>
+                )}
 
                 <Link
                   to={`/events?clubId=${_id}`}

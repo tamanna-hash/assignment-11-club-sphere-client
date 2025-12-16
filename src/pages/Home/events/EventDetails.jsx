@@ -61,7 +61,7 @@ const EventDetails = () => {
   });
   const {
     clubId,
-   title,
+    title,
     eventLocation,
     eventDate,
     maxAttendees,
@@ -159,26 +159,27 @@ const EventDetails = () => {
 
               {/* Actions */}
               <div className="flex flex-wrap gap-3 pt-8">
-                <button
-                  disabled={isJoined}
-                  onClick={handleJoin}
-                  className={`btn rounded-xl font-semibold text-white
+                {user && (
+                  <button
+                    disabled={isJoined}
+                    onClick={handleJoin}
+                    className={`btn rounded-xl font-semibold text-white
             transition shadow-lg
             ${
               isJoined
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-purple-500 hover:bg-purple-600 shadow-purple-500/30"
             }`}
-                >
-                  {isPending ? (
-                    <span className="loading loading-spinner loading-sm"></span>
-                  ) : isJoined ? (
-                    "Joined"
-                  ) : (
-                    "Join Event"
-                  )}
-                </button>
-
+                  >
+                    {isPending ? (
+                      <span className="loading loading-spinner loading-sm"></span>
+                    ) : isJoined ? (
+                      "Joined"
+                    ) : (
+                      "Join Event"
+                    )}
+                  </button>
+                )}
                 <button
                   onClick={() => navigate(-1)}
                   className="btn rounded-xl font-semibold

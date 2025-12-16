@@ -46,7 +46,7 @@ const ClubCard = ({ club, index }) => {
             <span className="text-gray-700 font-medium">${membershipFee}</span>
             <span className="text-sm badge badge-outline badge-info outline-purple-400 ">{category}</span>
           </div>
-          <Link to={`/clubs/${_id}`} className="btn mt-2 text-white bg-purple-600/90 hover:bg-purple-600/70">
+          <Link to={`/clubs/${_id}`} className="btn w-full mt-2 text-white bg-purple-600/90 hover:bg-purple-600/70">
             View Details
           </Link>
         </div>
