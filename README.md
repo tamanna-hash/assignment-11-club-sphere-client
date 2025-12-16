@@ -6,7 +6,7 @@ This project is a platform where users can explore and join clubs, participate i
 
 ## Live URL
 
-[https://your-live-url.com]
+[https://club-sphere-78baf.web.app]
 
 ## Key Features
 

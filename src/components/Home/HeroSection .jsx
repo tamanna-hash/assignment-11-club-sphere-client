@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router";
-
+import useAuth from "../../hooks/useAuth";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -11,7 +11,7 @@ const fadeUp = {
   }),
 };
 
-
+const { user } = useAuth();
 const HeroSection = () => (
   <section className="relative min-h-[90vh] flex items-center justify-center bg-linear-to-br from-[#12001f] via-[#1b0033] to-black text-white overflow-hidden">
     <motion.div
@@ -31,13 +31,13 @@ const HeroSection = () => (
       </p>
       <div className="flex justify-center gap-4">
         <Link
-          to="/clubs"
+          to={user ? "/clubs" : "/"}
           className="px-8 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 transition shadow-lg"
         >
           Join a Club
         </Link>
         <Link
-          to="/events"
+          to={user ? "/events" : "/"}
           className="px-8 py-3 rounded-xl border border-purple-500 text-purple-300 hover:bg-purple-600/10 transition"
         >
           Join an Event
