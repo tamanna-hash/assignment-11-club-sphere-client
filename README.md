@@ -1,4 +1,30 @@
-<HeroSection />
-<FeaturedSection />
-<HowItWorks />
-<WhyJoin />
+# ClubSphere
+
+## Project Purpose
+
+This project is a platform where users can explore and join clubs, participate in events, and manage their memberships. The goal is to make it easy for users to connect with communities and stay updated with events that interest them.
+
+## Live URL
+
+[https://your-live-url.com]
+
+## Key Features
+
+- User registration and login (with Google authentication)
+- Browse and join clubs
+- Explore upcoming events
+- Manage memberships and payments
+- Responsive design for mobile and desktop
+
+## Important NPM Packages Used
+
+- **React** – for building the user interface
+- **React Router** – for routing and navigation
+- **Tailwind CSS** – for styling and layout
+- **daisyui** – for ready-to-use UI components with Tailwind CSS
+- **React Hook Form** – for handling forms and validation
+- **@tanstack/react-query** – for data fetching, caching, and state management
+- **Axios** – for making API requests
+- **React Icons** – for icons
+- **sweetalert2** – for beautiful, customizable alert and popup messages
+- **Firebase** – for authentication and backend services
