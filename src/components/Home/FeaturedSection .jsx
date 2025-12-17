@@ -67,7 +67,7 @@ const FeaturedSection = () => {
                 </p>
 
                 <Link
-                  to={`/clubs`}
+                  to={`/clubs/${club.clubId}`}
                   className="text-purple-400 hover:underline"
                 >
                   Explore →

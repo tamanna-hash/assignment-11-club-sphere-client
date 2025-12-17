@@ -1,5 +1,5 @@
 import { MdEvent, MdEventAvailable, MdPendingActions } from "react-icons/md";
-import { FaPlusCircle, FaBoxOpen, FaUsersCog, FaHome } from "react-icons/fa";
+import { FaPlusCircle, FaBoxOpen, FaUsersCog, FaHome, FaUsers } from "react-icons/fa";
 import { NavLink } from "react-router";
 
 const ManagerMenu = () => {
@@ -17,26 +17,17 @@ const ManagerMenu = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="add-club">
-          <FaPlusCircle className="text-lg" />
-          <span>Add Club</span>
+        <NavLink to="my-events">
+          <MdEventAvailable className="text-lg" />
+          <span>Events Management</span>
         </NavLink>
       </li>
-
       <li>
         <NavLink to="event-registrations">
           <MdEvent className="text-lg" />
           <span>Event Registrations</span>
         </NavLink>
       </li>
-
-      <li>
-        <NavLink to="my-events">
-          <MdEventAvailable className="text-lg" />
-          <span>My Events</span>
-        </NavLink>
-      </li>
-
       <li>
         <NavLink to="manage-memberships">
           <FaUsersCog className="text-lg" />
@@ -52,9 +43,21 @@ const ManagerMenu = () => {
       </li>
 
       <li>
+        <NavLink to="my-club-members">
+          <FaUsers className="text-lg" />
+          <span>Club Members</span>
+        </NavLink>
+      </li>
+      <li>
         <NavLink to="my-clubs">
           <FaBoxOpen className="text-lg" />
           <span>My Clubs</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="add-club">
+          <FaPlusCircle className="text-lg" />
+          <span>Add Club</span>
         </NavLink>
       </li>
     </ul>

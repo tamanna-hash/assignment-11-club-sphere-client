@@ -10,6 +10,19 @@
 h1 {
   font-family: "jost", cursive;
 } */
+@keyframes bgMove {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 100% center;
+  }
+}
+
+.animate-bgMove {
+  animation: bgMove 10s linear infinite alternate;
+}
+
 .menu-item li {
   @apply hover:bg-slate-400;
 }
@@ -23,8 +36,8 @@ ul li a.active {
   @apply bg-slate-400 text-white no-underline;
 }
 .main-title {
-  @apply text-3xl font-bold mb-6 text-gray-800;
+  @apply text-3xl font-bold mb-6 text-base-content/90;
 }
 .subtitle {
-  @apply text-slate-600 pb-8;
+  @apply text-base-content/80 pb-8;
 }

@@ -4,6 +4,7 @@ import useAuth from "../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import MyJoinedEventCard from "../../../components/Home/cards/MyJoinedEventCard";
 import { motion } from "framer-motion";
+import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 const MyJoinedEvents = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
@@ -15,7 +16,7 @@ const MyJoinedEvents = () => {
     },
   });
   console.log(joinedEvents);
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <LoadingSpinner/>;
 
   return (
     <>

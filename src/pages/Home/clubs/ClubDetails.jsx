@@ -87,7 +87,9 @@ const ClubDetails = () => {
                 <div className="grid grid-cols-2 gap-4 pt-4 text-sm">
                   <div>
                     <p className="text-base-content/60">Membership Fee</p>
-                    <p className="font-semibold text-lg">${membershipFee}</p>
+                    <p className={`${membershipFee===0 && 'text-purple-600'} font-semibold text-lg`}>
+                      ${membershipFee === 0 && "Free"}
+                    </p>
                   </div>
                   <div>
                     <p className="text-base-content/60">Manager</p>

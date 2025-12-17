@@ -36,7 +36,7 @@ const MemberStatistics = () => {
     );
   if (error) return <ErrorPage />;
 
-  const { totalClubsJoined, totalEventsRegistered, upcomingEvents } = data;
+  const { totalClubsJoined, totalEventsRegistered, upcomingEvents } = data||{};
 
   return (
     <>
@@ -47,7 +47,7 @@ const MemberStatistics = () => {
       <p className="subtitle">
         See your joined clubs, upcoming events, and membership status
       </p>
-      <div className="p-6 min-h-screen">
+      <div className="p-6 bg-base-200 min-h-screen">
         <h1 className="text-3xl font-bold mb-6 text-slate-800">
           Welcome back, {user?.email.split("@")[0]}!
         </h1>

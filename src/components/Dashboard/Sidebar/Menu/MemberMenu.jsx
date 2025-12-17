@@ -1,5 +1,5 @@
 import { NavLink } from "react-router";
-import { FaHome, FaIdCard, FaUserTie } from "react-icons/fa";
+import { FaCreditCard, FaHome, FaIdCard, FaUserTie } from "react-icons/fa";
 import { MdEventNote } from "react-icons/md";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 
@@ -15,17 +15,6 @@ const MemberMenu = () => {
           {/* statistics icon */}
           <FaHome />
           <span className="truncate">Member Dashboard</span>
-        </NavLink>
-      </li>
-      {/* My Memberships */}
-      <li>
-        <NavLink
-          to="my-memberships"
-          className="flex items-center gap-3 tooltip tooltip-right"
-          data-tip="My Memberships"
-        >
-          <FaIdCard className="text-lg" />
-          <span className="truncate">My Memberships</span>
         </NavLink>
       </li>
 
@@ -53,6 +42,28 @@ const MemberMenu = () => {
         </NavLink>
       </li>
 
+      {/* My Memberships */}
+      <li>
+        <NavLink
+          to="my-memberships"
+          className="flex items-center gap-3 tooltip tooltip-right"
+          data-tip="My Memberships"
+        >
+          <FaIdCard className="text-lg" />
+          <span className="truncate">My Memberships</span>
+        </NavLink>
+      </li>
+      {/* My Memberships */}
+      <li>
+        <NavLink
+          to="my-payments"
+          className="flex items-center gap-3 tooltip tooltip-right"
+          data-tip="My Payments"
+        >
+          <FaCreditCard className="text-lg" />
+          <span className="truncate">My Payments</span>
+        </NavLink>
+      </li>
       {/* Become a Manager */}
       <li>
         <NavLink

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router";
 import useAuth from "../../hooks/useAuth";
-
+import bgImg from "../../assets/textbg.jpeg"
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (i = 1) => ({
@@ -22,9 +22,18 @@ const HeroSection = () => {
         variants={fadeUp}
         className="max-w-5xl text-center px-6"
       >
-        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+        {/* style={{backgroundImage: `url(${bgImg})`}} */}
+        <h1
+          className="text-4xl md:text-6xl font-extrabold leading-tight mb-6
+             text-transparent bg-clip-text animate-bgMove"
+          style={{
+            backgroundImage: `url(${bgImg})`,
+            backgroundSize: "200% 100%",
+            backgroundPosition: "0% center",
+          }}
+        >
           Discover Communities.
-          <span className="block text-purple-400">Belong Anywhere.</span>
+          <span className="block">Belong Anywhere.</span>
         </h1>
 
         <p className="text-gray-300 text-lg md:text-xl mb-10">

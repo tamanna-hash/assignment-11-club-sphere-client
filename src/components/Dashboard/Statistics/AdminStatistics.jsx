@@ -39,10 +39,10 @@ const AdminStatistics = () => {
     totalEvents,
     totalPayments,
     membershipsPerClub,
-  } = data;
+  } = data || {};
 
   return (
-    <div className="p-6 min-h-screen">
+    <div className="p-6 bg-base-200 min-h-screen">
       <title>ClubSphere- Admin Dashboard</title>
       <h1 className="main-title">Admin Dashboard</h1>
       <p className="subtitle">

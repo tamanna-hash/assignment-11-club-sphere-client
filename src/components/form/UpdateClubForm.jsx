@@ -164,7 +164,7 @@ const UpdateClubForm = ({ id }) => {
                 <option value="Hiking">Hiking</option>
                 <option value="Book">Book</option>
                 <option value="Tech">Tech</option>
-                <option value="Skating">Skating</option>
+                <option value="Sports">Sports</option>
                 <option value="Traveling">Traveling</option>
                 <option value="Culinary">Culinary / Cooking</option>
               </select>

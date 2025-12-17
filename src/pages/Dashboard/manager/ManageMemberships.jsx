@@ -34,7 +34,6 @@ const ManageMemberships = () => {
               <th>Category</th>
               <th>Name</th>
               <th>Email</th>
-              <th>PaymentID</th>
               <th>Membership Status</th>
               <th>Actions</th>
             </tr>

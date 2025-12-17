@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 const ManagerMembershipTable = ({ membership, index, refetch }) => {
   const axiosSecure = useAxiosSecure();
   const [isApproved, setIsApproved] = useState(false);
-  const { _id, name, member, category, fee, image, paymentId, status } =
+  const { _id, name, member, category, paymentId, status } =
     membership || {};
   const handleApproveClub = async () => {
     Swal.fire({
@@ -70,7 +70,6 @@ const ManagerMembershipTable = ({ membership, index, refetch }) => {
       <td>{category}</td>
       <td>{name}</td>
       <td>{member}</td>
-      <td>{paymentId}</td>
       {/* status */}
       <td>
         <p

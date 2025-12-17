@@ -7,7 +7,7 @@ const Statistics = () => {
   const [role, isRoleLoading] = useRole();
   if (isRoleLoading) return <LoadingSpinner />;
   return (
-    <div>
+    <div className="">
       {role === "member" && <MemberStatistics />}
       {role === "manager" && <ManagerStatistics />}
       {role === "admin" && <AdminStatistics />}

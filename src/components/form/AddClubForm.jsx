@@ -159,12 +159,12 @@ const AddClubForm = () => {
                   className="w-full px-4 py-3 rounded-md border border-purple-400 focus:outline-purple-500 focus:ring-1 focus:ring-purple-500 text-gray-800"
                 >
                   <option value="">Select category</option>
+                  <option value="Tech">Tech</option>
+                  <option value="Sports">Sports</option>
                   <option value="Photography">Photography</option>
                   <option value="Hiking">Hiking</option>
-                  <option value="Book">Book</option>
-                  <option value="Tech">Tech</option>
-                  <option value="Skating">Sports</option>
                   <option value="Traveling">Traveling</option>
+                  <option value="Book">Book</option>
                   <option value="Culinary">Culinary / Cooking</option>
                 </select>
                 {errors.category && (
