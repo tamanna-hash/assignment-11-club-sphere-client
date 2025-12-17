@@ -53,7 +53,7 @@ const MyJoinedEventCard = ({ event }) => {
       <div className="card-body p-4">
         <h2 className="card-title text-lg font-semibold ">{title}</h2>
 
-        <p className="text-sm">Club: {club.clubName} </p>
+        <p className="text-sm">Club: {club?.clubName} </p>
 
         <div className="flex justify-between items-center gap-2 mt-2">
           <span className=" font-medium">Location: ${eventLocation}</span>
