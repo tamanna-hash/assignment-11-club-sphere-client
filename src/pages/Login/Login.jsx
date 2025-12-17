@@ -20,11 +20,11 @@ const Login = () => {
   const location = useLocation();
   const from = location.state?.from || "/";
   const navigate = useNavigate();
-
   const handleSignin = async (data) => {
+    setLoading(true);
     try {
       const { user } = await signIn(data.email, data.password);
-      const token = await user.getIdToken(true);
+      // const token = await user.getIdToken(true);
       await saveOrUpdateUser({
         name: user?.displayName,
         email: user?.email,
@@ -33,11 +33,33 @@ const Login = () => {
       navigate(from);
       toast.success("Login Successful");
     } catch (err) {
-      console.log(err);
-      toast.error(err?.message);
+      console.log("Firebase error:", err);
+      console.log("Error code:", err.code);
+
+      // User-friendly messages
+      switch (err.code) {
+        case "auth/invalid-credential":
+          toast.error(
+            "Invalid credentials. Please check your email and password."
+          );
+          break;
+        case "auth/user-not-found":
+          toast.error("No account found with this email.");
+          break;
+        case "auth/wrong-password":
+          toast.error("Incorrect password.");
+          break;
+        case "auth/too-many-requests":
+          toast.error("Too many login attempts. Please try again later.");
+          break;
+        default:
+          toast.error("Login failed. Please try again.");
+      }
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
+
   const handleGoogleSignIn = async () => {
     try {
       const { user } = await signInWithGoogle();
@@ -51,7 +73,24 @@ const Login = () => {
       toast.success("Login Successful");
       navigate(from);
     } catch (err) {
-      toast.error(err?.message);
+      switch (err.code) {
+        case "auth/invalid-credential":
+          toast.error(
+            "Invalid credentials. Please check your email and password."
+          );
+          break;
+        case "auth/user-not-found":
+          toast.error("No account found with this email.");
+          break;
+        case "auth/wrong-password":
+          toast.error("Incorrect password.");
+          break;
+        case "auth/too-many-requests":
+          toast.error("Too many login attempts. Please try again later.");
+          break;
+        default:
+          toast.error("Login failed. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
