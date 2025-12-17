@@ -26,7 +26,7 @@ const MyJoinedEventCard = ({ event }) => {
     },
   });
   console.log(club);
-  if (isLoading) return <LoadingSpinner />;
+  // if (isLoading) return <LoadingSpinner />;
   return (
     <motion.div
       initial="hidden"
