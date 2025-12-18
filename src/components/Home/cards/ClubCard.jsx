@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
@@ -22,9 +22,6 @@ const ClubCard = ({ club }) => {
     membershipFee,
   } = club || {};
 
-  // Local state to control heart icon
-  const [isInWishlist, setIsInWishlist] = useState(false);
-
   // Fetch user wishlist
   const { data: wishlist = [] } = useQuery({
     queryKey: ["my-wishlist", user?.email],
@@ -36,12 +33,10 @@ const ClubCard = ({ club }) => {
     enabled: !!user, // only run if user exists
   });
 
-  // Update local state when wishlist changes
-  useEffect(() => {
-    if (!user) return;
-    const added = wishlist.some((item) => item.clubId === _id);
-    setIsInWishlist(added);
-  }, [wishlist, user, _id]);
+  // Derived state: check if this club is in the wishlist
+  const isInWishlist = user
+    ? wishlist.some((item) => item.clubId === _id)
+    : false;
 
   // Add to wishlist mutation
   const addMutation = useMutation({
@@ -54,7 +49,6 @@ const ClubCard = ({ club }) => {
       toast.success("Added to wishlist");
     },
     onError: () => {
-      setIsInWishlist(false);
       toast.error("Failed to add to wishlist");
     },
   });
@@ -72,7 +66,6 @@ const ClubCard = ({ club }) => {
       toast.success("Removed from wishlist");
     },
     onError: () => {
-      setIsInWishlist(true);
       toast.error("Failed to remove from wishlist");
     },
   });
@@ -83,7 +76,6 @@ const ClubCard = ({ club }) => {
 
     if (isInWishlist) {
       deleteMutation.mutate({ userEmail: user.email, clubId: _id });
-      setIsInWishlist(false); // optimistic UI
     } else {
       addMutation.mutate({
         userEmail: user.email,
@@ -91,7 +83,6 @@ const ClubCard = ({ club }) => {
         clubName,
         addedAt: new Date().toISOString(),
       });
-      setIsInWishlist(true); // optimistic UI
     }
   };
 
@@ -105,9 +96,9 @@ const ClubCard = ({ club }) => {
         hidden: { opacity: 0, y: 50 },
         visible: { opacity: 1, y: 0 },
       }}
-      className="hover:scale-[1.02] ease-in-out rounded-xl overflow-hidden shadow-lg bg-white hover:shadow-2xl transition"
+      className="hover:scale-[1.02] ease-in-out flex flex-col h-ful rounded-xl overflow-hidden shadow-lg bg-white hover:shadow-2xl transition"
     >
-      <div className="h-40 overflow-hidden relative">
+      <div className="h-40 min-h-40 overflow-hidden relative">
         <img
           src={coverImage}
           alt={clubName}
@@ -140,12 +131,12 @@ const ClubCard = ({ club }) => {
         </motion.button>
       </div>
 
-      <div className="p-4 bg-white">
+      <div className="p-4 bg-white flex flex-col h-full">
         <h3 className="text-lg font-semibold text-gray-800">{clubName}</h3>
         <p className="text-gray-500 text-sm mt-1">{clubLocation}</p>
         <p className="text-gray-600 mt-2">{description}</p>
 
-        <div className="mt-3 flex justify-between items-center">
+        <div className="mt-3 mb-1 flex justify-between items-center">
           <span
             className={`${
               membershipFee === 0 ? "text-purple-600" : "text-gray-700"
@@ -158,12 +149,14 @@ const ClubCard = ({ club }) => {
           </span>
         </div>
 
-        <Link
+      <div className="mt-auto">
+          <Link
           to={`/clubs/${_id}`}
-          className="btn w-full mt-2 text-white bg-purple-600/90 hover:bg-purple-600/70"
+          className="btn w-full  text-white bg-purple-600/90 hover:bg-purple-600/70"
         >
           View Details
         </Link>
+      </div>
       </div>
     </motion.div>
   );

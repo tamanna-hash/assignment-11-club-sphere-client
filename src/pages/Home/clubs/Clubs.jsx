@@ -24,11 +24,10 @@ const Clubs = () => {
     },
     keepPreviousData: true,
   });
-
   if (isLoading) return <LoadingSpinner />;
-
+  
   const { data: clubs = [], totalPages } = data || {};
-
+  
   return (
     <section className="p-6 min-h-screen">
       {/* Header */}
