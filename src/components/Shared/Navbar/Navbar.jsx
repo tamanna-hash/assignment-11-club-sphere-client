@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { FaUser, FaTachometerAlt, FaSignOutAlt, FaChartBar } from "react-icons/fa";
+import { PiSignOut, PiSignOutBold } from "react-icons/pi";
 import { NavLink, Link } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import { PuffLoader } from "react-spinners";
@@ -68,7 +70,9 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu nav-li menu-horizontal gap-2 text-white">{navLinks}</ul>
+        <ul className="menu nav-li menu-horizontal gap-2 text-white">
+          {navLinks}
+        </ul>
       </div>
 
       <div className="navbar-end">
@@ -86,13 +90,30 @@ const Navbar = () => {
               bg-black/70 backdrop-blur-lg rounded-xl shadow-xl text-white"
             >
               <li>
-                <Link to="/dashboard/profile">Profile</Link>
+                <Link
+                  to="/dashboard/profile"
+                  className="flex items-center gap-2"
+                >
+                  <FaUser className="text-white" />
+                  Profile
+                </Link>
               </li>
+
               <li>
-                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/dashboard" className="flex items-center gap-2">
+                  <FaChartBar className="text-white" />
+                  Dashboard
+                </Link>
               </li>
+
               <li>
-                <button onClick={logOut}>Logout</button>
+                <button
+                  onClick={logOut}
+                  className="flex items-center gap-2 w-full"
+                >
+                  <PiSignOutBold className="text-white" />
+                  Logout
+                </button>
               </li>
             </ul>
           </div>

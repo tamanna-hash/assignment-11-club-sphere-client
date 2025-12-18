@@ -37,6 +37,7 @@ import AdminAllClubs from "../pages/Dashboard/Admin/AdminAllClubs";
 import MyJoinedClubs from "../pages/Dashboard/Member/MyJoinedClubs";
 import MyPayments from "../pages/Dashboard/Member/MyPayments";
 import MyClubMembers from "../pages/Dashboard/manager/MyClubMembers";
+import MyWishlist from "../pages/Dashboard/Member/MyWishlist";
 
 export const router = createBrowserRouter([
   {
@@ -97,6 +98,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyPayments />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-wishlist",
+        element: (
+          <PrivateRoute>
+            <MyWishlist/>
           </PrivateRoute>
         ),
       },

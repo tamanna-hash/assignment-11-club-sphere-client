@@ -1,27 +1,45 @@
 import { NavLink } from "react-router";
-import { FaCreditCard, FaHome, FaIdCard, FaUserTie } from "react-icons/fa";
+import {
+  FaCreditCard,
+  FaHome,
+  FaIdCard,
+  FaRegHeart,
+  FaUserTie,
+} from "react-icons/fa";
 import { MdEventNote } from "react-icons/md";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 
 const MemberMenu = () => {
   return (
     <ul className="menu sidebar-dashboard p-4 w-64 bg-gray-800 text-white gap-2">
+      {/* Member Dashboard */}
       <li>
         <NavLink
           to="/dashboard"
-          className=" flex items-center gap-3 tooltip tooltip-right"
+          className="flex items-center gap-3 tooltip tooltip-right"
           data-tip="Member Overview"
         >
-          {/* statistics icon */}
-          <FaHome />
+          <FaHome className="text-lg" />
           <span className="truncate">Member Dashboard</span>
+        </NavLink>
+      </li>
+
+      {/* My Wishlist */}
+      <li>
+        <NavLink
+          to="/dashboard/my-wishlist"
+          className="flex items-center gap-3 tooltip tooltip-right"
+          data-tip="My Wishlist"
+        >
+          <FaRegHeart className="text-lg" />
+          <span className="truncate">My Wishlist</span>
         </NavLink>
       </li>
 
       {/* My Joined Events */}
       <li>
         <NavLink
-          to="my-joined-events"
+          to="/dashboard/my-joined-events"
           className="flex items-center gap-3 tooltip tooltip-right"
           data-tip="My Joined Events"
         >
@@ -33,7 +51,7 @@ const MemberMenu = () => {
       {/* My Joined Clubs */}
       <li>
         <NavLink
-          to="my-joined-clubs"
+          to="/dashboard/my-joined-clubs"
           className="flex items-center gap-3 tooltip tooltip-right"
           data-tip="My Joined Clubs"
         >
@@ -45,7 +63,7 @@ const MemberMenu = () => {
       {/* My Memberships */}
       <li>
         <NavLink
-          to="my-memberships"
+          to="/dashboard/my-memberships"
           className="flex items-center gap-3 tooltip tooltip-right"
           data-tip="My Memberships"
         >
@@ -53,10 +71,11 @@ const MemberMenu = () => {
           <span className="truncate">My Memberships</span>
         </NavLink>
       </li>
-      {/* My Memberships */}
+
+      {/* My Payments */}
       <li>
         <NavLink
-          to="my-payments"
+          to="/dashboard/my-payments"
           className="flex items-center gap-3 tooltip tooltip-right"
           data-tip="My Payments"
         >
@@ -64,10 +83,11 @@ const MemberMenu = () => {
           <span className="truncate">My Payments</span>
         </NavLink>
       </li>
+
       {/* Become a Manager */}
       <li>
         <NavLink
-          to="become-manager"
+          to="/dashboard/become-manager"
           className="flex items-center gap-3 tooltip tooltip-right"
           data-tip="Become a Manager"
         >

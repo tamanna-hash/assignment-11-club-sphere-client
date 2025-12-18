@@ -1,11 +1,17 @@
-import React from "react";
-import { GrUpdate } from "react-icons/gr";
-import { MdDeleteForever } from "react-icons/md";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router";
-
 import { motion } from "framer-motion";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
-const ClubCard = ({ club, index }) => {
+const ClubCard = ({ club }) => {
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient();
+
   const {
     clubName,
     clubLocation,
@@ -16,44 +22,142 @@ const ClubCard = ({ club, index }) => {
     membershipFee,
   } = club || {};
 
+  // Local state to control heart icon
+  const [isInWishlist, setIsInWishlist] = useState(false);
+
+  // Fetch user wishlist
+  const { data: wishlist = [] } = useQuery({
+    queryKey: ["my-wishlist", user?.email],
+    queryFn: async () => {
+      if (!user) return [];
+      const res = await axiosSecure.get("/my-wishlist");
+      return res.data;
+    },
+    enabled: !!user, // only run if user exists
+  });
+
+  // Update local state when wishlist changes
+  useEffect(() => {
+    if (!user) return;
+    const added = wishlist.some((item) => item.clubId === _id);
+    setIsInWishlist(added);
+  }, [wishlist, user, _id]);
+
+  // Add to wishlist mutation
+  const addMutation = useMutation({
+    mutationFn: async (wishlistData) => {
+      const res = await axiosSecure.post("/my-wishlist", wishlistData);
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["my-wishlist", user.email] });
+      toast.success("Added to wishlist");
+    },
+    onError: () => {
+      setIsInWishlist(false);
+      toast.error("Failed to add to wishlist");
+    },
+  });
+
+  // Remove from wishlist mutation
+  const deleteMutation = useMutation({
+    mutationFn: async ({ userEmail, clubId }) => {
+      const res = await axiosSecure.delete("/my-wishlist", {
+        data: { userEmail, clubId },
+      });
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["my-wishlist", user.email] });
+      toast.success("Removed from wishlist");
+    },
+    onError: () => {
+      setIsInWishlist(true);
+      toast.error("Failed to remove from wishlist");
+    },
+  });
+
+  // Handle heart click
+  const handleWishlistClick = () => {
+    if (!user) return toast.error("Please login to manage wishlist");
+
+    if (isInWishlist) {
+      deleteMutation.mutate({ userEmail: user.email, clubId: _id });
+      setIsInWishlist(false); // optimistic UI
+    } else {
+      addMutation.mutate({
+        userEmail: user.email,
+        clubId: _id,
+        clubName,
+        addedAt: new Date().toISOString(),
+      });
+      setIsInWishlist(true); // optimistic UI
+    }
+  };
+
   return (
     <motion.div
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      transition={{
-        duration: 0.75,
-        ease: "easeInOut",
-      }}
+      transition={{ duration: 0.75, ease: "easeInOut" }}
       variants={{
         hidden: { opacity: 0, y: 50 },
         visible: { opacity: 1, y: 0 },
       }}
-      className=" hover:scale-[1.02] ease-in-out rounded-xl overflow-hidden shadow-lg bg-white hover:shadow-2xl transition"
+      className="hover:scale-[1.02] ease-in-out rounded-xl overflow-hidden shadow-lg bg-white hover:shadow-2xl transition"
     >
-      <div className="h-40 overflow-hidden">
+      <div className="h-40 overflow-hidden relative">
         <img
           src={coverImage}
           alt={clubName}
           className="h-40 w-full object-cover"
         />
+
+        {/* Heart / Wishlist button with pop animation */}
+        <motion.button
+          className="absolute top-2 right-2 z-10 p-2 rounded-full bg-black/40 hover:bg-black/50 transition"
+          onClick={handleWishlistClick}
+          whileTap={{ scale: 1.3 }}
+        >
+          {isInWishlist ? (
+            <motion.div
+              key="filled"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+            >
+              <FaHeart size={22} className="text-red-500 transition-colors" />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="outline"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+            >
+              <FaRegHeart size={22} className="text-white transition-colors" />
+            </motion.div>
+          )}
+        </motion.button>
       </div>
+
       <div className="p-4 bg-white">
         <h3 className="text-lg font-semibold text-gray-800">{clubName}</h3>
         <p className="text-gray-500 text-sm mt-1">{clubLocation}</p>
         <p className="text-gray-600 mt-2">{description}</p>
+
         <div className="mt-3 flex justify-between items-center">
           <span
             className={`${
-              membershipFee === 0 && "text-purple-600"
-            } text-gray-700 font-medium`}
+              membershipFee === 0 ? "text-purple-600" : "text-gray-700"
+            } font-medium`}
           >
             ${membershipFee === 0 ? "Free" : membershipFee}
           </span>
-          <span className="text-sm badge badge-outline badge-info outline-purple-400 ">
+          <span className="text-sm badge badge-outline badge-info outline-purple-400">
             {category}
           </span>
         </div>
+
         <Link
           to={`/clubs/${_id}`}
           className="btn w-full mt-2 text-white bg-purple-600/90 hover:bg-purple-600/70"
@@ -64,4 +168,5 @@ const ClubCard = ({ club, index }) => {
     </motion.div>
   );
 };
+
 export default ClubCard;

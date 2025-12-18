@@ -109,7 +109,7 @@ const Clubs = () => {
               <button
                 key={i}
                 className={`btn bg-purple-300  ${
-                  page === i + 1 ? "btn-active" : "btn-outline"
+                  page === i + 1 ? "btn-outline" : "bg-purple-300"
                 }`}
                 onClick={() => setPage(i + 1)}
               >
