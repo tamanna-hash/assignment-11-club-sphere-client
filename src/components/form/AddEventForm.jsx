@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ErrorPage from "../../pages/ErrorPage";
 import LoadingSpinner from "../Shared/LoadingSpinner";
 import { imageUpload } from "../../utils";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
+import axios from "axios";
 
 const AddEventForm = ({ id }) => {
   const clubId = id;
@@ -37,7 +38,14 @@ const AddEventForm = ({ id }) => {
     },
     retry: 3,
   });
-
+const { data: club, isClubLoading } = useQuery({
+    queryKey: ["club", clubId],
+    queryFn: async () => {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/clubs/${clubId}`);
+      return res.data;
+    },
+  });
+  console.log(club);
   // React Hook Form
   const {
     register,
@@ -52,6 +60,7 @@ const AddEventForm = ({ id }) => {
       const imageUrl = await imageUpload(imageFile);
       const eventData = {
         clubId,
+        // club.category,
         title: name,
         eventDate: new Date(date).toLocaleDateString(),
         eventLocation,
@@ -74,7 +83,7 @@ const AddEventForm = ({ id }) => {
     }
   };
 
-  if (isPending || isLoading) return <LoadingSpinner />;
+  if (isPending || isLoading||isClubLoading) return <LoadingSpinner />;
   if (isError) return <ErrorPage />;
   return (
     <>

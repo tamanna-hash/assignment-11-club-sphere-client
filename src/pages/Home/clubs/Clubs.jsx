@@ -10,7 +10,7 @@ const Clubs = () => {
   const [category, setCategory] = useState("all");
   const [sort, setSort] = useState("newest");
   const [page, setPage] = useState(1); // current page
-  const limit = 9; // clubs per page
+  const limit = 12; // clubs per page
 
   const debouncedSearch = useDebounce(searchTerm, 600);
 
@@ -86,7 +86,7 @@ const Clubs = () => {
       {/* Clubs Grid */}
       {clubs.length > 0 ? (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-2">
             {clubs.map((club, index) => (
               <ClubCard key={club._id} club={club} index={index} />
             ))}

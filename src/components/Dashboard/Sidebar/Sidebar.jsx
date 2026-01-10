@@ -7,11 +7,6 @@ import { AiOutlineBars } from "react-icons/ai";
 import { BsGraphUp } from "react-icons/bs";
 // User Menu
 import MenuItem from "./Menu/MenuItem";
-import AdminMenu from "./Menu/AdminMenu";
-import ManagerMenu from "./Menu/ManagerMenu";
-import MemberMenu from "./Menu/MemberMenu";
-import useRole from "../../../hooks/useRole";
-import LoadingSpinner from "../../Shared/LoadingSpinner";
 
 const Sidebar = () => {
   const [isActive, setActive] = useState(false);

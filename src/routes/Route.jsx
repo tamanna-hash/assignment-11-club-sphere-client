@@ -38,6 +38,8 @@ import MyJoinedClubs from "../pages/Dashboard/Member/MyJoinedClubs";
 import MyPayments from "../pages/Dashboard/Member/MyPayments";
 import MyClubMembers from "../pages/Dashboard/manager/MyClubMembers";
 import MyWishlist from "../pages/Dashboard/Member/MyWishlist";
+import Help from "../pages/Home/help/Help";
+import About from "../pages/Home/about/About";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +49,14 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
+      },
+      {
+        path:'/help',
+        Component: Help,
+      },
+      {
+        path:'/about',
+        Component: About,
       },
       {
         path: "/clubs",

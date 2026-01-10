@@ -1,17 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import PurchaseModal from "../../../components/Modal/PurchaseModal";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { FaRegStar } from "react-icons/fa";
+import ClubCard from "../../../components/Home/cards/ClubCard";
 
 const ClubDetails = () => {
   let [isOpen, setIsOpen] = useState(false);
   const { id } = useParams();
-
+  const [sameCategory, setSameCategory] = useState({});
   const { user } = useAuth();
+  const [loading, setLoading] = useState(true);
+
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
   const { data: club, isLoading } = useQuery({
@@ -44,13 +48,22 @@ const ClubDetails = () => {
       return res.data;
     },
   });
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/clubs?category=${club?.category}`)
+      .then((res) => {
+        setSameCategory(res.data.data);
+        console.log(res.data.data);
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
+  }, [club?.category]);
   const isJoined =
     myMemberships?.some((membership) => membership.clubId === _id) || false;
-  console.log(club);
   const closeModal = () => {
     setIsOpen(false);
   };
-  if (isLoading || membershipLoading) return <LoadingSpinner />;
+  if (isLoading || membershipLoading || loading) return <LoadingSpinner />;
   return (
     <>
       <title>ClubSphere-Club Details</title>
@@ -87,8 +100,14 @@ const ClubDetails = () => {
                 <div className="grid grid-cols-2 gap-4 pt-4 text-sm">
                   <div>
                     <p className="text-base-content/60">Membership Fee</p>
-                    <p className={`${membershipFee===0 && 'text-purple-600'} font-semibold text-lg`}>
-                      ${membershipFee === 0 && "Free"}
+                    <p
+                      className={`${
+                        membershipFee === 0
+                          ? "text-green-500"
+                          : "text-purple-600"
+                      } font-semibold text-lg`}
+                    >
+                      ${membershipFee === 0 ? "Free" : membershipFee}
                     </p>
                   </div>
                   <div>
@@ -139,7 +158,22 @@ const ClubDetails = () => {
             </div>
           </div>
         </div>
-
+        <div className="mt-5">
+          <h2 className="text-xl mb-5 font-semibold text-purple-500 flex items-center gap-2">
+            <FaRegStar /> You Might Also Enjoy
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-2">
+            {sameCategory.length > 0 ? (
+              sameCategory.map((club, index) => (
+                <ClubCard key={club._id} club={club} index={index} />
+              ))
+            ) : (
+              <p className="col-span-full text-lg text-base-content/30 font-semibold">
+                No Clubs Found At That Moment
+              </p>
+            )}
+          </div>
+        </div>
         <PurchaseModal club={club} closeModal={closeModal} isOpen={isOpen} />
       </div>
     </>

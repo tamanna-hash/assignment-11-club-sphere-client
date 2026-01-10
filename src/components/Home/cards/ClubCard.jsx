@@ -98,11 +98,11 @@ const ClubCard = ({ club }) => {
       }}
       className="hover:scale-[1.02] ease-in-out flex flex-col h-ful rounded-xl overflow-hidden shadow-lg bg-white hover:shadow-2xl transition"
     >
-      <div className="h-40 min-h-40 overflow-hidden relative">
+      <div className="h-40 min-h-40 overflow-hidden relative rounded-t-lg">
         <img
           src={coverImage}
           alt={clubName}
-          className="h-40 w-full object-cover"
+          className="h-full w-full object-cover"
         />
 
         {/* Heart / Wishlist button with pop animation */}
@@ -131,32 +131,37 @@ const ClubCard = ({ club }) => {
         </motion.button>
       </div>
 
-      <div className="p-4 bg-white flex flex-col h-full">
+      <div className="p-4 bg-white flex flex-col -mt-2 rounded-b-lg shadow-md h-full">
         <h3 className="text-lg font-semibold text-gray-800">{clubName}</h3>
         <p className="text-gray-500 text-sm mt-1">{clubLocation}</p>
-        <p className="text-gray-600 mt-2">{description}</p>
+        <p className="text-gray-500 text-sm mt-2 line-clamp-2">{description}</p>
 
         <div className="mt-3 mb-1 flex justify-between items-center">
           <span
-            className={`${
-              membershipFee === 0 ? "text-purple-600" : "text-gray-700"
-            } font-medium`}
+            className=
+            // "text-purple-500 font-semibold"
+            {`
+              ${
+              membershipFee === 0 ? "text-green-500" : "text-purple-500"
+            }
+             font-semibold`}
           >
-            ${membershipFee === 0 ? "Free" : membershipFee}
+            {membershipFee === 0 ? "Free" : `$ ${membershipFee}`}
           </span>
-          <span className="text-sm badge badge-outline badge-info outline-purple-400">
+          <span className="text-sm px-2 py-0.5 rounded-full border border-purple-300 text-purple-500">
             {category}
           </span>
         </div>
 
-      <div className="mt-auto">
+        <div className="mt-auto">
           <Link
-          to={`/clubs/${_id}`}
-          className="btn w-full  text-white bg-purple-600/90 hover:bg-purple-600/70"
-        >
-          View Details
-        </Link>
-      </div>
+            to={`/clubs/${_id}`}
+            className="btn w-full btn-sm border-none text-white bg-purple-600 hover:bg-purple-700 transition"
+            // btn w-full btn-sm border-none text-white bg-purple-600/90 hover:bg-purple-600/70
+          >
+            View Details
+          </Link>
+        </div>
       </div>
     </motion.div>
   );

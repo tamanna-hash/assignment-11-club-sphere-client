@@ -19,7 +19,15 @@ createRoot(document.getElementById("root")).render(
       </AuthProvider>
     <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
-    <Toaster />
+    <Toaster 
+     toastOptions={{
+        success: {
+          iconTheme: {
+            primary: "#7E22CE", // icon background
+            secondary: "#ffffff", // check color
+          },
+        },
+      }}/>
     <ToastContainer />
   </StrictMode>
 );
