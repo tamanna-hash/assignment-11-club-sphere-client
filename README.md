@@ -4,9 +4,11 @@
 
 This project is a platform where users can explore and join clubs, participate in events, and manage their memberships. The goal is to make it easy for users to connect with communities and stay updated with events that interest them.
 
-## Live URL
+<img src="https://github.com/tamanna-hash/assignment-11-club-sphere-client/blob/main/clubsphere.png?raw=true" height="300px" width="400px">
 
+## Live URL
 [https://club-sphere-78baf.web.app]
+
 
 ## Key Features
 
