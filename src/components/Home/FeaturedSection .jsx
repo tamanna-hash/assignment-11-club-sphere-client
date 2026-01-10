@@ -36,7 +36,7 @@ const FeaturedSection = () => {
           Featured Communities
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {clubs.map((club, i) => (
             <motion.div
               key={club.clubId}
@@ -57,7 +57,7 @@ const FeaturedSection = () => {
                 />
               </div>
 
-              <div className="p-6">
+              <div className="p-4">
                 <h3 className="text-xl font-semibold mb-1">
                   {club.clubName}
                 </h3>

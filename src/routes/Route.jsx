@@ -40,6 +40,9 @@ import MyClubMembers from "../pages/Dashboard/manager/MyClubMembers";
 import MyWishlist from "../pages/Dashboard/Member/MyWishlist";
 import Help from "../pages/Home/help/Help";
 import About from "../pages/Home/about/About";
+import TermsOfUse from "../pages/Home/termsOfUse/TermsOfUse";
+import Contact from "../components/Home/contsct/Contact";
+import PrivacyPolicy from "../components/Home/clubsphere-privacy-policy/ClubSpherePrivacyPolicy";
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +56,18 @@ export const router = createBrowserRouter([
       {
         path:'/help',
         Component: Help,
+      },
+      {
+        path:'/terms-of-use',
+        Component: TermsOfUse,
+      },
+      {
+        path:'/contact',
+        Component: Contact,
+      },
+      {
+        path:'/privacy-policy',
+        Component: PrivacyPolicy,
       },
       {
         path:'/about',

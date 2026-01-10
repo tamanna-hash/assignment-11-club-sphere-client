@@ -45,7 +45,7 @@ const Navbar = () => {
         <NavLink to="/events">Events</NavLink>
       </li>
       <li>
-        <NavLink to={"/help"}>Help</NavLink>
+        <NavLink to={"/help"}>Support</NavLink>
       </li>
       <li>
         <NavLink to={"/about"}>About</NavLink>

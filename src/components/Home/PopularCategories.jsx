@@ -27,7 +27,7 @@ const PopularCategories = () => {
           Popular Categories
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 lg;gap-2 gap-6">
           {["Hiking", "Photography", "Tech", "Sports"].map((category, i) => {
             // Build a robust URL preserving other query params if needed
             const params = new URLSearchParams(location.search);

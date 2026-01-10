@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 
 const faqs = [
   {
@@ -124,9 +125,9 @@ const Help = () => {
           <p className="text-[#B7B3E6] mb-4">
             Still need help? Our support team usually replies within 24 hours.
           </p>
-          <button className="btn bg-[#7C6CFF] hover:bg-[#9B8CFF] text-black border-none">
+          <Link to={"/contact"} className="btn bg-[#7C6CFF] hover:bg-[#9B8CFF] text-black border-none">
             Contact Support
-          </button>
+          </Link>
         </section>
       </div>
     </div>
