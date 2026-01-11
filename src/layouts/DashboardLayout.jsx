@@ -1,19 +1,23 @@
 import { Outlet } from "react-router";
 import MenuItem from "../components/Dashboard/Sidebar/Menu/MenuItem";
 import Navbar from "../components/Shared/Navbar/Navbar";
+import UserDropdown from "../components/Shared/dropdown/UserDropdown";
 
 const DashboardLayout = () => {
   return (
     <div className="max-w-7xl mx-auto">
-      <Navbar/>
-      <div className="drawer lg:drawer-open pt-17">
+      <div className="drawer lg:drawer-open">
         {/* Drawer toggle checkbox */}
-        <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
+        <input
+          id="dashboard-drawer"
+          type="checkbox"
+          className="drawer-toggle"
+        />
 
         {/* Drawer content */}
         <div className="drawer-content flex flex-col min-h-screen">
           {/* Dashboard Navbar */}
-          <nav className="navbar w-full bg-gray-800 text-white shadow-md sticky top-0 ">
+          <nav className="navbar w-full bg-gray-800 text-white shadow-md sticky top-0 z-50">
             <label
               htmlFor="dashboard-drawer"
               aria-label="open sidebar"
@@ -33,13 +37,18 @@ const DashboardLayout = () => {
                 <path d="M4 6h16M4 12h8m-8 6h16" />
               </svg>
             </label>
-            <div className="px-4 text-lg font-semibold text-purple-300">
-              ClubsSphere Dashboard
+            <div className="flex w-full justify-between items-center">
+              <div className="px-4 text-lg font-semibold text-purple-300">
+                ClubsSphere Dashboard
+              </div>
+             <div>
+               <UserDropdown />
+             </div>
             </div>
           </nav>
 
           {/* Main content */}
-          <main className="flex-1 p-6 bg-base-300">
+          <main className="flex-1 p-4 bg-base-300">
             <Outlet />
           </main>
         </div>

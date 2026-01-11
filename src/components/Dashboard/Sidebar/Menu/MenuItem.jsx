@@ -12,11 +12,13 @@ import ManagerMenu from "./ManagerMenu";
 import useRole from "../../../../hooks/useRole";
 import MemberMenu from "./MemberMenu";
 import AdminMenu from "./AdminMenu";
+import Logo from "../../../Shared/Logo";
 
 const MenuItem = () => {
   const [role, isRoleLoading] = useRole();
   return (
     <div>
+      <Logo/>
       <ul className="menu w-full grow menu-item">
         {/* List item */}
         {/* member menu item */}
