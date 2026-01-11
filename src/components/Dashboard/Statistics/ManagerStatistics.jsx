@@ -616,4 +616,39 @@ const EmptyState = ({ message }) => (
     <p className="text-lg font-medium">{message}</p>
     <p className="text-sm opacity-75 mt-2">Data will appear here once available</p>
   </div>
+);$') 
+            ? value 
+            : (value?.toLocaleString() || 0)
+          }
+        </h3>
+      </div>
+
+      {/* Mini Line Chart */}
+      <div className="h-12 mb-3">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={trendData}>
+            <Line
+              type="monotone"
+              dataKey="value"
+              stroke={color}
+              strokeWidth={2}
+              dot={false}
+              activeDot={false}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+      
+      <p className="text-sm text-base-content/70">{description}</p>
+    </div>
+  );
+};
+
+/* ===== Empty State Component ===== */
+const EmptyState = ({ message }) => (
+  <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+    <FaExclamationTriangle className="text-4xl mb-4 opacity-50" />
+    <p className="text-lg font-medium">{message}</p>
+    <p className="text-sm opacity-75 mt-2">Data will appear here once available</p>
+  </div>
 );
