@@ -9,7 +9,7 @@ transition: { delay: i * 0.15, duration: 0.8, ease: "easeOut" },
 }),
 };
 const WhyJoin = () => (
-<section className="py-24 bg-linear-to-b from-[#12001f] to-black text-white">
+<section className="pb-24 bg-linear-to-b from-[#12001f] to-black text-white">
 <div className="max-w-6xl mx-auto px-6">
 <motion.h2
 initial="hidden"

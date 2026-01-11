@@ -5,6 +5,7 @@ import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import EventCard from "../../../components/Home/cards/EventCard";
 import { useDebounce } from "../../../hooks/useDebounce";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { SkeletonGrid } from "../../../components/Shared/Skeleton";
 
 const Events = () => {
   const [searchParams] = useSearchParams();
@@ -33,7 +34,7 @@ const Events = () => {
     keepPreviousData: true,
   });
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <SkeletonGrid />;
 
   return (
     <section className="p-6 min-h-screen">

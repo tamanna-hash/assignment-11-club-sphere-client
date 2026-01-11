@@ -32,7 +32,7 @@ const Highlights = () => {
   return (
     <section className="bg-[#0F0B1E] py-16 px-4">
       <div className="max-w-5xl mx-auto text-center mb-12">
-        <h2 className="text-3xl font-bold text-[#9B8CFF] mb-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-[#9B8CFF] mb-4">
           Highlights
         </h2>
         <p className="text-[#B7B3E6]">

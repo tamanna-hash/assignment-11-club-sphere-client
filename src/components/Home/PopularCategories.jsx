@@ -15,7 +15,7 @@ const PopularCategories = () => {
   const location = useLocation();
 
   return (
-    <section className="py-24 bg-[#0c0016] text-white">
+    <section className="pt-24 bg-[#0c0016] text-white">
       <div className="max-w-7xl mx-auto px-6">
         <motion.h2
           initial="hidden"

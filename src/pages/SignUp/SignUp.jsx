@@ -113,7 +113,7 @@ const SignUp = () => {
         <div className="absolute inset-0 bg-black/70"></div>
 
         {/* Logo in top-left */}
-        <div className="absolute top-4 left-4 md:top-8 md:left-8">
+        <div className="absolute top-4 left-4 hidden md:block">
           <Logo />
         </div>
 
@@ -131,7 +131,10 @@ const SignUp = () => {
 
           {/* Right Login Card */}
           <div className="card bg-white/10  mt-16 md:mt-0 hover:shadow-sm transition-shadow duration-300 border border-white/20 p-6 w-full max-w-sm shrink-0 shadow-white">
-            <h2 className="font-semibold md:text-2xl text-center mb-4 text-white">
+            <div className="flex justify-center mb-4 md:hidden">
+              <Logo />
+            </div>
+            <h2 className="font-semibold text-2xl text-center mb-4 text-white">
               Sign up for an account
             </h2>
 

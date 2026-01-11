@@ -80,11 +80,11 @@ const AddClubForm = () => {
   return (
     <>
       <title>ClubSphere- Add Club</title>
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">
+      <h1 className="text-3xl font-bold mb-6 text-base-content/90">
         Add Club
       </h1>
       <p className="subtitle">Create a new club under your management</p>
-      <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center bg-gray-50 rounded-xl p-6">
+      <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center bg-base-100 rounded-xl p-6">
         <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="space-y-6">

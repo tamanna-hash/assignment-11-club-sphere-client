@@ -4,6 +4,7 @@ import { useState } from "react";
 import ClubCard from "../../../components/Home/cards/ClubCard";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import { useDebounce } from "../../../hooks/useDebounce";
+import { SkeletonGrid } from "../../../components/Shared/Skeleton";
 
 const Clubs = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,7 +25,7 @@ const Clubs = () => {
     },
     keepPreviousData: true,
   });
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <SkeletonGrid/>;
   
   const { data: clubs = [], totalPages } = data || {};
   

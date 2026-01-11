@@ -26,6 +26,7 @@ const MyPayments = () => {
   if (isLoading || clubLoading) return <LoadingSpinner />;
   return (
     <div>
+      <h1 className="main-title">My Payments</h1>
       <div className="overflow-x-auto bg-base-100">
         <table className="table table-zebra">
           {/* head */}

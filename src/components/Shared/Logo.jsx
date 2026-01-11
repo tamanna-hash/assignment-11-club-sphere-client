@@ -18,7 +18,7 @@ const Logo = ({ size = "text-2xl" }) => {
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
           className={`flex items-center gap-2 font-semibold tracking-wide ${size}`}
         >
-          {/* CS Badge (optional but recommended) */}
+          
           <span className="px-2 py-1 rounded-lg bg-[#1A1433] text-[#9B8CFF] text-sm font-bold border border-[#2A2452]">
             CS
           </span>

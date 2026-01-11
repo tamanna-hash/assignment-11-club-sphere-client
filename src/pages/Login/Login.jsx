@@ -248,7 +248,7 @@ import Logo from "../../components/Shared/Logo";
 
 const DEMO_USERS = {
   admin: {
-    email: "tamannaprogramminghero@gmail.com",
+    email: "admin@gmail.com",
     password: "1234aA",
   },
   manager: {

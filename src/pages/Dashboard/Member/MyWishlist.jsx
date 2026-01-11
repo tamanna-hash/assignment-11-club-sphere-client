@@ -18,6 +18,7 @@ const MyWishlist = () => {
   if (isLoading) return <LoadingSpinner />;
   return (
     <div>
+      <h1 className="main-title">My Wishlist</h1>
       <div className="overflow-x-auto">
         <table className="table table-zebra">
           {/* head */}
