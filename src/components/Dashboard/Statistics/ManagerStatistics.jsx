@@ -14,8 +14,6 @@ import {
   PieChart,
   Pie,
   Cell,
-  AreaChart,
-  Area,
 } from "recharts";
 import {
   FaUsers,
@@ -26,14 +24,11 @@ import {
   FaArrowDown,
   FaExclamationTriangle,
   FaClock,
-  FaUserCheck,
-  FaChartLine,
   FaChartBar,
 } from "react-icons/fa";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import LoadingSpinner from "../../Shared/LoadingSpinner";
-import ErrorPage from "../../../pages/ErrorPage";
 
 const ManagerStatistics = () => {
   const axiosSecure = useAxiosSecure();
@@ -51,7 +46,7 @@ const ManagerStatistics = () => {
       const res = await axiosSecure.get(`/manager-overview/${user.email}`);
       return res.data;
     },
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 5 * 60 * 1000,
     retry: 2,
   });
 
@@ -141,15 +136,6 @@ const ManagerStatistics = () => {
   // Error handling
   const hasError = overviewError || membersError || chartError || growthError || demographicsError || activityError;
   
-  // Debug logging
-  console.log('ManagerStatistics Debug:', {
-    isLoading,
-    hasError,
-    user: user?.email,
-    overview,
-    errors: { overviewError, membersError, chartError, growthError, demographicsError, activityError }
-  });
-  
   if (isLoading) return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <LoadingSpinner />
@@ -201,47 +187,41 @@ const ManagerStatistics = () => {
         </header>
 
         {/* ===== Key Performance Indicators ===== */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <StatCard
             title="Clubs Managed"
             value={numClubs}
-            icon={<FaLayerGroup className="text-xl" />}
-            description="Active clubs under management"
+            icon={<FaLayerGroup className="text-lg" />}
             color="#8b5cf6"
           />
           <StatCard
             title="Total Members"
             value={totalMembers}
-            icon={<FaUsers className="text-xl" />}
-            description="Registered club members"
+            icon={<FaUsers className="text-lg" />}
             color="#06b6d4"
           />
           <StatCard
             title="Events Organized"
             value={totalEvents}
-            icon={<FaCalendarAlt className="text-xl" />}
-            description="Total events hosted"
+            icon={<FaCalendarAlt className="text-lg" />}
             color="#10b981"
           />
           <StatCard
             title="Revenue Generated"
             value={`$${totalPayments?.toLocaleString() || 0}`}
-            icon={<FaCreditCard className="text-xl" />}
-            description="Total revenue collected"
+            icon={<FaCreditCard className="text-lg" />}
             color="#f59e0b"
           />
           <StatCard
             title="Pending Requests"
             value={pendingMemberships}
-            icon={<FaClock className="text-xl" />}
-            description="Awaiting approval"
+            icon={<FaClock className="text-lg" />}
             color="#ef4444"
           />
           <StatCard
             title="Upcoming Events"
             value={upcomingEvents}
-            icon={<FaChartBar className="text-xl" />}
-            description="Future events scheduled"
+            icon={<FaChartBar className="text-lg" />}
             color="#8b5cf6"
           />
         </section>
@@ -460,7 +440,7 @@ const ManagerStatistics = () => {
                   />
                   <Bar
                     dataKey="value"
-                    fill={(entry) => entry.color || "#10b981"}
+                    fill="#10b981"
                     radius={[8, 8, 0, 0]}
                   />
                 </BarChart>
@@ -562,25 +542,25 @@ const ManagerStatistics = () => {
 export default ManagerStatistics;
 
 /* ===== Clean Minimal Stat Card Component ===== */
-const StatCard = ({ title, value, icon, description, color = "#8b5cf6" }) => {
+const StatCard = ({ title, value, icon, color = "#8b5cf6" }) => {
   // Generate mock trend data for the mini chart
   const trendData = Array.from({ length: 7 }, (_, i) => ({
     value: Math.floor(Math.random() * 50) + 20 + i * 2
   }));
 
   return (
-    <div className="bg-base rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
-      <div className="flex items-center gap-3 mb-4">
+    <div className="bg-base-100 rounded-2xl p-4 shadow-sm border border-base-300 hover:shadow-md transition-all duration-300">
+      <div className="flex items-center gap-3 mb-3">
         <div className="p-2 bg-base-200 rounded-lg text-base-content/70">
           {icon}
         </div>
         <div className="flex-1">
-          <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">{title}</p>
+          <p className="text-xs font-medium text-base-content/60 uppercase tracking-wide">{title}</p>
         </div>
       </div>
       
       <div className="mb-3">
-        <h3 className="text-3xl font-bold text-base-content/90 mb-1">
+        <h3 className="text-xl font-bold text-base-content">
           {typeof value === 'string' && value.startsWith('$') 
             ? value 
             : (value?.toLocaleString() || 0)
@@ -589,7 +569,7 @@ const StatCard = ({ title, value, icon, description, color = "#8b5cf6" }) => {
       </div>
 
       {/* Mini Line Chart */}
-      <div className="h-12 mb-3">
+      <div className="h-10 mt-2">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={trendData}>
             <Line
@@ -603,43 +583,6 @@ const StatCard = ({ title, value, icon, description, color = "#8b5cf6" }) => {
           </LineChart>
         </ResponsiveContainer>
       </div>
-      
-      <p className="text-sm text-base-content/70">{description}</p>
-    </div>
-  );
-};
-
-/* ===== Empty State Component ===== */
-const EmptyState = ({ message }) => (
-  <div className="flex flex-col items-center justify-center h-64 text-gray-500">
-    <FaExclamationTriangle className="text-4xl mb-4 opacity-50" />
-    <p className="text-lg font-medium">{message}</p>
-    <p className="text-sm opacity-75 mt-2">Data will appear here once available</p>
-  </div>
-);$') 
-            ? value 
-            : (value?.toLocaleString() || 0)
-          }
-        </h3>
-      </div>
-
-      {/* Mini Line Chart */}
-      <div className="h-12 mb-3">
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={trendData}>
-            <Line
-              type="monotone"
-              dataKey="value"
-              stroke={color}
-              strokeWidth={2}
-              dot={false}
-              activeDot={false}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
-      
-      <p className="text-sm text-base-content/70">{description}</p>
     </div>
   );
 };

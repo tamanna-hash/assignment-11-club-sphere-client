@@ -302,18 +302,18 @@ const StatCard = ({ title, value, icon, color = "#8b5cf6" }) => {
   }));
 
   return (
-    <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
+    <div className="bg-base-100 rounded-2xl p-4 shadow-sm border border-base-300 hover:shadow-md transition-all duration-300">
       <div className="flex items-center gap-3 mb-3">
-        <div className="p-2 bg-gray-50 rounded-lg text-gray-600">
+        <div className="p-2 bg-base-200 rounded-lg text-base-content/70">
           {icon}
         </div>
         <div className="flex-1">
-          <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">{title}</p>
+          <p className="text-sm font-medium text-base-content/60 uppercase tracking-wide">{title}</p>
         </div>
       </div>
       
       <div className="mb-3">
-        <h3 className="text-2xl font-bold text-gray-900">
+        <h3 className="text-2xl font-bold text-base-content">
           {typeof value === 'string' && (value.startsWith('$') || value === 'Member') 
             ? value 
             : (value?.toLocaleString() || 0)
