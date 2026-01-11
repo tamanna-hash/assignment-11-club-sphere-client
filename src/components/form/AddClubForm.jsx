@@ -80,10 +80,10 @@ const AddClubForm = () => {
   return (
     <>
       <title>ClubSphere- Add Club</title>
-      <h1 className="text-3xl font-bold mb-6 text-base-content/90">
+      <h1 className="text-3xl font-bold mb-6 text-base-content">
         Add Club
       </h1>
-      <p className="subtitle">Create a new club under your management</p>
+      <p className="subtitle text-base-content/70 mb-8">Create a new club under your management</p>
       <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center bg-base-100 rounded-xl p-6">
         <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -92,7 +92,7 @@ const AddClubForm = () => {
               <div className="space-y-1 text-sm">
                 <label
                   htmlFor="name"
-                  className="block text-gray-700 font-medium"
+                  className="block text-base-content font-medium"
                 >
                   Name
                 </label>
@@ -107,7 +107,7 @@ const AddClubForm = () => {
                       message: "Name cannot be too long",
                     },
                   })}
-                  className="w-full px-4 py-3 rounded-md border border-purple-400 focus:outline-purple-500 focus:ring-1 focus:ring-purple-500 text-gray-800"
+                  className="w-full px-4 py-3 rounded-md border border-purple-400 focus:outline-purple-500 focus:ring-1 focus:ring-purple-500 bg-base-200 text-base-content placeholder:text-base-content/50"
                 />
                 {errors.name && (
                   <p className="text-xs text-red-500 mt-1">
@@ -120,7 +120,7 @@ const AddClubForm = () => {
               <div className="space-y-1 text-sm">
                 <label
                   htmlFor="location"
-                  className="block text-gray-700 font-medium"
+                  className="block text-base-content font-medium"
                 >
                   Location
                 </label>
@@ -135,7 +135,7 @@ const AddClubForm = () => {
                       message: "Location cannot be too long",
                     },
                   })}
-                  className="w-full px-4 py-3 rounded-md border border-purple-400 focus:outline-purple-500 focus:ring-1 focus:ring-purple-500 text-gray-800"
+                  className="w-full px-4 py-3 rounded-md border border-purple-400 focus:outline-purple-500 focus:ring-1 focus:ring-purple-500 bg-base-200 text-base-content placeholder:text-base-content/50"
                 />
                 {errors.location && (
                   <p className="text-xs text-red-500 mt-1">
@@ -148,7 +148,7 @@ const AddClubForm = () => {
               <div className="space-y-1 text-sm">
                 <label
                   htmlFor="category"
-                  className="block text-gray-700 font-medium"
+                  className="block text-base-content font-medium"
                 >
                   Category
                 </label>
@@ -156,9 +156,9 @@ const AddClubForm = () => {
                   {...register("category", {
                     required: "Category is required",
                   })}
-                  className="w-full px-4 py-3 rounded-md border border-purple-400 focus:outline-purple-500 focus:ring-1 focus:ring-purple-500 text-gray-800"
+                  className="w-full px-4 py-3 rounded-md border border-purple-400 focus:outline-purple-500 focus:ring-1 focus:ring-purple-500 bg-base-200 text-base-content"
                 >
-                  <option value="">Select category</option>
+                  <option value="" className="text-base-content/50">Select category</option>
                   <option value="Tech">Tech</option>
                   <option value="Sports">Sports</option>
                   <option value="Photography">Photography</option>
@@ -178,7 +178,7 @@ const AddClubForm = () => {
               <div className="space-y-1 text-sm">
                 <label
                   htmlFor="description"
-                  className="block text-gray-700 font-medium"
+                  className="block text-base-content font-medium"
                 >
                   Description
                 </label>
@@ -188,7 +188,7 @@ const AddClubForm = () => {
                   {...register("description", {
                     required: "Description is required",
                   })}
-                  className="w-full h-32 px-4 py-3 rounded-md border border-purple-400 focus:outline-purple-500 focus:ring-1 focus:ring-purple-500 text-gray-800"
+                  className="w-full h-32 px-4 py-3 rounded-md border border-purple-400 focus:outline-purple-500 focus:ring-1 focus:ring-purple-500 bg-base-200 text-base-content placeholder:text-base-content/50 resize-none"
                 ></textarea>
                 {errors.description && (
                   <p className="text-xs text-red-500 mt-1">
@@ -203,7 +203,7 @@ const AddClubForm = () => {
               <div className="space-y-1 text-sm">
                 <label
                   htmlFor="fee"
-                  className="block text-gray-700 font-medium"
+                  className="block text-base-content font-medium"
                 >
                   Membership Fee
                 </label>
@@ -215,7 +215,7 @@ const AddClubForm = () => {
                     required: "Price is required",
                     min: { value: 0, message: "Price must be positive" },
                   })}
-                  className="w-full px-4 py-3 rounded-md border border-purple-400 focus:outline-purple-500 focus:ring-1 focus:ring-purple-500 text-gray-800"
+                  className="w-full px-4 py-3 rounded-md border border-purple-400 focus:outline-purple-500 focus:ring-1 focus:ring-purple-500 bg-base-200 text-base-content placeholder:text-base-content/50"
                 />
                 {errors.fee && (
                   <p className="text-xs text-red-500 mt-1">
@@ -228,7 +228,7 @@ const AddClubForm = () => {
               <div className="space-y-1 text-sm">
                 <label
                   htmlFor="image"
-                  className="block text-gray-700 font-medium"
+                  className="block text-base-content font-medium"
                 >
                   Club Image
                 </label>
@@ -237,7 +237,7 @@ const AddClubForm = () => {
                   type="file"
                   accept="image/*"
                   {...register("image", { required: "Image is required" })}
-                  className="w-full file-input border-purple-400 text-gray-700"
+                  className="w-full file-input file-input-bordered border-purple-400 bg-base-200 text-base-content"
                 />
                 {errors.image && (
                   <p className="text-xs text-red-500 mt-1">
@@ -249,7 +249,7 @@ const AddClubForm = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full px-4 py-3 mt-6 font-bold rounded-lg text-white bg-purple-500 hover:bg-purple-400 transition-shadow shadow-md"
+                className="w-full px-4 py-3 mt-6 font-bold rounded-lg text-white bg-purple-500 hover:bg-purple-600 transition-all duration-200 shadow-md hover:shadow-lg"
               >
                 {isPending ? (
                   <TbFidgetSpinner className="animate-spin mx-auto" />

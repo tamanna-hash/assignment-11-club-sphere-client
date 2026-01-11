@@ -26,7 +26,9 @@ const DashboardLayout = () => {
   const { data: unreadData = { count: 0 } } = useQuery({
     queryKey: ["unread-notifications", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/notifications/${user?.email}/unread-count`);
+      const res = await axiosSecure.get(
+        `/notifications/${user?.email}/unread-count`
+      );
       return res.data;
     },
     enabled: !!user?.email,
@@ -53,14 +55,14 @@ const DashboardLayout = () => {
 
   const getNotificationIcon = (type) => {
     switch (type) {
-      case 'membership_approved':
-        return 'bg-green-500';
-      case 'event_created':
-        return 'bg-blue-500';
-      case 'payment_received':
-        return 'bg-yellow-500';
+      case "membership_approved":
+        return "bg-green-500";
+      case "event_created":
+        return "bg-blue-500";
+      case "payment_received":
+        return "bg-yellow-500";
       default:
-        return 'bg-gray-500';
+        return "bg-gray-500";
     }
   };
 
@@ -68,8 +70,8 @@ const DashboardLayout = () => {
     const now = new Date();
     const notificationDate = new Date(date);
     const diffInMinutes = Math.floor((now - notificationDate) / (1000 * 60));
-    
-    if (diffInMinutes < 1) return 'Just now';
+
+    if (diffInMinutes < 1) return "Just now";
     if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
     if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}h ago`;
     return `${Math.floor(diffInMinutes / 1440)}d ago`;
@@ -115,13 +117,16 @@ const DashboardLayout = () => {
               <div className="flex items-center gap-3 px-4">
                 <div className="w-8 h-8 bg-linear-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
                   <span className="px-2 py-1 rounded-lg bg-[#1A1433] text-[#9B8CFF] text-sm font-bold border border-[#2A2452]">
-            CS
-          </span>
-
+                    CS
+                  </span>
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-base-content/90">ClubSphere</h1>
-                  <p className="text-xs text-base-content/60 hidden sm:block">Dashboard</p>
+                  <h1 className="text-xl font-bold text-base-content/90">
+                    ClubSphere
+                  </h1>
+                  <p className="text-xs text-base-content/60 hidden sm:block">
+                    Dashboard
+                  </p>
                 </div>
               </div>
             </div>
@@ -138,7 +143,7 @@ const DashboardLayout = () => {
                     <FaBell className="h-4 w-4" />
                     {unreadData.count > 0 && (
                       <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                        {unreadData.count > 9 ? '9+' : unreadData.count}
+                        {unreadData.count > 9 ? "9+" : unreadData.count}
                       </span>
                     )}
                   </button>
@@ -149,7 +154,9 @@ const DashboardLayout = () => {
                     {/* Header */}
                     <li className="px-4 py-3 border-b border-gray-100 bg-gray-50">
                       <div className="flex items-center justify-between">
-                        <span className="font-semibold text-gray-900">Notifications</span>
+                        <span className="font-semibold text-gray-900">
+                          Notifications
+                        </span>
                         {unreadData.count > 0 && (
                           <button
                             onClick={markAllAsRead}
@@ -168,11 +175,18 @@ const DashboardLayout = () => {
                           <li key={notification._id}>
                             <div
                               className={`flex items-start gap-3 p-3 hover:bg-gray-50 cursor-pointer ${
-                                !notification.isRead ? 'bg-blue-50' : ''
+                                !notification.isRead ? "bg-blue-50" : ""
                               }`}
-                              onClick={() => !notification.isRead && markAsRead(notification._id)}
+                              onClick={() =>
+                                !notification.isRead &&
+                                markAsRead(notification._id)
+                              }
                             >
-                              <div className={`w-2 h-2 rounded-full mt-2 ${getNotificationIcon(notification.type)}`}></div>
+                              <div
+                                className={`w-2 h-2 rounded-full mt-2 ${getNotificationIcon(
+                                  notification.type
+                                )}`}
+                              ></div>
                               <div className="flex-1 min-w-0">
                                 <p className="text-sm font-medium text-gray-900 truncate">
                                   {notification.title}

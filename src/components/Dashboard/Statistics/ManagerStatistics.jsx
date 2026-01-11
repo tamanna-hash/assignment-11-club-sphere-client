@@ -586,13 +586,6 @@ const StatCard = ({ title, value, icon, description, color = "#8b5cf6" }) => {
             : (value?.toLocaleString() || 0)
           }
         </h3>
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-green-600 font-medium flex items-center gap-1">
-            <FaArrowUp className="text-xs" />
-            12.5%
-          </span>
-          <span className="text-xs text-gray-500">vs last month</span>
-        </div>
       </div>
 
       {/* Mini Line Chart */}
