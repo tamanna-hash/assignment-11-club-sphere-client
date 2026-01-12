@@ -282,7 +282,7 @@ const About = () => {
               <FaArrowRight />
             </Link>
             <Link 
-              to="/register" 
+              to="/signup" 
               className="border-2 border-white text-white hover:bg-white hover:text-purple-600 px-8 py-4 rounded-xl font-semibold transition-all duration-200 flex items-center gap-2"
             >
               Join ClubSphere

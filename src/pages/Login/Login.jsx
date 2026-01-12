@@ -348,7 +348,7 @@ const Login = () => {
       >
         <div className="absolute inset-0 bg-black/70"></div>
 
-        <div className="absolute top-4 left-4 hidden md:block">
+        <div className="absolute top-4 left-4 hidden md:flex">
           <Logo />
         </div>
 

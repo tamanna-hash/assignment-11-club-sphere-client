@@ -25,9 +25,11 @@ const Logo = ({ size = "text-2xl" }) => {
           </div>
 
           {/* Brand Name */}
-          <span className="text-[#EDEBFF]">
-            Club<span className="text-purple-400">Sphere</span>
-          </span>
+          <Link to={"/"}>
+            <span className="text-[#EDEBFF]">
+              Club<span className="text-purple-400">Sphere</span>
+            </span>
+          </Link>
         </motion.div>
       </div>
     </Link>

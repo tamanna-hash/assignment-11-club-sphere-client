@@ -72,9 +72,9 @@ const HowItWorks = () => {
               >
                 {/* Step Number and Icon */}
                 <div className="relative mb-6">
-                  <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-r from-purple-600 to-blue-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform duration-300">
+                  {/* <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-r from-purple-600 to-blue-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform duration-300">
                     {i + 1}
-                  </div>
+                  </div> */}
                   <div className="w-12 h-12 mx-auto bg-[#1A1433] rounded-full flex items-center justify-center border border-purple-500/30">
                     <Icon className="text-purple-400 text-lg" />
                   </div>
