@@ -40,7 +40,7 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-black to-[#0F0B1E] text-white">
+    <section className="py-24 bg-linear-to-b from-black to-[#0F0B1E] text-white">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           initial="hidden"
@@ -87,7 +87,7 @@ const HowItWorks = () => {
 
                 {/* Connection Line (except for last item) */}
                 {i < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-gradient-to-r from-purple-600/50 to-transparent transform translate-x-8"></div>
+                  <div className="hidden md:block absolute top-8 left-1/2 w-24 h-0.5 bg-gradient-to-r from-purple-600/50 to-transparent transform translate-x-4"></div>
                 )}
               </motion.div>
             );
