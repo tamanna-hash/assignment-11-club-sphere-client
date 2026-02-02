@@ -157,7 +157,7 @@ const Navbar = () => {
               Login
             </Link>
             <Link
-              className="btn btn-sm bg-purple-600 text-white hover:bg-purple-700"
+              className="btn btn-sm hidden md:flex bg-purple-600 text-white hover:bg-purple-700"
               to="/signup"
             >
               Register
